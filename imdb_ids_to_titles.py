@@ -6,7 +6,7 @@ API_KEY = "9a116dc6"
 
 # Read movie titles from the CSV files
 oscar_movies_df = pd.read_csv('oscar_movies_and_years.csv', header=None, names=['movie', 'year'])
-blockbuster_movies_df = pd.read_csv('blockbuster_movies_and_years.csv', header=None, names=['movie', 'year'])
+blockbuster_movies_df = pd.read_csv('blockbusters_movies_and_years.csv', header=None, names=['movie', 'year'])
 
 # Combine them into a single list
 movie_titles = oscar_movies_df['movie'].tolist() + blockbuster_movies_df['movie'].tolist()
