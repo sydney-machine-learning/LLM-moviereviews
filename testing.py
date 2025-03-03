@@ -5,15 +5,15 @@ import os
 from collections import Counter
 
 
-
 # Dictionary to store imdb reviews grouped by rating
 imdb_reviews_dict = {}
-Unique_IMDB_ids = set()
+
+# list of unique imdb ids
+Unique_IMDB_ids = set()  
 
 # Download from Kaggle
 path_subtitles = kagglehub.dataset_download("mlopssss/subtitles")
 path_imdb_reviews = kagglehub.dataset_download("mlopssss/imdb-movie-reviews-grouped-by-ratings")
-
 
 common_exclusions = {'-','♪','i', 'you', 'to', 'the', 'a', 'and', 'it', 'is', 'that', 'of','s', 't', 'what', 'in', 'me', 'this', 'on', 'sir', 'get','for', 'she', 'be', 'eve', 'not', 'have', 'all', 'her', 'was', 'my','can', 'oh', 'no', 'we', 'well', 'annie', 'be', 'he', 'like', 'don'}
 
@@ -21,7 +21,8 @@ for i in range(1, 11):
     df = pd.read_csv(f"{path_imdb_reviews}/reviews_rating_{i}.csv")
     imdb_reviews_dict[i] = df
     Unique_IMDB_ids.update(df["MovieID"].tolist())
-#print(Unique_IMDB_ids)
+print(len(Unique_IMDB_ids))
+print(imdb_reviews_dict[1].head())
 
 def parse_srt_excluding_common(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -62,17 +63,21 @@ def parse_srt_excluding_common(file_path):
 
 #print(os.listdir(path_subtitles))
 years = [1950,1960,1970,1980,1990,2000,2010,2020]
-data = []
-for year in years:
-    subfolder_subtitles_path = os.path.join(path_subtitles, "Subtitlesforoscarandblockbusters","Blockbusters",str(year))
-    movie_titles = os.listdir(subfolder_subtitles_path)
-    for srt_file in movie_titles[:2]:  # Only the first 2 movie titles
-        movie_path = os.path.join(subfolder_subtitles_path, srt_file)
-        movie_name, _ = os.path.splitext(srt_file)
-        print(year, movie_name, movie_path)
 
-        word_count, total_minutes, top_ten_words , content = parse_srt_excluding_common(movie_path)
-        data.append({
+
+for group in ['Oscar', 'Blockbusters']:
+    data = []
+    for year in years:
+        subfolder_path = os.path.join(path_subtitles, "Subtitlesforoscarandblockbusters",group,str(year))
+    
+        movie_titles = os.listdir(subfolder_path)
+        for srt_file in movie_titles[:2]:  # Only the first 2 movie titles for each year
+            movie_path = os.path.join(subfolder_path, srt_file)
+            movie_name, _ = os.path.splitext(srt_file)
+        #print(year, movie_name, movie_path)
+
+            word_count, total_minutes, top_ten_words , content = parse_srt_excluding_common(movie_path)
+            data.append({
                         'movie': movie_name,
                         'year': year,
                         'numberofwords': word_count,
@@ -80,5 +85,7 @@ for year in years:
                         'toptenwords': top_ten_words,
                         'bodyContent': content
                     })
-df = pd.DataFrame(data)
-print(df.head())
+    df = pd.DataFrame(data)
+
+    # Save Blockbuster movie titles and years to a CSV file
+    df[['movie', 'year']].to_csv(f'{group.lower()}_movies_and_years.csv', index=False, header=False)
