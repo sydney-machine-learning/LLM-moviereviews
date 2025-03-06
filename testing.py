@@ -53,7 +53,7 @@ def generate_review(movie_title, subtitle_text, question,ai_client): #movie_name
             model="gemini-2.0-flash",  
             contents=prompt
         )
-        return
+        return response.text
     elif ai_client == "chatgpt":
         response = client_openai.chat.completions.create(
             model="gpt-3.5-turbo",
