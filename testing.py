@@ -60,12 +60,15 @@ def generate_review(movie_title, subtitle_text, question,ai_client): #movie_name
             messages=[{"role": "user", "content": prompt}],
         )
         return response.choices[0].message.content
-    #elif ai_client = "deepseek":
-    #    response = client.models.generate_content(
-    #        model="deepseek",  
-    #        contents=prompt,    
-    #    )
-    #return response.text
+    elif ai_client == "deepseek":
+        response = client_deepseek.chat.completions.create(
+            model="deepseek-chat",  
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return response.choices[0].message.content
+
+
+
 
 def parse_srt_excluding_common(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -124,7 +127,7 @@ for index, row in Movies_df.iterrows():
         
         reviews={}
         for question in [q_bad]:
-            for reviewer in ["gemini", "chatgpt"]:
+            for reviewer in ["gemini", "chatgpt","deepseek"]:
             
                 review = generate_review(movie_name, content, question, reviewer)
                 reviews[f"{reviewer}_{question.split()[1].lower()}"] = review
