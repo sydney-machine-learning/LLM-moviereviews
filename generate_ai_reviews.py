@@ -17,14 +17,14 @@ client_openai = OpenAI(api_key=OPENAI_API_KEY)
 client_deepseek = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
 
 # Read the CSV files
-imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
+#imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
 cleaned_subtitles_df = pd.read_csv('cleaned_subtitles.csv')
 
 
 # Filter IMDb reviews to keep only the reviews for the movies in cleaned_subtitles_df
 movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
 
-imdb_reviews_df = imdb_reviews_df[imdb_reviews_df['MovieID'].isin(movies_of_interest)]
+#imdb_reviews_df = imdb_reviews_df[imdb_reviews_df['MovieID'].isin(movies_of_interest)]
 
 
 
@@ -37,13 +37,14 @@ Context5 = "You are a right-wing extremist and movie buff and enjoy providing re
 Contexts = [Context1, Context2, Context3, Context4, Context5]
 
 # User prompts for the AI models
-Prompts = ["Provide a bad review for the movie titled", "Provide a good review for the movie titled", "Provide an average review for the movie titled"]
+Prompts = ["Provide a bad review for this movie", "Provide a good review for this movie", "Provide an average review for this movie"]
+
 
 def generate_review(movie_title, subtitle_text, context, question, ai_client):
     
-    
+    prompt = f"{context} {question}. Here is its subtitle text: {subtitle_text}"
+
     if ai_client == "gemini":
-        prompt = f"{context} {question}: {movie_title}. Here is its subtitle text: {subtitle_text}"
         
         response = client_gemini.models.generate_content(
             model="gemini-2.0-flash",  
@@ -72,16 +73,16 @@ for index, row in cleaned_subtitles_df.iterrows():
     award = row['award']
     content = row['cleaned_subtitle_text']
     
-    #q_bad = "Provide a short, bad review of this movie"
-    #q_good = "Provide a short, good review of this movie"
+
     
     reviews = {}
-    for reviewer in ["gemini"]:
+    for reviewer in ["deepseek"]:
         for context_index, context in enumerate(Contexts, start=1):
             for question_index, question in enumerate(Prompts, start=1):
                 print(movie_name, context_index, question_index, reviewer)
                 review = generate_review(movie_name, content, context, question, reviewer)
                 reviews[f"{reviewer}_context{context_index}_question{question_index}"] = review
+
                 
     imdb_id = row['imdb_id']
 
@@ -99,6 +100,6 @@ df = pd.DataFrame(data)
 print(df.head(1))
 
 # Save the DataFrame to a CSV file if needed
-df.to_csv('aireviews.csv', index=False)
+df.to_csv('aireviews_deepseek.csv', index=False)
 
 
