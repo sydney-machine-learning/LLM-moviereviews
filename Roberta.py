@@ -109,7 +109,9 @@ def get_average_polarity_scores():
 
     return all_results
 
-def save_results_to_csv(all_results):
+
+
+def save_results_to_csv(all_results, filename):
     # Convert the nested dictionary to a DataFrame
     rows = []
     for model, movies in all_results.items():
@@ -128,9 +130,7 @@ def save_results_to_csv(all_results):
     df = pd.DataFrame(rows)
 
     # Save the DataFrame to a CSV file
-    df.to_csv('average_polarity_scores.csv', index=False)
-
-    #print("DataFrame saved to 'average_polarity_scores.csv'")
+    df.to_csv(filename, index=False)
 
 def get_emotion_scores(review):
     # Load the emotion analysis pipeline
@@ -166,7 +166,55 @@ def analyze_reviews():
         print(f"Emotion Scores: {emotion_scores}")
         print()
 
+def get_average_polarity_scores_imdb():
+    # Read the CSV files
+    imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv', header=None, names=['imdb_id', 'rating', 'review'])
+    selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+
+    # Filter reviews with a rating below 6
+    filtered_reviews_df = imdb_reviews_df[imdb_reviews_df['rating'] < 6]
+
+    print(filtered_reviews_df.head())
+
+    # Merge with selected_movie_info_df to get movie titles
+    merged_df = pd.merge(filtered_reviews_df, selected_movie_info_df, on='imdb_id')
+
+    print(merged_df.head())
+
+    results = {}
+
+    for _, row in merged_df.iterrows():
+        movie = row['movie']
+        if movie not in results:
+            results[movie] = []
+
+        review = row['review']
+        polarity_scores = get_polarity_scores_for_long_text(review)
+        print(polarity_scores, movie)
+        results[movie].append(polarity_scores)
+
+    # Calculate average polarity scores
+    average_results = []
+    for movie, scores in results.items():
+        avg_negative = sum(score['negative'] for score in scores) / len(scores)
+        avg_neutral = sum(score['neutral'] for score in scores) / len(scores)
+        avg_positive = sum(score['positive'] for score in scores) / len(scores)
+        average_results.append({
+            'Movie': movie,
+            'Average Negative': avg_negative,
+            'Average Neutral': avg_neutral,
+            'Average Positive': avg_positive
+        })
+
+    # Convert the results to a DataFrame
+    df = pd.DataFrame(average_results)
+
+    # Save the DataFrame to a CSV file
+    df.to_csv('average_polarity_scores_imdb.csv', index=False)
+
+
 if __name__ == "__main__":
-    all_results = get_average_polarity_scores()
-    save_results_to_csv(all_results)
+    #ai_average_polarity_scores = get_average_polarity_scores()
+    #save_results_to_csv(ai_average_polarity_scores, 'average_polarity_scores_ai.csv')
+    get_average_polarity_scores_imdb()    
     #analyze_reviews()
