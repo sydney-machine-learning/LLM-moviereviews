@@ -1,0 +1,118 @@
+Movie,Question,Trigram,Count
+The Shawshank Redemption,question1,even get started,3
+The Shawshank Redemption,question1,three hours life,2
+The Shawshank Redemption,question1,watch paint dry,2
+The Shawshank Redemption,question2,long credits roll,3
+The Shawshank Redemption,question2,enduring power human,2
+The Shawshank Redemption,question2,power human connection,2
+The Shawshank Redemption,question3,uneven pacing reliance,2
+The Shawshank Redemption,question3,pacing reliance genre,2
+The Shawshank Redemption,question3,reliance genre cliches,2
+Brokeback Mountain,question1,even get started,3
+Brokeback Mountain,question1,like watching paint,3
+Brokeback Mountain,question1,watching paint dry,3
+Brokeback Mountain,question2,long credits roll,3
+Brokeback Mountain,question2,ennis del mar,3
+Brokeback Mountain,question2,brokeback mountain review,2
+Brokeback Mountain,question3,review brokeback mountain,2
+Brokeback Mountain,question3,brokeback mountain based,2
+Brokeback Mountain,question3,trying way hard,2
+Avatar,question1,even get started,4
+Avatar,question1,blue cat people,3
+Avatar,question1,lines like see,2
+Avatar,question2,want movie makes,3
+Avatar,question2,alien world pandora,2
+Avatar,question2,jake sully paraplegic,2
+Avatar,question3,planet called pandora,2
+Avatar,question3,okay saw movie,1
+Avatar,question3,saw movie honestly,1
+Titanic,question1,rather watch paint,2
+Titanic,question1,watch paint dry,2
+Titanic,question1,even get started,2
+Titanic,question2,based subtitle text,3
+Titanic,question2,subtitle text provided,2
+Titanic,question2,titanic meters deep,2
+Titanic,question3,quest leads elderly,2
+Titanic,question3,leads elderly woman,2
+Titanic,question3,claims survivor disaster,2
+"Crouching Tiger, Hidden Dragon",question1,even get started,4
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,4
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,4
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,15
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,15
+"Crouching Tiger, Hidden Dragon",question2,li mu bai,9
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,6
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,4
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,4
+Nomadland,question1,even get started,4
+Nomadland,question1,watching paint dry,3
+Nomadland,question1,woman named fern,2
+Nomadland,question2,taking seasonal jobs,2
+Nomadland,question2,seasonal jobs connecting,2
+Nomadland,question2,beauty american west,2
+Nomadland,question3,shots american west,2
+Nomadland,question3,beautifully shot film,2
+Nomadland,question3,performance frances mcdormand,2
+Get Out,question1,still trying figure,2
+Get Out,question1,wasted two hours,2
+Get Out,question1,two hours life,2
+Get Out,question2,long credits roll,3
+Get Out,question2,meet white girlfriend,2
+Get Out,question2,seat entire time,2
+Get Out,question3,meet white girlfriend,2
+Get Out,question3,white girlfriend rose,2
+Get Out,question3,girlfriend rose family,2
+L.A. Confidential,question1,like threw every,2
+L.A. Confidential,question1,threw every crime,2
+L.A. Confidential,question1,blender hit frappe,2
+L.A. Confidential,question2,side american dream,2
+L.A. Confidential,question2,okay review film,1
+L.A. Confidential,question2,review film based,1
+L.A. Confidential,question3,familiar crime genre,2
+L.A. Confidential,question3,falls prey clichés,2
+L.A. Confidential,question3,prey clichés predictable,2
+Little Miss Sunshine,question1,little miss sunshine,7
+Little Miss Sunshine,question1,taken vow silence,3
+Little Miss Sunshine,question1,even get started,3
+Little Miss Sunshine,question2,little miss sunshine,17
+Little Miss Sunshine,question2,taken vow silence,2
+Little Miss Sunshine,question2,themes success failure,2
+Little Miss Sunshine,question3,little miss sunshine,7
+Little Miss Sunshine,question3,support young daughter,2
+Little Miss Sunshine,question3,young daughter olive,2
+Once Upon a Time in Hollywood,question1,bounty law movie,3
+Once Upon a Time in Hollywood,question1,stunt double cliff,3
+Once Upon a Time in Hollywood,question1,even get started,3
+Once Upon a Time in Hollywood,question2,rick dalton played,3
+Once Upon a Time in Hollywood,question2,upon time hollywood,3
+Once Upon a Time in Hollywood,question2,rick dalton actor,2
+Once Upon a Time in Hollywood,question3,even get started,2
+Once Upon a Time in Hollywood,question3,upon time hollywood,2
+Once Upon a Time in Hollywood,question3,okay got back,1
+The Full Monty,question1,steel city strippers,4
+The Full Monty,question1,even get started,3
+The Full Monty,question1,never get back,2
+The Full Monty,question2,authentic portrayal life,2
+The Full Monty,question2,full monty proper,2
+The Full Monty,question2,okay got back,1
+The Full Monty,question3,make ends meet,2
+The Full Monty,question3,learn dance awkwardness,2
+The Full Monty,question3,full monty alright,2
+The Green Mile,question1,even get started,2
+The Green Mile,question1,magical healing powers,2
+The Green Mile,question1,okay went see,1
+The Green Mile,question2,michael clarke duncan,5
+The Green Mile,question2,long credits roll,3
+The Green Mile,question2,green mile powerful,3
+The Green Mile,question3,man john coffey,2
+The Green Mile,question3,delves themes morality,2
+The Green Mile,question3,overall green mile,2
+The Fighter,question1,sugar ray leonard,3
+The Fighter,question1,knocked sugar ray,2
+The Fighter,question1,well let say,2
+The Fighter,question2,sugar ray leonard,2
+The Fighter,question2,ai boxing movie,2
+The Fighter,question2,boxing movie goddamn,2
+The Fighter,question3,brother dicky eklund,2
+The Fighter,question3,access subjects film,2
+The Fighter,question3,micky ward dicky,2

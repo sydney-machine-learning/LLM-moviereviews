@@ -1,6 +1,6 @@
 # this script reads the imdb reviews grouped by rating from a Kaggle dataset and combines them into a single csv file
 # for further analysis. The script uses the kagglehub library to download the dataset and custom_csv_reader function to read the csv files.
-# The reviews are stored in a dictionary imdb_reviews_dict, grouped by rating, and a se t Unique_IMDB_ids is used to store unique IMDb ids.
+# The reviews are stored in a dictionary imdb_reviews_dict, grouped by rating, and a set Unique_IMDB_ids is used to store unique IMDb ids.
 # The script combines all reviews into a single DataFrame and saves it to a csv file.
 
 import kagglehub
@@ -57,4 +57,4 @@ for i in range(1, 11):
 
 # Combine all reviews into a single DataFrame and save to csv
 all_reviews_df = pd.concat(all_reviews, ignore_index=True)
-all_reviews_df.to_csv('all_imdb_reviews.csv', index=False, header=False)
+all_reviews_df.to_csv('download/all_imdb_reviews_1.csv', index=False, header=False)

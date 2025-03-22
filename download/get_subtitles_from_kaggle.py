@@ -1,3 +1,7 @@
+# This script downloads subtitles from Kaggle, processes them to exclude common words,
+# and saves the cleaned subtitles along with movie information to 2 CSV files.
+
+
 import pandas as pd
 import kagglehub
 import re
@@ -20,8 +24,15 @@ Movies_df = pd.DataFrame([
     ["Avatar", 2010, "Oscar"],
     ["Titanic", 1998, "Oscar"],
     ["Crouching Tiger, Hidden Dragon", 2001, "Oscar"],
-    ["Nomadland", 2021, "Oscar"]
-], columns=["movie", "year", "award"])
+    ["Nomadland", 2021, "Oscar"],
+    ["Get Out", 2018, "Oscar"],
+    ["L.A. Confidential", 1998, "Oscar"],
+    ["Little Miss Sunshine", 2007, "Oscar"],
+    ["Once Upon a Time in Hollywood", 2020, "Oscar"],
+    ["The Full Monty", 1998, "Oscar"],
+    ["The Green Mile", 2000, "Oscar"],
+    ["The Fighter", 2011, "Oscar"]
+    ], columns=["movie", "year", "award"])
 
 def get_imdb_id(movie_title):
     url = f"http://www.omdbapi.com/?t={movie_title}&apikey={OMDB_API_KEY}"
@@ -97,8 +108,8 @@ for index, row in Movies_df.iterrows():
 
 df = pd.DataFrame(data)
 
-# Print the DataFrame to verify the changes
-print(df.head(1))
-
 # Save the DataFrame to a CSV file
-df.to_csv('cleaned_subtitles.csv', index=False)
+df.to_csv('download/cleaned_subtitles_1.csv', index=False)
+df_without_subtitles = df.drop(columns=['cleaned_subtitle_text'])
+df_without_subtitles.to_csv('selected_movie_info.csv', index=False)
+
