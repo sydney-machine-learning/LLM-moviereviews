@@ -25,6 +25,9 @@ if not download_all_reviews:
     print(f"Relevant IMDb codes: {relevant_imdb_codes}")
 else:
     relevant_imdb_codes = None
+print(f"Relevant IMDb codes: {relevant_imdb_codes}")
+
+
 
 path_imdb_reviews = kagglehub.dataset_download("mlopssss/imdb-movie-reviews-grouped-by-ratings")
 
@@ -47,14 +50,14 @@ def custom_csv_reader(file_path, relevant_codes):
                 current_review.append(line.strip())
         if current_id is not None and (relevant_codes is None or current_id in relevant_codes):
             data.append([current_id, current_review_number, ' '.join(current_review)])
-    return pd.DataFrame(data, columns=['MovieID', 'ReviewNumber', 'Review'])
+    return pd.DataFrame(data, columns=['imdb_id', 'Rating', 'Review'])
 
 for i in range(1, 11):
     df = custom_csv_reader(f"{path_imdb_reviews}/reviews_rating_{i}.csv", relevant_imdb_codes)
     imdb_reviews_dict[i] = df
-    Unique_IMDB_ids.update(df["MovieID"].tolist())
+    Unique_IMDB_ids.update(df["imdb_id"].tolist())
     all_reviews.append(df)
 
 # Combine all reviews into a single DataFrame and save to csv
 all_reviews_df = pd.concat(all_reviews, ignore_index=True)
-all_reviews_df.to_csv('download/all_imdb_reviews_1.csv', index=False, header=False)
+all_reviews_df.to_csv('download/all_imdb_reviews_1.csv', index=False, header=True)

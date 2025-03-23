@@ -54,37 +54,66 @@ def results_to_dataframe(results):
                 data.append([movie, question, trigram_str, count])
     return pd.DataFrame(data, columns=['Movie', 'Question', 'Trigram', 'Count'])
 
+def generate_trigrams_for_all_movies(df, movie_info_df):
+    results = {}
+    for movie_id in df['MovieID'].unique():
+        movie_reviews = df[df['MovieID'] == movie_id]['Review'].tolist()
+        trigrams = trigram_analysis(movie_reviews)
+        movie_title = movie_info_df[movie_info_df['imdb_id'] == movie_id]['movie'].values[0]
+        results[movie_id] = {'title': movie_title, 'trigrams': trigrams}
+    return results
+
+def trigrams_to_dataframe(results):
+    data = []
+    for movie_id, info in results.items():
+        movie_title = info['title']
+        trigrams = info['trigrams']
+        for trigram, count in trigrams:
+            trigram_str = ' '.join(trigram)
+            data.append([movie_id, movie_title, trigram_str, count])
+    return pd.DataFrame(data, columns=['MovieID', 'Title', 'Trigram', 'Count'])
+
+
+
 # Read the CSV files into separate DataFrames
-chatgpt_reviews_df = pd.read_csv('reviews_ai/aireviews_chatgpt_1.csv', header=0)
-gemini_reviews_df = pd.read_csv('reviews_ai/aireviews_gemini_1.csv', header=0)
-deepseek_reviews_df = pd.read_csv('reviews_ai/aireviews_deepseek_1.csv', header=0)
+#chatgpt_reviews_df = pd.read_csv('reviews_ai/aireviews_chatgpt_1.csv', header=0)
+#gemini_reviews_df = pd.read_csv('reviews_ai/aireviews_gemini_1.csv', header=0)
+#deepseek_reviews_df = pd.read_csv('reviews_ai/aireviews_deepseek_1.csv', header=0)
 
 # Process reviews and generate trigrams
-chatgpt_results = process_reviews(chatgpt_reviews_df, 'chatgpt')
-gemini_results = process_reviews(gemini_reviews_df, 'gemini')
-deepseek_results = process_reviews(deepseek_reviews_df, 'deepseek')
+#chatgpt_results = process_reviews(chatgpt_reviews_df, 'chatgpt')
+#gemini_results = process_reviews(gemini_reviews_df, 'gemini')
+#deepseek_results = process_reviews(deepseek_reviews_df, 'deepseek')
 
 # Convert results to DataFrames
-chatgpt_df = results_to_dataframe(chatgpt_results)
-gemini_df = results_to_dataframe(gemini_results)
-deepseek_df = results_to_dataframe(deepseek_results)
+#chatgpt_df = results_to_dataframe(chatgpt_results)
+#gemini_df = results_to_dataframe(gemini_results)
+#deepseek_df = results_to_dataframe(deepseek_results)
 
 # Save DataFrames to CSV files
-chatgpt_df.to_csv('trigrams_output/chatgpt_trigrams_1.csv', index=False)
-gemini_df.to_csv('trigrams_output/gemini_trigrams_1.csv', index=False)
-deepseek_df.to_csv('trigrams_output/deepseek_trigrams_1.csv', index=False)
+#chatgpt_df.to_csv('trigrams_output/chatgpt_trigrams_1.csv', index=False)
+#gemini_df.to_csv('trigrams_output/gemini_trigrams_1.csv', index=False)
+#deepseek_df.to_csv('trigrams_output/deepseek_trigrams_1.csv', index=False)
 
 # Code to generate trigrams for "The Shawshank Redemption" from IMDb reviews with a 10 rating
 
-##selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
-##selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
-##shawshank_imdb_id = selected_movie_info_df[selected_movie_info_df['movie'] == 'The Shawshank Redemption']['imdb_id'].values[0]
+selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+print(selected_movie_info_df)   
+#shawshank_imdb_id = selected_movie_info_df[selected_movie_info_df['movie'] == 'The Shawshank Redemption']['imdb_id'].values[0]
 #print(f"IMDB ID for 'The Shawshank Redemption': {shawshank_imdb_id}")
-##all_imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv', header=None, names=['MovieID', 'ReviewNumber', 'Review'])
-#print(all_imdb_reviews_df.head())
-##shawshank_reviews = all_imdb_reviews_df[(all_imdb_reviews_df['MovieID'] == shawshank_imdb_id) & (all_imdb_reviews_df['ReviewNumber'] == 10)]['Review'].tolist()
+all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews_1.csv')
+print(all_imdb_reviews_df.head())
+#shawshank_reviews = all_imdb_reviews_df[(all_imdb_reviews_df['MovieID'] == shawshank_imdb_id) & (all_imdb_reviews_df['ReviewNumber'] == 10)]['Review'].tolist()
 #print(f"reviews for 'The Shawshank Redemption' with a 10 rating: {shawshank_reviews}")
-##combined_reviews = ' '.join(shawshank_reviews)
+#combined_reviews = ' '.join(shawshank_reviews)
+
+# Generate trigrams for each movie in the all_imdb_reviews_1.csv file
+
+all_movies_trigrams = generate_trigrams_for_all_movies(all_imdb_reviews_df, selected_movie_info_df)
+
+print(all_movies_trigrams)
+all_movies_trigrams_df = trigrams_to_dataframe(all_movies_trigrams)
+all_movies_trigrams_df.to_csv('trigrams_output/all_imdb_review_trigrams.csv', index=False)
 
 #print(combined_reviews)
 
