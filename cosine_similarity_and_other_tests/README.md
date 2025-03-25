@@ -1,0 +1,4 @@
+pairwise_cosine.py calculates cosine similarity in the following ways.
+    1. pairwise - imdb versus ai - for a given movie, every review in imdb is compared with every review from the ai reviews and a cosine similarity result is calculated. Summary statistics are produced on the results and saved to csv (eg cosine_similarity_results_chatgpt.csv)
+    2. pairwise within imdb - for each movie each of the reviews within imdb are pairwise compared with the other reviews and a cosine similarity result is calculated. Then the summary statistics are produced and saved to csv "within_imdb_similarity_results.csv". This output can be used as a benchmark of similarity between ai and imdb results.
+    

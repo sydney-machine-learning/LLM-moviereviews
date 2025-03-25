@@ -24,14 +24,7 @@ Movies_df = pd.DataFrame([
     ["Avatar", 2010, "Oscar"],
     ["Titanic", 1998, "Oscar"],
     ["Crouching Tiger, Hidden Dragon", 2001, "Oscar"],
-    ["Nomadland", 2021, "Oscar"],
-    ["Get Out", 2018, "Oscar"],
-    ["L.A. Confidential", 1998, "Oscar"],
-    ["Little Miss Sunshine", 2007, "Oscar"],
-    ["Once Upon a Time in Hollywood", 2020, "Oscar"],
-    ["The Full Monty", 1998, "Oscar"],
-    ["The Green Mile", 2000, "Oscar"],
-    ["The Fighter", 2011, "Oscar"]
+    ["Nomadland", 2021, "Oscar"]
     ], columns=["movie", "year", "award"])
 
 def get_imdb_id(movie_title):
