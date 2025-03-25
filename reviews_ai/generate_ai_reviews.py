@@ -27,8 +27,8 @@ client_deepseek = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepsee
 
 # Read the CSV files
 #imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
-cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles_1.csv')
-
+#cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles.csv')
+cleaned_subtitles_df = pd.read_csv('screenplay_pdfs/cleaned_screenplays.csv')
 
 # Filter IMDb reviews to keep only the reviews for the movies in cleaned_subtitles_df
 movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
@@ -38,6 +38,19 @@ movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
 
 
 # System context for the AI models
+
+Context_a = ["""
+I have subtitle text from a movie. Please read the subtitles and generate
+a short movie review written in the voice of a young professional woman in
+her late 20s who loves going to the movies and has a sharp, thoughtful 
+perspective. She often posts casual but insightful reviews on Letterboxd. 
+Her tone is witty, self-aware, and a little emotionally vulnerable. Write 
+a review of this movie from her point of view, focusing on the emotional beats, 
+themes, characters, the actor performances, and overall experience of watching the film. Make it sound 
+like something she might post online the night after seeing it.
+"""]
+
+
 Context1 = "You are a young woman and go to the movies a lot and you enjoy providing honest informative reviews."
 Context2 = "You are a professional movie critic and you enjoy providing honest informative reviews."
 Context3 = "You are a sometimes aggressive man and an action movie buff and you enjoy providing honest informative reviews."
@@ -94,7 +107,7 @@ for index, row in cleaned_subtitles_df.iterrows():
 
     
     reviews = {}
-    for reviewer in ["deepseek"]:
+    for reviewer in ["gemini"]:
         for context_index, context in enumerate(Contexts, start=1):
             for question_index, question in enumerate(Prompts, start=1):
                 print(movie_name, context_index, question_index, reviewer)
@@ -118,6 +131,6 @@ df = pd.DataFrame(data)
 print(df.head(1))
 
 # Save the DataFrame to a CSV file if needed
-df.to_csv('reviews_ai/aireviews_deepseek_1.csv', index=False)
+df.to_csv('reviews_ai/screenplays/aireviews_gemini_screenplays.csv', index=False)
 
 

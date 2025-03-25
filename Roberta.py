@@ -169,7 +169,7 @@ def get_emotion_scores(review):
 
 def emotions_ai_reviews():
     # List of files and corresponding LLM models
-    files = ['reviews_ai/aireviews_chatgpt_1.csv', 'reviews_ai/aireviews_deepseek_1.csv', 'reviews_ai/aireviews_gemini_1.csv']
+    files = ['reviews_ai/aireviews_chatgpt.csv', 'reviews_ai/aireviews_deepseek.csv', 'reviews_ai/aireviews_gemini.csv']
     models = ['chatgpt', 'deepseek', 'gemini']
     
     all_results = {}
@@ -232,7 +232,7 @@ def emotions_ai_reviews():
     df = pd.DataFrame(rows)
 
     # Save the DataFrame to a CSV file
-    df.to_csv('emotions_output/average_emotion_scores_1.csv', index=False)
+    df.to_csv('emotions_output/average_emotion_scores.csv', index=False)
 
 
 
@@ -288,4 +288,5 @@ if __name__ == "__main__":
     #ai_average_polarity_scores = get_average_polarity_scores()
     #save_results_to_csv(ai_average_polarity_scores, 'average_polarity_scores_ai.csv')
     #get_average_polarity_scores_imdb()    
+    
     emotions_ai_reviews()
