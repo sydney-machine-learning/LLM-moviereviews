@@ -28,7 +28,7 @@ client_deepseek = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepsee
 # Read the CSV files
 #imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
 #cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles.csv')
-cleaned_subtitles_df = pd.read_csv('screenplay_pdfs/cleaned_screenplays.csv')
+cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles.csv')
 
 # Filter IMDb reviews to keep only the reviews for the movies in cleaned_subtitles_df
 movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
@@ -48,6 +48,38 @@ Her tone is witty, self-aware, and a little emotionally vulnerable. Write
 a review of this movie from her point of view, focusing on the emotional beats, 
 themes, characters, the actor performances, and overall experience of watching the film. Make it sound 
 like something she might post online the night after seeing it.
+""",
+"""
+I have subtitle text from a movie. Please read the subtitles and generate
+a short movie review written in the voice of a professional film critic in
+their late 60s who has a dry, to the point, and somewhat cynical perspective. 
+Their tone is witty, self-aware, and cuts to the point. Write 
+a review of this movie from their point of view, as if they just watched the movie, focusing on the emotional beats, 
+themes, characters, the actor performances, and overall experience of watching the film. Make it sound 
+like something they might post in an ibdb review after seeing it.
+""",
+"""I have subtitle text from a movie. Please read the subtitles and generate a movie 
+review written in the voice of a 17-year-old high school student who runs their 
+school’s film club. They’re very online, love A24 movies, and aren’t afraid to 
+speak their mind. Their tone is fast-paced, funny, and packed with pop culture 
+references, while still showing an impressive grasp of film analysis. Write a 
+review of this movie from their point of view, as if they just watched the movie, mixing humor with surprisingly 
+sharp takes on themes, symbolism, and character arcs. Feel free to comment on the actor performances.""",
+"""
+I have subtitle text from a movie. Please read the subtitles and generate
+a short movie review written in the voice of a young right wing man in his 30s. 
+His tone is slightly angry, and he is a little aggressive. He rarely gives 
+positive reviews, prefering to focus on the negative. Provide a review as if you
+ had just been to see the movie. You express comments on the actors,
+characters, and the quality of the plot.""",
+"""
+I have subtitle text from a movie. Please read the subtitles and generate
+a short movie review written in the voice of a older professional woman in
+her late 40s who loves going to the movies and has a thoughtful and humourous
+perspective. Her tone is dry, and a little controversial. Write 
+a review of this movie from her point of view, focusing on the 
+themes, characters, the actor performances, and overall experience of watching 
+the film. Make it sound like something she might post online the night after seeing it.
 """]
 
 
@@ -108,7 +140,7 @@ for index, row in cleaned_subtitles_df.iterrows():
     
     reviews = {}
     for reviewer in ["gemini"]:
-        for context_index, context in enumerate(Contexts, start=1):
+        for context_index, context in enumerate(Context_a, start=1):
             for question_index, question in enumerate(Prompts, start=1):
                 print(movie_name, context_index, question_index, reviewer)
                 review = generate_review(movie_name, content, context, question, reviewer)
@@ -131,6 +163,6 @@ df = pd.DataFrame(data)
 print(df.head(1))
 
 # Save the DataFrame to a CSV file if needed
-df.to_csv('reviews_ai/screenplays/aireviews_gemini_screenplays.csv', index=False)
+df.to_csv('reviews_ai/subtitles/aireviews_gemini_context_variation.csv', index=False)
 
 
