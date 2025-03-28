@@ -1,0 +1,73 @@
+File,Movie,Question,Average Negative,Average Neutral,Average Positive
+aireviews_chatgpt_screenplays.csv,Avatar,question1,0.31482872,0.46502438,0.22014692
+aireviews_chatgpt_screenplays.csv,Avatar,question2,0.15506251,0.41764602,0.4272914
+aireviews_chatgpt_screenplays.csv,Avatar,question3,0.18161589,0.5360629,0.28232118
+aireviews_chatgpt_screenplays.csv,Brokeback Mountain,question1,0.10848651,0.54781705,0.3436964
+aireviews_chatgpt_screenplays.csv,Brokeback Mountain,question2,0.1534966,0.6118911,0.2346123
+aireviews_chatgpt_screenplays.csv,Brokeback Mountain,question3,0.09485821,0.37042978,0.534712
+aireviews_chatgpt_screenplays.csv,"Crouching Tiger, Hidden Dragon",question1,0.97374284,0.022977788,0.0032792739
+aireviews_chatgpt_screenplays.csv,"Crouching Tiger, Hidden Dragon",question2,0.0018487811,0.030480107,0.9676711
+aireviews_chatgpt_screenplays.csv,"Crouching Tiger, Hidden Dragon",question3,0.08156405,0.19577241,0.7226635
+aireviews_chatgpt_screenplays.csv,Nomadland,question1,0.11544015,0.45701832,0.42754155
+aireviews_chatgpt_screenplays.csv,Nomadland,question2,0.15404564,0.3754211,0.47053322
+aireviews_chatgpt_screenplays.csv,Nomadland,question3,0.111081704,0.47667074,0.4122475
+aireviews_chatgpt_screenplays.csv,The Shawshank Redemption,question1,0.1147999,0.5995509,0.28564915
+aireviews_chatgpt_screenplays.csv,The Shawshank Redemption,question2,0.10119506,0.5501379,0.3486671
+aireviews_chatgpt_screenplays.csv,The Shawshank Redemption,question3,0.021043794,0.3638188,0.6151374
+aireviews_chatgpt_screenplays.csv,Titanic,question1,0.54150057,0.37823954,0.08025985
+aireviews_chatgpt_screenplays.csv,Titanic,question2,0.27242088,0.28765723,0.43992186
+aireviews_chatgpt_screenplays.csv,Titanic,question3,0.2642635,0.22781353,0.5079229
+aireviews_deepseek_screenplays.csv,Avatar,question1,0.47111338,0.38806581,0.14082079
+aireviews_deepseek_screenplays.csv,Avatar,question2,0.12010729,0.3952821,0.48461065
+aireviews_deepseek_screenplays.csv,Avatar,question3,0.14606786,0.35025495,0.5036772
+aireviews_deepseek_screenplays.csv,Brokeback Mountain,question1,0.5518137,0.34921485,0.09897143
+aireviews_deepseek_screenplays.csv,Brokeback Mountain,question2,0.30519456,0.4413672,0.2534383
+aireviews_deepseek_screenplays.csv,Brokeback Mountain,question3,0.2637805,0.46990722,0.2663123
+aireviews_deepseek_screenplays.csv,"Crouching Tiger, Hidden Dragon",question1,0.5421769,0.34667063,0.11115241
+aireviews_deepseek_screenplays.csv,"Crouching Tiger, Hidden Dragon",question2,0.12868991,0.44475985,0.4265503
+aireviews_deepseek_screenplays.csv,"Crouching Tiger, Hidden Dragon",question3,0.1527441,0.53387755,0.31337833
+aireviews_deepseek_screenplays.csv,Nomadland,question1,0.52132976,0.35217547,0.12649474
+aireviews_deepseek_screenplays.csv,Nomadland,question2,0.12168288,0.38621393,0.49210316
+aireviews_deepseek_screenplays.csv,Nomadland,question3,0.21452375,0.4557023,0.32977396
+aireviews_deepseek_screenplays.csv,The Shawshank Redemption,question1,0.6366649,0.29248935,0.070845716
+aireviews_deepseek_screenplays.csv,The Shawshank Redemption,question2,0.1294634,0.3846171,0.48591954
+aireviews_deepseek_screenplays.csv,The Shawshank Redemption,question3,0.18930231,0.43324488,0.3774528
+aireviews_deepseek_screenplays.csv,Titanic,question1,0.4903887,0.376201,0.1334103
+aireviews_deepseek_screenplays.csv,Titanic,question2,0.23170161,0.45406732,0.31423107
+aireviews_deepseek_screenplays.csv,Titanic,question3,0.25681165,0.41900682,0.3241815
+aireviews_gemini_screenplays.csv,Avatar,question1,0.76249486,0.18858683,0.048918303
+aireviews_gemini_screenplays.csv,Avatar,question2,0.17600395,0.34042376,0.48357224
+aireviews_gemini_screenplays.csv,Avatar,question3,0.34777847,0.41828665,0.23393491
+aireviews_gemini_screenplays.csv,Brokeback Mountain,question1,0.6651878,0.23705366,0.097758554
+aireviews_gemini_screenplays.csv,Brokeback Mountain,question2,0.14566687,0.38465744,0.46967572
+aireviews_gemini_screenplays.csv,Brokeback Mountain,question3,0.36513513,0.31701434,0.31785053
+aireviews_gemini_screenplays.csv,"Crouching Tiger, Hidden Dragon",question1,0.76733005,0.1848891,0.047780793
+aireviews_gemini_screenplays.csv,"Crouching Tiger, Hidden Dragon",question2,0.15912306,0.26924333,0.57163364
+aireviews_gemini_screenplays.csv,"Crouching Tiger, Hidden Dragon",question3,0.33755347,0.3814716,0.28097492
+aireviews_gemini_screenplays.csv,Nomadland,question1,0.72153974,0.21178369,0.06667652
+aireviews_gemini_screenplays.csv,Nomadland,question2,0.09843327,0.3259229,0.57564384
+aireviews_gemini_screenplays.csv,Nomadland,question3,0.3099696,0.33511612,0.35491425
+aireviews_gemini_screenplays.csv,The Shawshank Redemption,question1,0.7514879,0.16465457,0.0838575
+aireviews_gemini_screenplays.csv,The Shawshank Redemption,question2,0.13981345,0.25891358,0.60127294
+aireviews_gemini_screenplays.csv,The Shawshank Redemption,question3,0.4046453,0.3089643,0.28639036
+aireviews_gemini_screenplays.csv,Titanic,question1,0.7193473,0.18094578,0.09970698
+aireviews_gemini_screenplays.csv,Titanic,question2,0.18878646,0.29208264,0.5191309
+aireviews_gemini_screenplays.csv,Titanic,question3,0.3749713,0.29624438,0.32878432
+aireviews_gemini_screenplays_context_variation.csv,Avatar,question1,0.6227978,0.27628946,0.100912824
+aireviews_gemini_screenplays_context_variation.csv,Avatar,question2,0.3015526,0.31093663,0.38751078
+aireviews_gemini_screenplays_context_variation.csv,Avatar,question3,0.3670919,0.35073733,0.28217077
+aireviews_gemini_screenplays_context_variation.csv,Brokeback Mountain,question1,0.69752437,0.23063216,0.07184351
+aireviews_gemini_screenplays_context_variation.csv,Brokeback Mountain,question2,0.3171002,0.36764678,0.31525302
+aireviews_gemini_screenplays_context_variation.csv,Brokeback Mountain,question3,0.47285086,0.34828082,0.17886837
+aireviews_gemini_screenplays_context_variation.csv,"Crouching Tiger, Hidden Dragon",question1,0.6498827,0.2469968,0.10312047
+aireviews_gemini_screenplays_context_variation.csv,"Crouching Tiger, Hidden Dragon",question2,0.28657037,0.35631394,0.3571157
+aireviews_gemini_screenplays_context_variation.csv,"Crouching Tiger, Hidden Dragon",question3,0.49442816,0.34426275,0.16130915
+aireviews_gemini_screenplays_context_variation.csv,Nomadland,question1,0.6042441,0.30193418,0.093821704
+aireviews_gemini_screenplays_context_variation.csv,Nomadland,question2,0.2061706,0.27494895,0.5188804
+aireviews_gemini_screenplays_context_variation.csv,Nomadland,question3,0.33744422,0.33585963,0.3266962
+aireviews_gemini_screenplays_context_variation.csv,The Shawshank Redemption,question1,0.59851176,0.28955418,0.11193411
+aireviews_gemini_screenplays_context_variation.csv,The Shawshank Redemption,question2,0.30665773,0.43164617,0.26169616
+aireviews_gemini_screenplays_context_variation.csv,The Shawshank Redemption,question3,0.3341891,0.3281791,0.3376318
+aireviews_gemini_screenplays_context_variation.csv,Titanic,question1,0.5753395,0.28671917,0.13794133
+aireviews_gemini_screenplays_context_variation.csv,Titanic,question2,0.3856074,0.35857093,0.25582168
+aireviews_gemini_screenplays_context_variation.csv,Titanic,question3,0.39889854,0.34971374,0.2513877

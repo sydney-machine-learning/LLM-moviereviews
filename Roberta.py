@@ -2,6 +2,7 @@ import pandas as pd
 import torch
 from transformers import RobertaTokenizer, RobertaForSequenceClassification, pipeline
 from scipy.special import softmax
+import os
 
 def get_polarity_scores(review):
     # Load the RoBERTa tokenizer and model
@@ -65,51 +66,73 @@ def get_polarity_scores_for_long_text(review):
     return average_scores
 
 def get_average_polarity_scores():
-    # List of files and corresponding LLM models
-    files = ['reviews_ai_and_imdb/aireviews_deepseek.csv', 'reviews_ai_and_imdb/aireviews_chatgpt.csv', 'reviews_ai_and_imdb/aireviews_gemini.csv']
-    models = ['deepseek', 'chatgpt', 'gemini']
-    
-    all_results = {}
+    # List of folders and corresponding output files
+    folders = [
+        ('reviews_ai/screenplays', 'polarity_scores_output/average_polarity_scores_screenplays.csv'),
+        ('reviews_ai/subtitles', 'polarity_scores_output/average_polarity_scores_subtitles.csv')
+    ]
 
-    for file, model in zip(files, models):
-        # Read the CSV file
-        df = pd.read_csv(file)
+    for folder, output_file in folders:
+        all_results = {}
 
-        results = {}
+        for file in os.listdir(folder):
+            if file.endswith('.csv'):
+                file_path = os.path.join(folder, file)
+                df = pd.read_csv(file_path)
 
-        for _, row in df.iterrows():
-            movie = row['movie']
-            if movie not in results:
-                results[movie] = {'question1': [], 'question2': [], 'question3': []}
+                results = {}
+                for _, row in df.iterrows():
+                    movie = row['movie']
+                    print(movie)
+                    if movie not in results:
+                        results[movie] = {'question1': [], 'question2': [], 'question3': []}
 
-            for question_index in range(1, 4):
-                question_key = f'question{question_index}'
-                question_reviews = row.filter(like=f'{model}_context').filter(like=f'_question{question_index}').tolist()
+                    for question_index in range(1, 4):
+                        question_key = f'question{question_index}'
+                        question_reviews = row.filter(like=f'_context').filter(like=f'_question{question_index}').tolist()
 
-                # Calculate polarity scores for each review
-                for review in question_reviews:
-                    polarity_scores = get_polarity_scores_for_long_text(review)
-                    results[movie][question_key].append(polarity_scores)
+                        # Calculate polarity scores for each review
+                        for review in question_reviews:
+                            polarity_scores = get_polarity_scores_for_long_text(review)
+                            print(movie, polarity_scores)
+                            results[movie][question_key].append(polarity_scores)
 
-        # Calculate average polarity scores
-        average_results = {}
-        for movie, questions in results.items():
-            average_results[movie] = {}
-            for question, scores in questions.items():
-                avg_negative = sum(score['negative'] for score in scores) / len(scores)
-                avg_neutral = sum(score['neutral'] for score in scores) / len(scores)
-                avg_positive = sum(score['positive'] for score in scores) / len(scores)
-                average_results[movie][question] = {
-                    'average_negative': avg_negative,
-                    'average_neutral': avg_neutral,
-                    'average_positive': avg_positive
-                }
+                # Calculate average polarity scores
+                average_results = {}
+                for movie, questions in results.items():
+                    average_results[movie] = {}
+                    for question, scores in questions.items():
+                        avg_negative = sum(score['negative'] for score in scores) / len(scores)
+                        avg_neutral = sum(score['neutral'] for score in scores) / len(scores)
+                        avg_positive = sum(score['positive'] for score in scores) / len(scores)
+                        average_results[movie][question] = {
+                            'average_negative': avg_negative,
+                            'average_neutral': avg_neutral,
+                            'average_positive': avg_positive
+                        }
 
-        all_results[model] = average_results
+                all_results[file] = average_results
 
-    return all_results
+        # Convert the nested dictionary to a DataFrame
+        rows = []
+        for file, movies in all_results.items():
+            for movie, questions in movies.items():
+                for question, scores in questions.items():
+                    row = {
+                        'File': file,
+                        'Movie': movie,
+                        'Question': question,
+                        'Average Negative': scores['average_negative'],
+                        'Average Neutral': scores['average_neutral'],
+                        'Average Positive': scores['average_positive']
+                    }
+                    rows.append(row)
 
+        df = pd.DataFrame(rows)
 
+        # Save the DataFrame to a CSV file
+        df.to_csv(output_file, index=False)
+        print(f"Polarity scores saved to {output_file}")
 
 def save_results_to_csv(all_results, filename):
     # Convert the nested dictionary to a DataFrame
@@ -141,8 +164,8 @@ def get_emotion_scores(review):
     tokens = tokenizer.tokenize(review)
     chunks = [tokens[i:i + 510] for i in range(0, len(tokens), 510)]  # Use 510 to account for special tokens
 
-    # Initialize cumulative scores
-    cumulative_scores = {}
+    # Initialize cumulative scores with all emotions set to 0
+    cumulative_scores = {"anger": 0, "joy": 0, "sadness": 0, "fear": 0, "surprise": 0, "disgust": 0, "neutral": 0}
 
     # Process each chunk
     for chunk in chunks:
@@ -152,11 +175,9 @@ def get_emotion_scores(review):
         # Convert the list of dictionaries to a single dictionary
         emotion_dict = {item['label']: item['score'] for item in emotion_scores[0]}
 
-        # Accumulate the scores
-        for emotion, score in emotion_dict.items():
-            if emotion not in cumulative_scores:
-                cumulative_scores[emotion] = 0
-            cumulative_scores[emotion] += score
+        # Accumulate the scores, ensuring all keys are present
+        for emotion in cumulative_scores.keys():
+            cumulative_scores[emotion] += emotion_dict.get(emotion, 0)
 
     # Average the scores
     num_chunks = len(chunks)
@@ -168,74 +189,67 @@ def get_emotion_scores(review):
     return top_emotions
 
 def emotions_ai_reviews():
-    # List of files and corresponding LLM models
-    files = ['reviews_ai/aireviews_chatgpt.csv', 'reviews_ai/aireviews_deepseek.csv', 'reviews_ai/aireviews_gemini.csv']
-    models = ['chatgpt', 'deepseek', 'gemini']
-    
-    all_results = {}
+    # List of folders and corresponding output files
+    folders = [
+        ('reviews_ai/screenplays', 'emotions_output/average_emotion_scores_screenplays.csv'),
+        ('reviews_ai/subtitles', 'emotions_output/average_emotion_scores_subtitles.csv')
+    ]
 
-    for file, model in zip(files, models):
-        # Read the CSV file
-        df = pd.read_csv(file)
+    for folder, output_file in folders:
+        all_results = {}
 
-        print(df.head())
+        for file in os.listdir(folder):
+            if file.endswith('.csv'):
+                file_path = os.path.join(folder, file)
+                df = pd.read_csv(file_path)
 
-        results = {}
+                results = {}
 
-        for _, row in df.iterrows():
-            movie = row['movie']
-            print(movie)
-            # Initialize the results dictionary for the movie if not already present
-            if movie not in results:
-                results[movie] = {'question1': [], 'question2': [], 'question3': []}
+                for _, row in df.iterrows():
+                    movie = row['movie']
+                    print(movie)
+                    if movie not in results:
+                        results[movie] = {'question1': [], 'question2': [], 'question3': []}
 
-            for question_index in range(1, 4):
-                question_key = f'question{question_index}'
-                question_reviews = row.filter(like=f'{model}_context').filter(like=f'_question{question_index}').tolist()
+                    for question_index in range(1, 4):
+                        question_key = f'question{question_index}'
+                        question_reviews = row.filter(like=f'_context').filter(like=f'_question{question_index}').tolist()
 
-                # Calculate emotion scores for each review
-                for review in question_reviews:
-                    emotion_scores = get_emotion_scores(review)
-                    print(movie, emotion_scores)
-                    results[movie][question_key].append(emotion_scores)
+                        # Calculate emotion scores for each review
+                        for review in question_reviews:
+                            emotion_scores = get_emotion_scores(review)
+                            results[movie][question_key].append(emotion_scores)
 
-        # Calculate average emotion scores
-        average_results = {}
-        for movie, questions in results.items():
-            average_results[movie] = {}
-            for question, scores in questions.items():
-                # Initialize avg_scores with all possible emotion keys
-                avg_scores = {key: 0 for key in scores[0].keys()}
-                for key in avg_scores.keys():
-                    avg_scores[key] = sum(score.get(key, 0) for score in scores) / len(scores)
-                average_results[movie][question] = avg_scores
-                print(avg_scores)
-                 
+                # Calculate average emotion scores
+                average_results = {}
+                for movie, questions in results.items():
+                    average_results[movie] = {}
+                    for question, scores in questions.items():
+                        # Ensure all keys are initialized to 0 to avoid KeyError
+                        all_keys = set(key for score in scores for key in score.keys())
+                        avg_scores = {key: sum(score.get(key, 0) for score in scores) / len(scores) for key in all_keys}
+                        average_results[movie][question] = avg_scores
 
-                print(f"Processed {movie} : {avg_scores}")
+                all_results[file] = average_results
 
-        all_results[model] = average_results
+        # Convert the nested dictionary to a DataFrame
+        rows = []
+        for file, movies in all_results.items():
+            for movie, questions in movies.items():
+                for question, scores in questions.items():
+                    row = {
+                        'File': file,
+                        'Movie': movie,
+                        'Question': question,
+                        **scores
+                    }
+                    rows.append(row)
 
-    # Convert the nested dictionary to a DataFrame
-    rows = []
-    for model, movies in all_results.items():
-        for movie, questions in movies.items():
-            for question, scores in questions.items():
-                row = {
-                    'Model': model,
-                    'Movie': movie,
-                    'Question': question,
-                    **scores
-                }
-                rows.append(row)
+        df = pd.DataFrame(rows)
 
-    df = pd.DataFrame(rows)
-
-    # Save the DataFrame to a CSV file
-    df.to_csv('emotions_output/average_emotion_scores.csv', index=False)
-
-
-
+        # Save the DataFrame to a CSV file
+        df.to_csv(output_file, index=False)
+        print(f"Emotion scores saved to {output_file}")
 
 def get_average_polarity_scores_imdb():
     # Read the CSV files
@@ -283,10 +297,8 @@ def get_average_polarity_scores_imdb():
     # Save the DataFrame to a CSV file
     df.to_csv('average_polarity_scores_imdb.csv', index=False)
 
-
 if __name__ == "__main__":
     #ai_average_polarity_scores = get_average_polarity_scores()
     #save_results_to_csv(ai_average_polarity_scores, 'average_polarity_scores_ai.csv')
     #get_average_polarity_scores_imdb()    
-    
     emotions_ai_reviews()

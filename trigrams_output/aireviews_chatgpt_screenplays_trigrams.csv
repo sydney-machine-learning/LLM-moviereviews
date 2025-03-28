@@ -1,0 +1,55 @@
+Movie,Question,Trigram,Count
+Avatar,question1,neytiri leads jake,3
+Avatar,question1,watching jake neytiri,2
+Avatar,question1,neytiri gestures jake,2
+Avatar,question2,jake neytiri tsutey,3
+Avatar,question2,eytukan looks stern,2
+Avatar,question2,neytiri navi subtitled,2
+Avatar,question3,watching mix curiosity,2
+Avatar,question3,eat food neytiri,2
+Avatar,question3,neytiri begins speak,2
+Brokeback Mountain,question1,ck corral gate,1
+Brokeback Mountain,question1,corral gate smiles,1
+Brokeback Mountain,question1,gate smiles competitive,1
+Brokeback Mountain,question2,ack takes picture,1
+Brokeback Mountain,question2,takes picture given,1
+Brokeback Mountain,question2,picture given buckle,1
+Brokeback Mountain,question3,ack taken boots,1
+Brokeback Mountain,question3,taken boots sore,1
+Brokeback Mountain,question3,boots sore feet,1
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,3
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,3
+"Crouching Tiger, Hidden Dragon",question1,poorly choreographed lack,2
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,6
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,6
+"Crouching Tiger, Hidden Dragon",question2,weaves together themes,2
+"Crouching Tiger, Hidden Dragon",question3,screenplays free movie,2
+"Crouching Tiger, Hidden Dragon",question3,free movie scripts,2
+"Crouching Tiger, Hidden Dragon",question3,movie scripts screenplays,2
+Nomadland,question1,come fern steps,3
+Nomadland,question1,fern steps inside,3
+Nomadland,question1,yeah thought try,2
+Nomadland,question2,twenty three hundred,2
+Nomadland,question2,fern talks time,2
+Nomadland,question2,dolly listens intently,2
+Nomadland,question3,come fern steps,4
+Nomadland,question3,fern steps inside,3
+Nomadland,question3,steps inside house,3
+The Shawshank Redemption,question1,approaches warden norton,2
+The Shawshank Redemption,question1,warden norton office,2
+The Shawshank Redemption,question1,norton office knocks,2
+The Shawshank Redemption,question2,approaches warden norton,2
+The Shawshank Redemption,question2,warden norton office,2
+The Shawshank Redemption,question2,norton office norton,2
+The Shawshank Redemption,question3,warden norton office,3
+The Shawshank Redemption,question3,andy approaches warden,2
+The Shawshank Redemption,question3,approaches warden norton,2
+Titanic,question1,time kind memory,1
+Titanic,question1,kind memory moment,1
+Titanic,question1,memory moment titanic,1
+Titanic,question2,camera pulls back,2
+Titanic,question2,scene fades black,2
+Titanic,question2,complexities human relationships,2
+Titanic,question3,still feel icy,1
+Titanic,question3,feel icy grip,1
+Titanic,question3,icy grip cal,1
