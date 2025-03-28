@@ -8,12 +8,15 @@ from nltk import trigrams
 from collections import Counter
 import string
 from nltk.corpus import stopwords
+import os
 
 # Download necessary NLTK data
 # nltk.download('punkt')
 # nltk.download('stopwords')
 
 stop_words = set(stopwords.words('english'))
+
+#print("Stop words:", stop_words)
 
 def preprocess_text(text):
     # Tokenize the text
@@ -35,6 +38,8 @@ def trigram_analysis(reviews):
     return trigram_counts.most_common(3)
 
 def process_reviews(df, ai_client):
+    print("Processing reviews for AI client:", ai_client)
+    print("DataFrame head:", df.head())
     results = {}
     for _, row in df.iterrows():
         movie = row['movie']
@@ -75,53 +80,59 @@ def trigrams_to_dataframe(results):
 
 
 
-# Read the CSV files into separate DataFrames
-#chatgpt_reviews_df = pd.read_csv('reviews_ai/aireviews_chatgpt_1.csv', header=0)
-#gemini_reviews_df = pd.read_csv('reviews_ai/aireviews_gemini_1.csv', header=0)
-#deepseek_reviews_df = pd.read_csv('reviews_ai/aireviews_deepseek_1.csv', header=0)
-gemini_reviews_df = pd.read_csv('reviews_ai/aireviews_gemini_more_detailed_context.csv', header=0)
-# Process reviews and generate trigrams
-#chatgpt_results = process_reviews(chatgpt_reviews_df, 'chatgpt')
-gemini_results = process_reviews(gemini_reviews_df, 'gemini')
-#deepseek_results = process_reviews(deepseek_reviews_df, 'deepseek')
-
-# Convert results to DataFrames
-#chatgpt_df = results_to_dataframe(chatgpt_results)
-gemini_df = results_to_dataframe(gemini_results)
-#deepseek_df = results_to_dataframe(deepseek_results)
-
-# Save DataFrames to CSV files
-#chatgpt_df.to_csv('trigrams_output/chatgpt_trigrams_1.csv', index=False)
-gemini_df.to_csv('trigrams_output/gemini_trigrams_more_detailed_context.csv', index=False)
-#deepseek_df.to_csv('trigrams_output/deepseek_trigrams_1.csv', index=False)
-
 # Code to generate trigrams for "The Shawshank Redemption" from IMDb reviews with a 10 rating
 
-#selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
-#print(selected_movie_info_df)   
+
+  
 #shawshank_imdb_id = selected_movie_info_df[selected_movie_info_df['movie'] == 'The Shawshank Redemption']['imdb_id'].values[0]
-#print(f"IMDB ID for 'The Shawshank Redemption': {shawshank_imdb_id}")
-#all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews_1.csv')
-#print(all_imdb_reviews_df.head())
+#all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
 #shawshank_reviews = all_imdb_reviews_df[(all_imdb_reviews_df['MovieID'] == shawshank_imdb_id) & (all_imdb_reviews_df['ReviewNumber'] == 10)]['Review'].tolist()
-#print(f"reviews for 'The Shawshank Redemption' with a 10 rating: {shawshank_reviews}")
 #combined_reviews = ' '.join(shawshank_reviews)
-
-# Generate trigrams for each movie in the all_imdb_reviews_1.csv file
-
-#all_movies_trigrams = generate_trigrams_for_all_movies(all_imdb_reviews_df, selected_movie_info_df)
-
-#print(all_movies_trigrams)
-#all_movies_trigrams_df = trigrams_to_dataframe(all_movies_trigrams)
-#all_movies_trigrams_df.to_csv('trigrams_output/all_imdb_review_trigrams.csv', index=False)
-
-#print(combined_reviews)
-
 # Generate trigrams from the combined reviews
 ##shawshank_trigrams = trigram_analysis([combined_reviews])
-
 ##shawshank_trigrams_df = pd.DataFrame(shawshank_trigrams, columns=['Trigram', 'Count'])
 ##shawshank_trigrams_df['Trigram'] = shawshank_trigrams_df['Trigram'].apply(lambda x: ' '.join(x))
 ##shawshank_trigrams_df.to_csv('shawshank_imdb_10_trigrams.csv', index=False)
 
+# Function to process and generate trigrams for a given DataFrame and AI client
 
+def process_and_save_trigrams(df, ai_client, output_filename):
+    results = process_reviews(df, ai_client)
+    #print(f"Results for {ai_client}: {results}")
+    df_trigrams = results_to_dataframe(results)
+    df_trigrams.to_csv(output_filename, index=False)
+    
+
+# Main function to loop through files and generate trigrams
+
+def main():
+    screenplay_folder = 'reviews_ai/screenplays'
+    subtitles_folder = 'reviews_ai/subtitles'
+    output_folder = 'trigrams_output'
+
+    # Process screenplay files
+    for filename in os.listdir(screenplay_folder):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(screenplay_folder, filename)
+            df = pd.read_csv(file_path)
+            output_filename = os.path.join(output_folder, filename.replace('.csv', '_trigrams.csv'))
+            ai_client = filename.split('_')[1]  # Extract AI client from filename
+            process_and_save_trigrams(df, ai_client, output_filename)
+
+    # Process subtitle files
+    for filename in os.listdir(subtitles_folder):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(subtitles_folder, filename)
+            df = pd.read_csv(file_path)
+            output_filename = os.path.join(output_folder, filename.replace('.csv', '_trigrams.csv'))
+            ai_client = filename.split('_')[1].replace('.csv', '')  # Extract AI client from filename without .csv
+            process_and_save_trigrams(df, ai_client, output_filename)
+    selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+    
+    #all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
+    #all_movies_trigrams = generate_trigrams_for_all_movies(all_imdb_reviews_df, selected_movie_info_df)
+    #all_movies_trigrams_df = trigrams_to_dataframe(all_movies_trigrams)
+    #all_movies_trigrams_df.to_csv('trigrams_output/all_imdb_review_trigrams.csv', index=False)
+
+if __name__ == "__main__":
+    main()

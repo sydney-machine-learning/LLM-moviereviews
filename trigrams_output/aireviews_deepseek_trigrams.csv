@@ -1,0 +1,55 @@
+Movie,Question,Trigram,Count
+The Shawshank Redemption,question1,even get started,5
+The Shawshank Redemption,question1,bad review care,3
+The Shawshank Redemption,question1,let start saying,3
+The Shawshank Redemption,question2,review shawshank redemption,4
+The Shawshank Redemption,question2,resilience human spirit,4
+The Shawshank Redemption,question2,follows andy dufresne,4
+The Shawshank Redemption,question3,shawshank redemption film,6
+The Shawshank Redemption,question3,review shawshank redemption,5
+The Shawshank Redemption,question3,resilience human spirit,4
+Brokeback Mountain,question1,even get started,5
+Brokeback Mountain,question1,two cowboys ennis,3
+Brokeback Mountain,question1,cowboys ennis jack,3
+Brokeback Mountain,question2,ennis del mar,5
+Brokeback Mountain,question2,review brokeback mountain,4
+Brokeback Mountain,question2,long credits roll,4
+Brokeback Mountain,question3,brokeback mountain film,5
+Brokeback Mountain,question3,herding sheep brokeback,5
+Brokeback Mountain,question3,sheep brokeback mountain,5
+Avatar,question1,even get started,4
+Avatar,question1,dances wolves space,3
+Avatar,question1,let start saying,2
+Avatar,question2,movie review avatar,3
+Avatar,question2,avatar cinematic masterpiece,3
+Avatar,question2,lush alien world,3
+Avatar,question3,avatar visually stunning,5
+Avatar,question3,na vi culture,5
+Avatar,question3,jake sully sam,4
+Titanic,question1,even get started,6
+Titanic,question1,movie review titanic,3
+Titanic,question1,three hours long,3
+Titanic,question2,movie review titanic,3
+Titanic,question2,film subtitle text,3
+Titanic,question2,chemistry electric love,3
+Titanic,question3,movie review titanic,4
+Titanic,question3,jack leonardo dicaprio,4
+Titanic,question3,leonardo dicaprio rose,4
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,17
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,17
+"Crouching Tiger, Hidden Dragon",question1,li mu bai,10
+"Crouching Tiger, Hidden Dragon",question2,li mu bai,17
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,16
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,16
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,16
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,16
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,8
+Nomadland,question1,movie review nomadland,3
+Nomadland,question1,review nomadland rating,3
+Nomadland,question1,nomadland rating nomadland,3
+Nomadland,question2,long credits roll,5
+Nomadland,question2,nomadland directed chloé,4
+Nomadland,question2,directed chloé zhao,4
+Nomadland,question3,resilience search meaning,4
+Nomadland,question3,nomadland directed chloé,3
+Nomadland,question3,directed chloé zhao,3
