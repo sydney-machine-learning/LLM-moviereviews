@@ -9,10 +9,10 @@ imdb_below6 = pd.read_csv('../average_polarity_scores_imdb_below_6.csv')
 imdb_6_and_7 = pd.read_csv('../average_polarity_scores_imdb_between_6_and_7.csv')
 
 ai_models['File'] = ai_models['File'].replace({
-    'aireviews_chatgpt_screenplays.csv': 'chatgpt',
-    'aireviews_deepseek_screenplays.csv': 'deepseek',
-    'aireviews_gemini_screenplays.csv': 'gemini',
-    'aireviews_gemini_screenplays_context_variation.csv' : 'gemini (detailed context)'
+    'aireviews_chatgpt.csv': 'chatgpt',
+    'aireviews_deepseek.csv': 'deepseek',
+    'aireviews_gemini.csv': 'gemini',
+    'aireviews_gemini_context_variation.csv' : 'gemini (detailed context)'
 })
 
 # Rename the 'File' column to 'Source'
