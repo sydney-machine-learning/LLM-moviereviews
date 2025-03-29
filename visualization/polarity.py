@@ -3,10 +3,20 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the data
-ai_models = pd.read_csv('../polarity_scores_output/average_polarity_scores_ai.csv')
+ai_models = pd.read_csv('../polarity_scores_output/average_polarity_scores_subtitles.csv')
 imdb_above7 = pd.read_csv('../average_polarity_scores_imdb_above_7.csv')
 imdb_below6 = pd.read_csv('../average_polarity_scores_imdb_below_6.csv')
 imdb_6_and_7 = pd.read_csv('../average_polarity_scores_imdb_between_6_and_7.csv')
+
+ai_models['File'] = ai_models['File'].replace({
+    'aireviews_chatgpt_screenplays.csv': 'chatgpt',
+    'aireviews_deepseek_screenplays.csv': 'deepseek',
+    'aireviews_gemini_screenplays.csv': 'gemini',
+    'aireviews_gemini_screenplays_context_variation.csv' : 'gemini (detailed context)'
+})
+
+# Rename the 'File' column to 'Source'
+ai_models = ai_models.rename(columns={'File': 'Model'})
 
 # Filter out AI models for Question 2 (good reviews)
 ai_good_reviews = ai_models[ai_models['Question'] == 'question2'].copy()
@@ -53,6 +63,7 @@ melted_neutral_reviews = pd.melt(combined_neutral_reviews, id_vars=['Movie', 'So
                                  value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
                                  var_name='Polarity Type', value_name='Polarity Score')
 
+### Box Plot
 
 # Create a boxplot to compare IMDb and AI models (Question 2)
 plt.figure(figsize=(12, 6))
@@ -96,3 +107,53 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
+### Bar Plot
+# Create a bar plot for the melted data (Good Reviews)
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+
+# Add titles and labels
+plt.title("Comparison of Polarity Scores for IMDb vs AI (Good Reviews)", fontsize=14)
+plt.xlabel("Source (IMDb vs AI)", fontsize=12)
+plt.ylabel("Polarity Score", fontsize=12)
+plt.xticks(rotation=45)
+
+# Display the plot
+plt.tight_layout()
+plt.show()
+# save fig
+plt.savefig("polarity_score_comparison(good).png", dpi=300, bbox_inches="tight")
+
+# Create a bar plot for the melted data (Bad Reviews)
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+
+# Add titles and labels
+# Comparison of Polarity Scores for AI (Question 1) vs IMDb (Rating < 6)
+plt.title("Comparison of Polarity Scores for AI vs IMDb (Bad Reviews)", fontsize=14)
+plt.xlabel("Source (IMDb Below 6 vs AI - Q1)", fontsize=12)
+plt.ylabel("Polarity Score", fontsize=12)
+plt.xticks(rotation=45)
+
+# Display the plot
+plt.tight_layout()
+plt.show()
+# save fig
+plt.savefig("polarity_score_comparison(bad).png", dpi=300, bbox_inches="tight")
+
+# Create a bar plot for the melted data (Neutral Reviews)
+plt.figure(figsize=(12, 6))
+sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+
+# Add titles and labels
+# Comparison of Polarity Scores for AI (Question 3) vs IMDb (Rating 6-7)
+plt.title("Comparison of Polarity Scores for AI vs IMDb (Neutral Reviews)", fontsize=14)
+plt.xlabel("Source (IMDb 6-7 vs AI - Q3)", fontsize=12)
+plt.ylabel("Polarity Score", fontsize=12)
+plt.xticks(rotation=45)
+
+# Display the plot
+plt.tight_layout()
+plt.show()
+# save fig
+plt.savefig("polarity_score_comparison(neutral).png", dpi=300, bbox_inches="tight")
