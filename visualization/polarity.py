@@ -157,3 +157,40 @@ plt.tight_layout()
 plt.show()
 # save fig
 plt.savefig("polarity_score_comparison(neutral).png", dpi=300, bbox_inches="tight")
+
+# neglect Box Plot for now
+
+
+# Obeservation of Bar Plot
+# The Bar Plot presents the polarity score distribution across different AI models and IMDb for good reviews (i.e. Question 2).
+
+# Observations:
+# When the prompt question is 'generate a good reciew':
+# 1. AI Models Show Distinctive Sentiment Distributions:
+# 1.1 ChatGPT has the highest average positive score, close to 1, with almost no neutral or negative scores
+# 1.2 DeepSeek has relatively high average score, slightly lower than ChatGPT's, which is around 0.7,
+# but also has a noticeable neutral component and a small negative score.
+# 1.3 Gemini's barplot is more balanced than ChatGPT and DeepSeek,
+# it has with significant neutral and positive sentiment, but also some negative sentiment.
+# 1.4 Gemini (detailed prompt): The prompt question is 'generate a good reciew', while when we provided more detailed context,
+# the average negative score is slightly higher than both average neutral and average positive,
+# though the distribution of polarity score is more balance than others.
+# It is noticable that average positive score is the lowest one in this barplot even when the question is 'generate a good reciew'
+
+# 2. IMDb Reviews Are More Balanced
+# IMDb reviews show a mix of positive, neutral, and negative sentiment, but positive sentiment still dominate
+
+# 3. AI Models vs. IMDb: Sentiment Bias
+# 3.1 DeepSeek and IMDb have the most similar sentiment distributions in terms of negative, neutral, and positive polarity scores
+# 3.2 In all distributions except Gemini (detailed prompt), the polarity scores follow this general pattern:
+# Positive > Neutral > Negative.
+# However, Gemini (detailed prompt) is the only model where this order is reversed: Negative > Neutral > Positive
+
+
+# Analysis:
+# 1. ChatGPT might be over-optimistic, possibly due to training biases in favor of more positive language.
+# 2. DeepSeek may generate more realistic or nuanced responses, closer to human-written IMDb reviews
+# 3. Gemini is more balanced, which differs from other AI models and IMDb, indicating it might be designed to mimic human sentiment more closely.
+# 4. Gemini (detailed prompt) stands out, this suggests that adding more context leads to a more critical or neutral stance,
+# possibly because it considers a broader range of perspectives or prompt itself could have sentiment bias.
+
