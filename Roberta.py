@@ -297,8 +297,45 @@ def get_average_polarity_scores_imdb():
     # Save the DataFrame to a CSV file
     df.to_csv('average_polarity_scores_imdb.csv', index=False)
 
+def get_average_emotion_scores_imdb():
+    # Read the IMDb reviews and movie information
+    imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv', header=None, names=['imdb_id', 'rating', 'review'])
+    selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+
+    # Merge IMDb reviews with movie information to get movie titles
+    merged_df = pd.merge(imdb_reviews_df, selected_movie_info_df, on='imdb_id')
+
+    results = {}
+
+    for _, row in merged_df.iterrows():
+        movie = row['movie']
+        if movie not in results:
+            results[movie] = []
+
+        review = row['review']
+        emotion_scores = get_emotion_scores(review)
+        results[movie].append(emotion_scores)
+
+    # Calculate average emotion scores per movie
+    average_results = []
+    for movie, scores in results.items():
+        avg_scores = {key: sum(score.get(key, 0) for score in scores) / len(scores) for key in scores[0].keys()}
+        average_results.append({
+            'Movie': movie,
+            **avg_scores
+        })
+
+    # Convert the results to a DataFrame
+    df = pd.DataFrame(average_results)
+
+    # Save the DataFrame to a CSV file
+    output_path = 'emotions_output/average_emotion_scores_imdb.csv'
+    df.to_csv(output_path, index=False)
+    #print(f"Average emotion scores per movie saved to {output_path}")
+
 if __name__ == "__main__":
     #ai_average_polarity_scores = get_average_polarity_scores()
     #save_results_to_csv(ai_average_polarity_scores, 'average_polarity_scores_ai.csv')
     #get_average_polarity_scores_imdb()    
-    emotions_ai_reviews()
+    #emotions_ai_reviews()
+    get_average_emotion_scores_imdb()
