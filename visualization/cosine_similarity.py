@@ -10,6 +10,7 @@ import seaborn as sns
 files = {
     "ChatGPT": "../cosine_similarity_and_other_tests/cosine_similarity_results_chatgpt.csv",
     "Gemini": "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini.csv",
+    "Gemini (detailed prompt)" : "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv",
     "DeepSeek": "../cosine_similarity_and_other_tests/cosine_similarity_results_deepseek.csv",
     "IMDB": "../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv",
 }
@@ -41,12 +42,12 @@ df_all = pd.concat(dfs.values(), ignore_index=True)
 # 2. Boxplot: Show variance and distribution of cosine similarity scores across models.
 # 3. Heatmap: Show correlation between different models.
 
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 8))
 sns.boxplot(data=df_all, x="Source", y="MeanSimilarity", palette="Set2")
 plt.title("Comparison of Mean Similarity Across AI Models and IMDB")
 plt.ylabel("Mean Cosine Similarity")
 plt.xlabel("Review Source")
-plt.xticks(rotation=45)
+#plt.xticks(rotation=10)
 plt.show()
 # save fig
 plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
@@ -75,5 +76,6 @@ plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
 
 # 3. Human Reviews Are the Most Diverse (Lowest Mean Similarity Within IMDB)
 # The IMDB self-similarity is the lowest, meaning human-written reviews vary the most.
-# This may because uuman reviews come from different reviewers with unique writing styles and opinions.
+# This may because human reviews come from different reviewers with unique writing styles and opinions.
 
+# Now that we have both polarity scores and cosine similarity, we can analyze their relationship.
