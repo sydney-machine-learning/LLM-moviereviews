@@ -108,7 +108,7 @@ def main():
                 imdb_reviews_df, ai_reviews_df = read_reviews(imdb_path, ai_file_path)
 
                 for movie_id in imdb_reviews_df['MovieID'].unique():
-                    print(f"Processing MovieID: {movie_id}")
+                    # print(f"Processing MovieID: {movie_id}")
 
                     imdb_reviews = imdb_reviews_df[imdb_reviews_df['MovieID'] == movie_id]['Review'].tolist()
                     ai_reviews = ai_reviews_df[ai_reviews_df['imdb_id'] == movie_id].filter(like='context').values.flatten().tolist()
