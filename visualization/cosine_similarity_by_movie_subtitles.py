@@ -42,7 +42,7 @@ plt.legend(title="AI Model",fontsize=8)
 plt.tight_layout()
 plt.show()
 # save fig
-plt.savefig("mean_similarity_comparison(by movie).png", dpi=300, bbox_inches="tight")
+plt.savefig("similarity_comparison_by movie(subtitles).png", dpi=300, bbox_inches="tight")
 
 # The plot measures how well AI-generated reviews resemble human-written IMDb reviews using cosine rimilairty across movies
 
