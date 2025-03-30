@@ -79,3 +79,4 @@ plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
 # This may because human reviews come from different reviewers with unique writing styles and opinions.
 
 # Now that we have both polarity scores and cosine similarity, we can analyze their relationship.
+
