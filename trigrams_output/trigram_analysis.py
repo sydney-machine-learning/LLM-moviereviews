@@ -6,7 +6,6 @@ import pandas as pd
 import nltk
 from nltk import trigrams
 from collections import Counter
-import string
 from nltk.corpus import stopwords
 import os
 
@@ -106,8 +105,8 @@ def process_and_save_trigrams(df, ai_client, output_filename):
 # Main function to loop through files and generate trigrams
 
 def main():
-    screenplay_folder = 'reviews_ai/screenplays'
-    subtitles_folder = 'reviews_ai/subtitles'
+    screenplay_folder = '../reviews_ai/screenplays'
+    subtitles_folder = '../reviews_ai/subtitles'
     output_folder = 'trigrams_output'
 
     # Process screenplay files
