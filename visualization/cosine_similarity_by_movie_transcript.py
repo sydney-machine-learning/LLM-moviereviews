@@ -42,9 +42,9 @@ plt.xticks(rotation=45,ha='right')
 plt.legend(title="AI Model", loc='upper left', bbox_to_anchor=(0.01, 0.99))
 
 plt.tight_layout()
-plt.show()
 # save fig
 plt.savefig("similarity_comparison_by movie(transript).png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # Cosine Similarity Between IMDb and AI Reviews (By Movie) when providing movie transcript
 # Observations
