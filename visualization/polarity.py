@@ -120,9 +120,9 @@ plt.xticks(rotation=45)
 
 # Display the plot
 plt.tight_layout()
-plt.show()
 # save fig
 plt.savefig("polarity_score_comparison(good).png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # Create a bar plot for the melted data (Bad Reviews)
 plt.figure(figsize=(12, 6))
@@ -137,9 +137,9 @@ plt.xticks(rotation=45)
 
 # Display the plot
 plt.tight_layout()
-plt.show()
 # save fig
 plt.savefig("polarity_score_comparison(bad).png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # Create a bar plot for the melted data (Neutral Reviews)
 plt.figure(figsize=(12, 6))
@@ -154,9 +154,9 @@ plt.xticks(rotation=45)
 
 # Display the plot
 plt.tight_layout()
-plt.show()
 # save fig
 plt.savefig("polarity_score_comparison(neutral).png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # neglect Box Plot for now
 

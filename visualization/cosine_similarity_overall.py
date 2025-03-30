@@ -48,9 +48,9 @@ plt.title("Comparison of Mean Similarity Across AI Models and IMDB")
 plt.ylabel("Mean Cosine Similarity")
 plt.xlabel("Review Source")
 #plt.xticks(rotation=10)
-plt.show()
 # save fig
 plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # Cosine Similarity is a robust and effective measure for assessing text similarity. (https://www.irjmets.com/uploadedfiles/paper//issue_4_april_2024/52264/final/fin_irjmets1712589489.pdf)
 # When using cosine similarity to compare reviews, we are looking at how similar the reviews are in terms of their
