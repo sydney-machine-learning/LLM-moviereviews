@@ -12,7 +12,7 @@ merged_df["File"] = merged_df["File"].replace({
     "aireviews_chatgpt_screenplays.csv": "ChatGPT",
     "aireviews_deepseek_screenplays.csv": "DeepSeek",
     "aireviews_gemini_screenplays.csv": "Gemini",
-    "aireviews_gemini_screenplays_context_variation.csv": "Gemini (Context)"
+    "aireviews_gemini_screenplays_context_variation.csv": "Gemini (detailed)"
 })
 
 merged_df.rename(columns={'File': 'AI Model'}, inplace=True)
