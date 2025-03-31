@@ -37,7 +37,7 @@ plt.xlabel("Movie")
 plt.ylabel("Mean Cosine Similarity")
 plt.title("Cosine Similarity Between IMDb and AI Reviews (By Movie)")
 plt.xticks(rotation=45,ha='right')
-plt.legend(title="AI Model",fontsize=8)
+plt.legend(title="AI Model",loc='upper left', fontsize=8)
 
 plt.tight_layout()
 # save fig
