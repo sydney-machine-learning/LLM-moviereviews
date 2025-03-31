@@ -5,8 +5,34 @@ import seaborn as sns
 # Load IMDb average emotion scores
 imdb_df = pd.read_csv('../emotions_output/average_emotion_scores_imdb.csv')
 # Melt for visualization
-imdb_melted = imdb_df.melt(id_vars='Movie', var_name='Emotion', value_name='IMDb Score')
-# imdb_melted['Source'] = 'IMDb'
+imdb_melted = imdb_df.melt(id_vars='Movie', var_name='Emotion', value_name='Score')
+imdb_melted = imdb_melted.fillna(0)
+#print(imdb_melted)
+
+# calculate average emotion scores
+imdb_avg_emotions = imdb_melted.groupby('Emotion')['Score'].mean().reset_index()
+imdb_avg_emotions.columns = ['Emotion', 'Average Score']
+#print(imdb_avg_emotions)
+
+# pie chart for imdb average emotion scores
+colors = sns.color_palette("Set2", n_colors=7)
+plt.figure(figsize=(8, 8))
+plt.pie(imdb_avg_emotions['Average Score'],
+        labels= None,
+        autopct='%1.1f%%',
+        startangle=140,
+        colors=colors
+        )
+
+plt.legend(imdb_avg_emotions['Emotion'],
+           loc='upper left',
+           title='Emotion',
+           bbox_to_anchor=(-0.1, 1.05))
+
+plt.title('Emotion Distribution of IMDb')
+plt.axis('equal')
+plt.savefig('emotion_scores_imdb.png',dpi=300, bbox_inches="tight")
+plt.show()
 
 def generate_emotion_pie_charts(ai_df, source_name='ai'):
     ai_df = ai_df.copy()
@@ -78,7 +104,7 @@ def generate_emotion_pie_charts(ai_df, source_name='ai'):
         question_short = f"q{question_label[-1]}"
         # save fig
         plt.savefig(f"emotion_scores_{source_name}_{question_short}.png", dpi=300, bbox_inches="tight")
-        plt.show()
+        # plt.show()
 
 # bar plot (neglect it)
 def plot_emotion_by_question(ai_df, question_label):
@@ -117,3 +143,4 @@ generate_emotion_pie_charts(ai_subtitle, source_name="subtitle")
 # For screenplays
 ai_screenplay = pd.read_csv('../emotions_output/average_emotion_scores_screenplays.csv')
 generate_emotion_pie_charts(ai_screenplay, source_name="screenplay")
+
