@@ -67,7 +67,7 @@ def generate_emotion_pie_charts(ai_df, source_name='ai'):
         fig.legend(legend_labels, loc='upper left', title='Emotion')
 
         # Add a main title
-        fig.suptitle(f"Emotion Distribution by AI Model ({question_label.capitalize()})", fontsize=16, y=0.9)
+        fig.suptitle(f"Emotion Distribution by AI Model ({question_label.capitalize()})", fontsize=16, y=0.95)
 
         # add source at the bottom (reivews generated based on subtitles or screenplays)
         fig.text(0.5, 0.01,
