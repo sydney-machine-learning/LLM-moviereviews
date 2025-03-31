@@ -10,7 +10,7 @@ import seaborn as sns
 files = {
     "ChatGPT": "../cosine_similarity_and_other_tests/cosine_similarity_results_chatgpt.csv",
     "Gemini": "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini.csv",
-    "Gemini (detailed prompt)" : "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv",
+    "Gemini (detailed)" : "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv",
     "DeepSeek": "../cosine_similarity_and_other_tests/cosine_similarity_results_deepseek.csv",
     "IMDB": "../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv",
 }
@@ -46,7 +46,7 @@ plt.figure(figsize=(12, 8))
 sns.boxplot(data=df_all, x="Source", y="MeanSimilarity", palette="Set2")
 plt.title("Comparison of Mean Similarity Across AI Models and IMDB")
 plt.ylabel("Mean Cosine Similarity")
-plt.xlabel("Review Source")
+plt.xlabel("\n\nAI Models")
 #plt.xticks(rotation=10)
 # save fig
 plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
