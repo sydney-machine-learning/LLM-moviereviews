@@ -71,6 +71,7 @@ df_deepseek = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_deepseek.csv
 df_gemini = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_gemini.csv', 'Gemini')
 df_gemini_ctx = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_gemini_context_variation.csv', 'Gemini(detailed)')
 
+
 df_all = pd.concat([df_chatgpt, df_deepseek, df_gemini, df_gemini_ctx], ignore_index=True)
 
 # df_all.groupby("question")["review"].apply(lambda x: " ".join(x.tolist())[:500])
@@ -106,14 +107,16 @@ for sentiment in ['positive', 'neutral', 'negative']:
 
 # Output results
 df_result = pd.DataFrame(results)
-print(df_result)
+# print(df_result)
 
-# -----------Heat Mpap -----------
+# -----------Heat Map -----------
 # create a source_question column
 df_result["source_question"] = df_result["source"] + "_" + df_result["question"]
 
 # Pivot for heatmap
 heatmap_df = df_result.pivot(index="sentiment", columns="source_question", values="mean_cosine_similarity")
+# Reorder the index (rows)
+heatmap_df = heatmap_df.reindex(["negative", "positive", "neutral"])
 
 # Plot heatmap
 # Corrected version using set_xticklabels for the secondary axis
@@ -139,6 +142,3 @@ plt.tight_layout()
 plt.savefig("similarity_comparison_by questions(subtitles).png", dpi=300, bbox_inches="tight")
 plt.show()
 
-
-
-# -----------Grouped Bar Plot -----------
