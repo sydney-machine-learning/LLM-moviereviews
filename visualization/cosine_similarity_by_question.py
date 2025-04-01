@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # load IMDb file
@@ -32,8 +33,8 @@ df_imdb['source'] = 'IMDb'
 # print(df_imdb.columns) #['imdb_id', 'rating', 'review', 'sentiment', 'movie', 'source']
 
 # Group IMDb reviews by sentiment
-df_imdb_grouped = df_imdb.groupby(["sentiment"])["review"].apply(lambda x: " ".join(map(str, x))).reset_index()
-# print(df_imdb_grouped.head())
+# df_imdb_grouped = df_imdb.groupby(["sentiment"])["review"].apply(lambda x: " ".join(map(str, x))).reset_index()
+ # print(df_imdb_grouped.head())
 
 # flatten AI reviews
 # load ChatGPT ai reviews (generated based on subtitles)
@@ -72,46 +73,47 @@ df_gemini_ctx = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_gemini_con
 
 df_all = pd.concat([df_chatgpt, df_deepseek, df_gemini, df_gemini_ctx], ignore_index=True)
 
-df_ai_grouped = df_all.groupby(["source", "question"])["review"].apply(lambda x: " ".join(map(str, x))).reset_index()
+# df_all.groupby("question")["review"].apply(lambda x: " ".join(x.tolist())[:500])
+
+# df_ai_grouped = df_all.groupby(["source", "question"])["review"].apply(lambda x: " ".join(map(str, x))).reset_index()
 # print(df_ai_grouped.head())
 # print(df_ai_grouped.columns)  ['source', 'question', 'review']
 
-# Vectorize Text (TF-IDF)
-# use TfidfVectorizer to convert all reviews into numerical vectors:
-vectorizer = TfidfVectorizer()
-# combine text just for vectorizer fitting
-combined_text = df_imdb_grouped["review"].tolist() + df_ai_grouped["review"].tolist()
-tfidf_matrix = vectorizer.fit_transform(combined_text)
-
-# split back into two matrices
-n_imdb = df_imdb_grouped.shape[0]
-tfidf_imdb = tfidf_matrix[:n_imdb]
-tfidf_ai = tfidf_matrix[n_imdb:]
-
-# calculate cosine similarity (IMDb vs AI)
-cosine_sim = cosine_similarity(tfidf_imdb, tfidf_ai)
-
+# --- Compute cosine similarity ---
 results = []
-for i, imdb_row in df_imdb_grouped.iterrows():
-    for j, ai_row in df_ai_grouped.iterrows():
-        results.append({
-            "source": ai_row["source"],
-            "sentiment": imdb_row["sentiment"],
-            "question": ai_row["question"],
-            "cosine_similarity": cosine_sim[i, j]
-        })
+for sentiment in ['positive', 'neutral', 'negative']:
+    imdb_reviews = df_imdb[df_imdb['sentiment'] == sentiment]['review'].dropna().tolist()
 
+    vectorizer = TfidfVectorizer()
+    imdb_vectors = vectorizer.fit_transform(imdb_reviews)
+
+    for source in df_all['source'].unique():
+        for question in ['question1', 'question2', 'question3']:
+            ai_reviews = df_all[(df_all['source'] == source) & (df_all['question'] == question)]['review'].dropna().tolist()
+            if not ai_reviews:
+                continue
+            ai_vectors = vectorizer.transform(ai_reviews)
+
+            sim_matrix = cosine_similarity(imdb_vectors, ai_vectors)
+            mean_sim = sim_matrix.mean()
+
+            results.append({
+                'source': source,
+                'sentiment': sentiment,
+                'question': question,
+                'mean_cosine_similarity': round(mean_sim, 4)
+            })
+
+# Output results
 df_result = pd.DataFrame(results)
-
-# print(df_result)
-# print(df_result.shape)
+print(df_result)
 
 # -----------Heat Mpap -----------
 # create a source_question column
 df_result["source_question"] = df_result["source"] + "_" + df_result["question"]
 
 # Pivot for heatmap
-heatmap_df = df_result.pivot(index="sentiment", columns="source_question", values="cosine_similarity")
+heatmap_df = df_result.pivot(index="sentiment", columns="source_question", values="mean_cosine_similarity")
 
 # Plot heatmap
 # Corrected version using set_xticklabels for the secondary axis
