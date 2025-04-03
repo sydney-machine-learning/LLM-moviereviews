@@ -35,7 +35,7 @@ sns.barplot(data=merged_df, x="movie", y="MeanSimilarity", hue="AI Model",  pale
 # Labels and title
 plt.xlabel("Movie")
 plt.ylabel("Mean Cosine Similarity")
-plt.title("Cosine Similarity Between IMDb and AI Reviews (By Movie)")
+# plt.title("Cosine Similarity Between IMDb and AI Reviews (By Movie)")
 plt.xticks(rotation=45,ha='right')
 plt.legend(title="AI Model",loc='upper left', fontsize=8)
 
