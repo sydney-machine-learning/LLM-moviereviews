@@ -9,11 +9,12 @@ import seaborn as sns
 # Load the cosine similarity data
 files = {
     "ChatGPT": "../cosine_similarity_and_other_tests/cosine_similarity_results_chatgpt.csv",
+    "DeepSeek": "../cosine_similarity_and_other_tests/cosine_similarity_results_deepseek.csv",
     "Gemini": "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini.csv",
     "Gemini (detailed)" : "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv",
-    "DeepSeek": "../cosine_similarity_and_other_tests/cosine_similarity_results_deepseek.csv",
     "IMDB": "../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv",
 }
+
 
 # Read all files into a dictionary of DataFrames
 dfs = {name: pd.read_csv(file) for name, file in files.items()}
@@ -44,13 +45,49 @@ df_all = pd.concat(dfs.values(), ignore_index=True)
 
 plt.figure(figsize=(12, 8))
 sns.boxplot(data=df_all, x="Source", y="MeanSimilarity", palette="Set2")
-# plt.title("Comparison of Mean Similarity Across AI Models and IMDB")
+plt.title("Cosine Similarity Distribution by screenplays")
 plt.ylabel("Mean Cosine Similarity")
 plt.xlabel("\n\nAI Models")
 #plt.xticks(rotation=10)
 # save fig
 plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
 plt.show()
+
+# Load the cosine similarity by screnplays data
+ai_df = pd.read_csv("../cosine_similarity_and_other_tests/cosine_similarity_results_screenplays_by_movie.csv")
+imdb_df = pd.read_csv("../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv")
+
+ai_df["File"] = ai_df["File"].replace({
+    "aireviews_chatgpt_screenplays.csv": "ChatGPT",
+    "aireviews_deepseek_screenplays.csv": "DeepSeek",
+    "aireviews_gemini_screenplays.csv": "Gemini",
+    "aireviews_gemini_screenplays_context_variation.csv": "Gemini (detailed)"
+})
+ai_df.rename(columns={"File": "Source"}, inplace=True)
+
+imdb_df["Source"] = "IMDb"
+imdb_df.rename(columns={"MeanWithinSimilarity": "MeanSimilarity"}, inplace=True)
+
+combined_df = pd.concat([
+    ai_df[["MeanSimilarity", "Source"]],
+    imdb_df[["MeanSimilarity", "Source"]]
+], ignore_index=True)
+
+# Plot
+plt.figure(figsize=(12, 8))
+sns.boxplot(data=combined_df, x="Source", y="MeanSimilarity", palette="Set2")
+
+# Customize
+plt.title("Cosine Similarity Distribution by screenplays")
+plt.ylabel("Mean Cosine Similarity")
+# plt.xlabel("")
+plt.xlabel("\n\nAI Models")
+
+# Save and show
+plt.tight_layout()
+# plt.savefig("boxplot_cosine_similarity_by_source.png", dpi=300)
+plt.show()
+
 
 # Cosine Similarity is a robust and effective measure for assessing text similarity. (https://www.irjmets.com/uploadedfiles/paper//issue_4_april_2024/52264/final/fin_irjmets1712589489.pdf)
 # When using cosine similarity to compare reviews, we are looking at how similar the reviews are in terms of their
