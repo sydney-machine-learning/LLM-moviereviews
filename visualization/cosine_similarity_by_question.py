@@ -112,7 +112,7 @@ def compute_similarity(df_ai, df_imdb):
 
 
 # -----------Heat Map -----------
-def plot_similarity_heatmap(df_result, title):
+def plot_similarity_heatmap(df_result, title, filename):
     # create a source_question column
     df_result["source_question"] = df_result["source"] + "_" + df_result["question"]
     # Pivot for heatmap
@@ -140,13 +140,15 @@ def plot_similarity_heatmap(df_result, title):
     plt.ylabel("IMDb Sentiment")
     plt.xlabel("\n\nAI Models and Questions")
     plt.tight_layout()
-    plt.savefig("similarity_comparison_by questions(subtitles).png", dpi=300, bbox_inches="tight")
+    plt.savefig(filename, dpi=300, bbox_inches="tight")
     plt.show()
 
 df_result_subtitles = compute_similarity(df_all, df_imdb)
 df_result_screenplays = compute_similarity(df_all_1, df_imdb)
 
-plot_similarity_heatmap(df_result_subtitles, "Cosine Similarity Heatmap (Subtitles)")
-plot_similarity_heatmap(df_result_screenplays, "Cosine Similarity Heatmap (Screenplays)")
+plot_similarity_heatmap(df_result_subtitles, "Cosine Similarity Heatmap (Subtitles)",
+                        "similarity_comparison_by_questions_subtitles.png")
+plot_similarity_heatmap(df_result_screenplays, "Cosine Similarity Heatmap (Screenplays)",
+                        "similarity_comparison_by_questions_screenplays.png")
 
 
