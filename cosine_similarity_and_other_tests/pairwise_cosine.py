@@ -39,7 +39,7 @@ def aggregate_similarities(similarities):
 
 def main():
     
-    imdb_path = 'download/all_imdb_reviews.csv'
+    imdb_path = '../download/all_imdb_reviews.csv'
     ''' 
     ai_path = 'reviews_ai/aireviews_gemini_more_detailed_context.csv'
     
@@ -91,8 +91,8 @@ def main():
     '''
     # Process reviews in screenplays and subtitles folders separately
     folders = [
-        ('reviews_ai/screenplays', 'cosine_similarity_and_other_tests/cosine_similarity_results_screenplays'),
-        ('reviews_ai/subtitles', 'cosine_similarity_and_other_tests/cosine_similarity_results_subtitles')
+        ('../reviews_ai/screenplays', 'cosine_similarity_and_other_tests/cosine_similarity_results_screenplays'),
+        ('../reviews_ai/subtitles', 'cosine_similarity_and_other_tests/cosine_similarity_results_subtitles')
     ]
 
     for folder_path, output_file_prefix in folders:

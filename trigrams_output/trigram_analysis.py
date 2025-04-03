@@ -37,8 +37,8 @@ def trigram_analysis(reviews):
     return trigram_counts.most_common(3)
 
 def process_reviews(df, ai_client):
-    print("Processing reviews for AI client:", ai_client)
-    print("DataFrame head:", df.head())
+    # print("Processing reviews for AI client:", ai_client)
+    # print("DataFrame head:", df.head())
     results = {}
     for _, row in df.iterrows():
         movie = row['movie']
@@ -60,7 +60,7 @@ def results_to_dataframe(results):
 
 def generate_trigrams_for_all_movies(df, movie_info_df):
     results = {}
-    for movie_id in df['MovieID'].unique():
+    for movie_id in df['MdovieID'].unique():
         movie_reviews = df[df['MovieID'] == movie_id]['Review'].tolist()
         trigrams = trigram_analysis(movie_reviews)
         movie_title = movie_info_df[movie_info_df['imdb_id'] == movie_id]['movie'].values[0]
@@ -78,9 +78,7 @@ def trigrams_to_dataframe(results):
     return pd.DataFrame(data, columns=['MovieID', 'Title', 'Trigram', 'Count'])
 
 
-
 # Code to generate trigrams for "The Shawshank Redemption" from IMDb reviews with a 10 rating
-
 
   
 #shawshank_imdb_id = selected_movie_info_df[selected_movie_info_df['movie'] == 'The Shawshank Redemption']['imdb_id'].values[0]
@@ -135,3 +133,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
