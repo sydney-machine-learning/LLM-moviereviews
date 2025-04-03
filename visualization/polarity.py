@@ -63,99 +63,109 @@ melted_neutral_reviews = pd.melt(combined_neutral_reviews, id_vars=['Movie', 'So
                                  value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
                                  var_name='Polarity Type', value_name='Polarity Score')
 
-### Box Plot
-
-# Create a boxplot to compare IMDb and AI models (Question 2)
-plt.figure(figsize=(12, 6))
-sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
-
-# Add titles and labels
-plt.title("Comparison of Polarity Scores for IMDb (Rating > 7) vs AI (Question 2)", fontsize=14)
-plt.xlabel("Source (IMDb vs AI)", fontsize=12)
-plt.ylabel("Polarity Score", fontsize=12)
-plt.xticks(rotation=45)
-
-# Display the plot
-plt.tight_layout()
-plt.show()
-
-# Create a boxplot for bad reviews (Q1 vs IMDb Below 6)
-plt.figure(figsize=(12, 6))
-sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_bad_reviews, palette='Set2')
-
-# Add titles and labels for bad reviews plot
-plt.title("Comparison of Polarity Scores for AI (Question 1) vs IMDb (Rating < 6)", fontsize=14)
-plt.xlabel("Source (IMDb Below 6 vs AI - Q1)", fontsize=12)
-plt.ylabel("Polarity Score", fontsize=12)
-plt.xticks(rotation=45)
-
-# Display the plot
-plt.tight_layout()
-plt.show()
-
-# Create a boxplot for neutral reviews (Q3 vs IMDb Between 6 and 7)
-plt.figure(figsize=(12, 6))
-sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_neutral_reviews, palette='Set2')
-
-# Add titles and labels for neutral reviews plot
-plt.title("Comparison of Polarity Scores for AI (Question 3) vs IMDb (Rating 6-7)", fontsize=14)
-plt.xlabel("Source (IMDb 6-7 vs AI - Q3)", fontsize=12)
-plt.ylabel("Polarity Score", fontsize=12)
-plt.xticks(rotation=45)
-
-# Display the plot
-plt.tight_layout()
-plt.show()
+# Melt the data for neutral reviews (Q3 vs IMDb Between 6 and 7)
+melted_good_reviews = pd.melt(combined_data, id_vars=['Movie', 'Source'],
+                                 value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
+                                 var_name='Polarity Type', value_name='Polarity Score')
 
 ### Bar Plot
 # Create a bar plot for the melted data (Good Reviews)
-plt.figure(figsize=(12, 6))
-sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+# plt.figure(figsize=(12, 6))
+# sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+#
+# # Add titles and labels
+# plt.title("Comparison of Polarity Scores for IMDb vs AI (Good Reviews)", fontsize=14)
+# plt.xlabel("Source (IMDb vs AI)", fontsize=12)
+# plt.ylabel("Polarity Score", fontsize=12)
+# plt.xticks(rotation=45)
+#
+# # Display the plot
+# plt.tight_layout()
+# # save fig
+# plt.savefig("polarity_score_comparison(good).png", dpi=300, bbox_inches="tight")
+# plt.show()
+#
+# # Create a bar plot for the melted data (Bad Reviews)
+# plt.figure(figsize=(12, 6))
+# sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+#
+# # Add titles and labels
+# # Comparison of Polarity Scores for AI (Question 1) vs IMDb (Rating < 6)
+# plt.title("Comparison of Polarity Scores for AI vs IMDb (Bad Reviews)", fontsize=14)
+# plt.xlabel("Source (IMDb Below 6 vs AI - Q1)", fontsize=12)
+# plt.ylabel("Polarity Score", fontsize=12)
+# plt.xticks(rotation=45)
+#
+# # Display the plot
+# plt.tight_layout()
+# # save fig
+# plt.savefig("polarity_score_comparison(bad).png", dpi=300, bbox_inches="tight")
+# plt.show()
+#
+# # Create a bar plot for the melted data (Neutral Reviews)
+# plt.figure(figsize=(12, 6))
+# sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+#
+# # Add titles and labels
+# # Comparison of Polarity Scores for AI (Question 3) vs IMDb (Rating 6-7)
+# plt.title("Comparison of Polarity Scores for AI vs IMDb (Neutral Reviews)", fontsize=14)
+# plt.xlabel("Source (IMDb 6-7 vs AI - Q3)", fontsize=12)
+# plt.ylabel("Polarity Score", fontsize=12)
+# plt.xticks(rotation=45)
+#
+# # Display the plot
+# plt.tight_layout()
+# # save fig
+# plt.savefig("polarity_score_comparison(neutral).png", dpi=300, bbox_inches="tight")
+# plt.show()
 
-# Add titles and labels
-plt.title("Comparison of Polarity Scores for IMDb vs AI (Good Reviews)", fontsize=14)
-plt.xlabel("Source (IMDb vs AI)", fontsize=12)
-plt.ylabel("Polarity Score", fontsize=12)
-plt.xticks(rotation=45)
+fig, axes = plt.subplots(3, 1, figsize=(12,9.5), sharey=True)
+sns.set(style="whitegrid")
+palette = sns.color_palette("Set2", 3)
 
-# Display the plot
-plt.tight_layout()
-# save fig
-plt.savefig("polarity_score_comparison(good).png", dpi=300, bbox_inches="tight")
-plt.show()
+# Plot bad reviews
+sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
+            data=melted_bad_reviews, ax=axes[0], palette=palette, errorbar = None)
+axes[0].set_title("IMDb < 6 vs AI (Q1 - Bad Reviews)")
+# axes[0].set_xlabel("Source")
+axes[0].set_xlabel("")
+axes[0].set_ylabel("Polarity Score")
+axes[0].tick_params(axis='x')
+axes[0].get_legend().remove()
 
-# Create a bar plot for the melted data (Bad Reviews)
-plt.figure(figsize=(12, 6))
-sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+# Plot good reviews
+sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
+            data=melted_good_reviews, ax=axes[1], palette=palette, errorbar = None)
+axes[1].set_title("IMDb > 7 vs AI (Q2 - Good Reviews)")
+# axes[1].set_xlabel("Source")
+axes[1].set_xlabel("")
+axes[1].tick_params(axis='x')
+axes[1].get_legend().remove()
 
-# Add titles and labels
-# Comparison of Polarity Scores for AI (Question 1) vs IMDb (Rating < 6)
-plt.title("Comparison of Polarity Scores for AI vs IMDb (Bad Reviews)", fontsize=14)
-plt.xlabel("Source (IMDb Below 6 vs AI - Q1)", fontsize=12)
-plt.ylabel("Polarity Score", fontsize=12)
-plt.xticks(rotation=45)
+# Plot neutral reviews
+sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
+            data=melted_neutral_reviews, ax=axes[2], palette=palette,
+            errorbar = None)
+axes[2].set_title("IMDb 6–7 vs AI (Q3 - Neutral Reviews)")
+# axes[2].set_xlabel("Source")
+axes[2].set_xlabel("")
+axes[2].tick_params(axis='x')
+axes[2].get_legend().remove()
 
-# Display the plot
-plt.tight_layout()
-# save fig
-plt.savefig("polarity_score_comparison(bad).png", dpi=300, bbox_inches="tight")
-plt.show()
+# Shared legend
+handles, labels = axes[0].get_legend_handles_labels()
+fig.legend(handles, labels, loc='upper center', ncol=3,
+           fontsize=10, title="Polarity Type", title_fontsize=11)
 
-# Create a bar plot for the melted data (Neutral Reviews)
-plt.figure(figsize=(12, 6))
-sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
+# Add bottom label for the whole figure
+# fig.text(0.5, 0.04, 'Source', ha='center', fontsize=12)
 
-# Add titles and labels
-# Comparison of Polarity Scores for AI (Question 3) vs IMDb (Rating 6-7)
-plt.title("Comparison of Polarity Scores for AI vs IMDb (Neutral Reviews)", fontsize=14)
-plt.xlabel("Source (IMDb 6-7 vs AI - Q3)", fontsize=12)
-plt.ylabel("Polarity Score", fontsize=12)
-plt.xticks(rotation=45)
+# layout adjustment
+fig.subplots_adjust(hspace=1)
+plt.tight_layout(rect=(0, 0, 1, 0.96))
 
-# Display the plot
-plt.tight_layout()
-# save fig
-plt.savefig("polarity_score_comparison(neutral).png", dpi=300, bbox_inches="tight")
+
+plt.savefig("combined_polarity_score_comparison.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # neglect Box Plot for now
