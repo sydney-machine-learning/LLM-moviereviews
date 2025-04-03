@@ -136,7 +136,7 @@ def plot_similarity_heatmap(df_result, title):
     ax2.set_xticklabels(["ChatGPT", "DeepSeek", "Gemini(detailed)", "Gemini"])
     ax2.tick_params(axis='x', labelsize=10, pad=25)
 
-    plt.title("Cosine Similarity Heatmap: IMDb Sentiment vs AI Model by Questions")
+    # plt.title("Cosine Similarity Heatmap: IMDb Sentiment vs AI Model by Questions")
     plt.ylabel("IMDb Sentiment")
     plt.xlabel("\n\nAI Models and Questions")
     plt.tight_layout()
