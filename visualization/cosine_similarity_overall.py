@@ -44,7 +44,7 @@ df_all = pd.concat(dfs.values(), ignore_index=True)
 
 plt.figure(figsize=(12, 8))
 sns.boxplot(data=df_all, x="Source", y="MeanSimilarity", palette="Set2")
-plt.title("Comparison of Mean Similarity Across AI Models and IMDB")
+# plt.title("Comparison of Mean Similarity Across AI Models and IMDB")
 plt.ylabel("Mean Cosine Similarity")
 plt.xlabel("\n\nAI Models")
 #plt.xticks(rotation=10)
