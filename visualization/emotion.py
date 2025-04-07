@@ -1,6 +1,18 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import f_oneway
+
+# Load AI data
+ai_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
+ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
+
+ai_df["AI Model"] = ai_df["AI Model"].replace({
+    "aireviews_chatgpt.csv": "ChatGPT",
+    "aireviews_deepseek.csv": "DeepSeek",
+    "aireviews_gemini.csv": "Gemini",
+    "aireviews_gemini_context_variation.csv": "Gemini (detailed)"
+})
 
 # Load IMDb average emotion scores
 imdb_df = pd.read_csv('../emotions_output/average_emotion_scores_imdb.csv')
@@ -107,34 +119,42 @@ def generate_emotion_pie_charts(ai_df, source_name='ai'):
         plt.savefig(f"emotion_scores_{source_name}_{question_short}.png", dpi=300, bbox_inches="tight")
         # plt.show()
 
-# bar plot (neglect it)
-def plot_emotion_by_question(ai_df, question_label):
-    question_df = ai_df[ai_df['Question'] == question_label]
+# bar plot by question
+def plot_emotion_by_question_subplots(ai_df):
+    question_labels = ['question1', 'question2', 'question3']
 
-    # Melt emotion columns
-    melted = question_df.melt(
-        id_vars=['AI Model'],
-        value_vars=['surprise', 'anger', 'neutral', 'disgust', 'sadness', 'fear', 'joy'],
-        var_name='Emotion',
-        value_name='Score'
-    )
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-    # Compute average emotion score per model
-    avg_scores = melted.groupby(['AI Model', 'Emotion'])['Score'].mean().reset_index()
+    for idx, question_label in enumerate(question_labels):
+        question_df = ai_df[ai_df['Question'] == question_label]
+        # melt emotion columns
+        melted = question_df.melt(
+            id_vars=['AI Model'],
+            value_vars=['surprise', 'anger', 'neutral', 'disgust', 'sadness', 'fear', 'joy'],
+            var_name='Emotion',
+            value_name='Score'
+        )
 
-    # Plot
-    plt.figure(figsize=(12, 8))
-    sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2")
-    plt.title(f'Emotion Scores for {question_label.capitalize()} by AI Model')
-    plt.xticks(rotation=30)
+        # calculate average emotion score per model
+        avg_scores = melted.groupby(['AI Model', 'Emotion'])['Score'].mean().reset_index()
+
+        # plot the barplot for each question in its respective subplot
+        sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2",ax=axes[idx])
+        # delete subplot legend
+        axes[idx].set_title(f'{question_label.capitalize()}')
+        # axes[idx].set_title(f'Emotion Scores for {question_label.capitalize()} by AI Model')
+        axes[idx].tick_params(axis='x')
+        axes[idx].legend().set_visible(False)
+        axes[idx].set_xlabel('')
+
     plt.tight_layout()
-    # save fig
-    plt.savefig(f"emotion_scores_{question_label}.png", dpi=300, bbox_inches="tight")
+    # add shared legend
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc='center', ncol=4, bbox_to_anchor=(0.5, 0.01))
+    plt.savefig('emotion_scores_by_questions.png',dpi=300, bbox_inches="tight")
     plt.show()
 
-# plot_emotion_by_question(ai_df, 'question1')
-# plot_emotion_by_question(ai_df, 'question2')
-# plot_emotion_by_question(ai_df, 'question3')
+plot_emotion_by_question_subplots(ai_df)
 
 
 # For subtitles
@@ -187,6 +207,11 @@ imdb_avg_emotions_df = imdb_avg_emotions.set_index('Emotion').T
 imdb_avg_emotions_df.index = ['IMDb']
 imdb_avg_emotions_df.columns.name = None
 
+# change column order:
+change_column = avg_emotions_df.columns
+imdb_avg_emotions_df = imdb_avg_emotions_df.reindex(columns=change_column)
+# print(imdb_avg_emotions_df)
+
 combined_df = avg_emotions_df.copy()
 combined_df.loc['IMDb'] = imdb_avg_emotions_df.values[0]
 combined_df = combined_df.round(3)
@@ -203,3 +228,26 @@ plt.axis('off')
 # plt.title('Combined Emotion Scores Table (AI Models + IMDb as 6th row)')
 plt.savefig('emotion_scores_table.png',dpi=300, bbox_inches="tight")
 plt.show()
+
+
+
+
+
+
+# quantitative analysis
+# perform one-way ANOVA for each model, to test if there are any significant differences
+# in the emotion scores between the AI models and IMDb for each emotion
+
+# store ANOVA test results
+anova_results = {}
+unrounded_combined_df = avg_emotions_df.copy()
+unrounded_combined_df.loc['IMDb'] = imdb_avg_emotions_df.values[0]
+for emotion in unrounded_combined_df.columns:
+    models_data = [unrounded_combined_df[emotion].values for model in unrounded_combined_df.index]
+    # perform ANOVA
+    f_stat, p_value = f_oneway(*models_data)
+    anova_results[emotion] = {'F-statistic': f_stat, 'p-value': p_value}
+
+
+anova_df = pd.DataFrame(anova_results).T
+print(anova_df)
