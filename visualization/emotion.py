@@ -13,6 +13,8 @@ ai_df["AI Model"] = ai_df["AI Model"].replace({
     "aireviews_gemini.csv": "Gemini",
     "aireviews_gemini_context_variation.csv": "Gemini (detailed)"
 })
+ai_df = ai_df.fillna(0)
+
 
 # Load IMDb average emotion scores
 imdb_df = pd.read_csv('../emotions_output/average_emotion_scores_imdb.csv')
@@ -156,6 +158,58 @@ def plot_emotion_by_question_subplots(ai_df):
 
 plot_emotion_by_question_subplots(ai_df)
 
+# bar plot for average emotion scores of each movie
+emotions = ai_df.columns[3:]
+ai_models = ai_df['AI Model'].unique()
+movies = ai_df['Movie'].unique()
+
+# store the results
+average_emotions_list = []
+
+for ai_model in ai_models:
+    for movie in movies:
+        # filter each movie and ai model
+        filtered_df = ai_df[(ai_df['Movie'] == movie) & (ai_df['AI Model'] == ai_model)]
+
+        # compute average emotion scores
+        average_emotion_df = filtered_df[emotions].mean().to_frame().T
+
+        average_emotion_df['AI Model'] = ai_model
+        average_emotion_df['Movie'] = movie
+
+        average_emotions_list.append(average_emotion_df)
+
+# dataframe
+average_emotions_df = pd.concat(average_emotions_list)
+average_emotions_df.reset_index(drop=True, inplace=True)
+
+# print(average_emotions_df)
+# re order the columns
+new_order = ['AI Model', 'Movie'] + list(emotions)
+average_emotions_df = average_emotions_df[new_order]
+print(average_emotions_df)
+
+# melt the dataframe, from wide format to long format
+melted_df = average_emotions_df.melt(id_vars=['AI Model', 'Movie'],
+                       value_vars=emotions,
+                       var_name='Emotion',
+                       value_name='Score')
+
+plt.figure(figsize=(12, 8))
+sns.barplot(data=melted_df, x='Emotion', y='Score', hue='Movie',
+            palette="Set2", errorbar=None)
+
+# title and labels
+# plt.title('Average Emotion Scores by Movie', fontsize=16)
+plt.xlabel('Emotion', fontsize=12)
+plt.ylabel('Average Score', fontsize=12)
+
+plt.legend(loc='upper left')
+# show the plot
+plt.savefig('emotion_scores_by_moive.png',dpi=300, bbox_inches="tight")
+plt.tight_layout()
+plt.show()
+
 
 # For subtitles
 # ai_subtitle = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
@@ -166,6 +220,7 @@ plot_emotion_by_question_subplots(ai_df)
 # generate_emotion_pie_charts(ai_screenplay, source_name="screenplay")
 
 # pie chart for AI models average emotion scores
+
 ai_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
 colors = sns.color_palette("Set2", n_colors=7)
 models = ['chatgpt', 'deepseek', 'gemini', 'gemini_context']
@@ -215,7 +270,7 @@ imdb_avg_emotions_df = imdb_avg_emotions_df.reindex(columns=change_column)
 combined_df = avg_emotions_df.copy()
 combined_df.loc['IMDb'] = imdb_avg_emotions_df.values[0]
 combined_df = combined_df.round(3)
-print(combined_df)
+# print(combined_df)
 
 plt.figure(figsize=(12, 6))
 plt.table(cellText=combined_df.values,
@@ -228,9 +283,6 @@ plt.axis('off')
 # plt.title('Combined Emotion Scores Table (AI Models + IMDb as 6th row)')
 plt.savefig('emotion_scores_table.png',dpi=300, bbox_inches="tight")
 plt.show()
-
-
-
 
 
 
@@ -248,6 +300,5 @@ for emotion in unrounded_combined_df.columns:
     f_stat, p_value = f_oneway(*models_data)
     anova_results[emotion] = {'F-statistic': f_stat, 'p-value': p_value}
 
-
 anova_df = pd.DataFrame(anova_results).T
-print(anova_df)
+# print(anova_df)
