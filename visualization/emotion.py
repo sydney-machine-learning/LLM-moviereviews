@@ -158,7 +158,7 @@ def plot_emotion_by_question_subplots(ai_df):
 
 plot_emotion_by_question_subplots(ai_df)
 
-# bar plot for average emotion scores of each movie
+# bar plot for average emotion scores of each movie (ai models)
 emotions = ai_df.columns[3:]
 ai_models = ai_df['AI Model'].unique()
 movies = ai_df['Movie'].unique()
@@ -184,10 +184,10 @@ average_emotions_df = pd.concat(average_emotions_list)
 average_emotions_df.reset_index(drop=True, inplace=True)
 
 # print(average_emotions_df)
-# re order the columns
+# re-order the columns
 new_order = ['AI Model', 'Movie'] + list(emotions)
 average_emotions_df = average_emotions_df[new_order]
-print(average_emotions_df)
+# print(average_emotions_df)
 
 # melt the dataframe, from wide format to long format
 melted_df = average_emotions_df.melt(id_vars=['AI Model', 'Movie'],
@@ -195,18 +195,52 @@ melted_df = average_emotions_df.melt(id_vars=['AI Model', 'Movie'],
                        var_name='Emotion',
                        value_name='Score')
 
-plt.figure(figsize=(12, 8))
+# figure for subplot (2 rows, 1 column)
+fig, axes = plt.subplots(2, 1, figsize=(12, 12))
+
+# subplot 1
+
 sns.barplot(data=melted_df, x='Emotion', y='Score', hue='Movie',
-            palette="Set2", errorbar=None)
+            palette="Set2", errorbar=None, ax=axes[0],
+            order = list(emotions))
 
 # title and labels
 # plt.title('Average Emotion Scores by Movie', fontsize=16)
-plt.xlabel('Emotion', fontsize=12)
-plt.ylabel('Average Score', fontsize=12)
+axes[0].set_xlabel('')
+axes[0].set_ylabel('Average Score', fontsize=12)
+axes[0].set_title('AI Models', fontsize=12.5)
+axes[0].legend().set_visible(False)
 
-plt.legend(loc='upper left')
 # show the plot
-plt.savefig('emotion_scores_by_moive.png',dpi=300, bbox_inches="tight")
+# plt.savefig('emotion_scores_by_moive.png',dpi=300, bbox_inches="tight")
+# plt.tight_layout()
+# plt.show()
+
+# print(imdb_melted)
+# bar plot for average emotion scores of each movie (imdb)
+
+# plt.figure(figsize=(12, 8))
+# subplot 2
+sns.barplot(data=imdb_melted, x='Emotion', y='Score', hue='Movie',
+            palette="Set2", errorbar=None, ax=axes[1],
+            order = list(emotions))
+
+# title and labels
+# plt.title('Average Emotion Scores by Movie', fontsize=16)
+axes[1].set_xlabel('Emotion', fontsize=12)
+axes[1].set_ylabel('Average Score', fontsize=12)
+axes[1].set_title('IMDb', fontsize=12.5)
+axes[1].legend().set_visible(False)
+
+# display shared legend
+handles, labels = axes[1].get_legend_handles_labels()
+fig.legend(handles, labels, loc='upper left',
+           bbox_to_anchor=(0.07, 0.97),
+           ncol=1)
+
+# show the plot
+# plt.savefig('emotion_scores_by_moive.png',dpi=300, bbox_inches="tight")
+plt.savefig('emotion_scores_by_moive(ai+imdb).png',dpi=300, bbox_inches="tight")
 plt.tight_layout()
 plt.show()
 
