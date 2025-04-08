@@ -124,8 +124,9 @@ sns.set(style="whitegrid")
 palette = sns.color_palette("Set2", 3)
 
 # Plot bad reviews
-sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
-            data=melted_bad_reviews, ax=axes[0], palette=palette, errorbar = None)
+sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type',
+            data=melted_bad_reviews, ax=axes[0], palette=palette,
+            showfliers=False) # no outliers
 axes[0].set_title("IMDb < 6 vs AI (Q1 - Bad Reviews)")
 # axes[0].set_xlabel("Source")
 axes[0].set_xlabel("")
@@ -134,8 +135,9 @@ axes[0].tick_params(axis='x')
 axes[0].get_legend().remove()
 
 # Plot good reviews
-sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
-            data=melted_good_reviews, ax=axes[1], palette=palette, errorbar = None)
+sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type',
+            data=melted_good_reviews, ax=axes[1], palette=palette,
+            showfliers=False)
 axes[1].set_title("IMDb > 7 vs AI (Q2 - Good Reviews)")
 # axes[1].set_xlabel("Source")
 axes[1].set_xlabel("")
@@ -143,9 +145,9 @@ axes[1].tick_params(axis='x')
 axes[1].get_legend().remove()
 
 # Plot neutral reviews
-sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
+sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type',
             data=melted_neutral_reviews, ax=axes[2], palette=palette,
-            errorbar = None)
+            showfliers=False)
 axes[2].set_title("IMDb 6–7 vs AI (Q3 - Neutral Reviews)")
 # axes[2].set_xlabel("Source")
 axes[2].set_xlabel("")
@@ -154,8 +156,8 @@ axes[2].get_legend().remove()
 
 # Shared legend
 handles, labels = axes[0].get_legend_handles_labels()
-fig.legend(handles, labels, loc='upper center', ncol=3,
-           fontsize=10, title="Polarity Type", title_fontsize=11)
+fig.legend(handles, labels, loc='upper left', ncol=1,
+           fontsize=10, title_fontsize=11)
 
 # Add bottom label for the whole figure
 # fig.text(0.5, 0.04, 'Source', ha='center', fontsize=12)
@@ -164,8 +166,7 @@ fig.legend(handles, labels, loc='upper center', ncol=3,
 fig.subplots_adjust(hspace=1)
 plt.tight_layout(rect=(0, 0, 1, 0.96))
 
-
-plt.savefig("combined_polarity_score_comparison.png", dpi=300, bbox_inches="tight")
+# plt.savefig("combined_polarity_score_comparison.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # neglect Box Plot for now
@@ -203,4 +204,71 @@ plt.show()
 # 3. Gemini is more balanced, which differs from other AI models and IMDb, indicating it might be designed to mimic human sentiment more closely.
 # 4. Gemini (detailed prompt) stands out, this suggests that adding more context leads to a more critical or neutral stance,
 # possibly because it considers a broader range of perspectives or prompt itself could have sentiment bias.
+
+
+# polarity scores by ai_models (x-axis represents 3 scores, legend represents ai models)
+def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
+    ai_df = ai_df.copy()
+    ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
+
+    # change column names
+    if source_name == 'Subtitle':
+        ai_df["AI Model"] = ai_df["AI Model"].replace({
+            "aireviews_chatgpt.csv": "ChatGPT",
+            "aireviews_deepseek.csv": "DeepSeek",
+            "aireviews_gemini.csv": "Gemini",
+            "aireviews_gemini_context_variation.csv": "Gemini_Context"
+        })
+    elif source_name == 'Screenplay':
+        ai_df["AI Model"] = ai_df["AI Model"].replace({
+            "aireviews_chatgpt_screenplays.csv": "ChatGPT",
+            "aireviews_deepseek_screenplays.csv": "DeepSeek",
+            "aireviews_gemini_screenplays.csv": "Gemini",
+            "aireviews_gemini_screenplays_context_variation.csv": "Gemini_Context"
+        })
+    # replace NA with 0
+    ai_df = ai_df.fillna(0)
+
+    # change wide-format to long-format
+    ai_melted = ai_df.melt(
+        id_vars=['AI Model', 'Movie'],
+        value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
+        var_name='Polarity',
+        value_name='Score'
+    )
+
+    # display boxplot
+    sns.boxplot(data=ai_melted, x='Polarity', y='Score', hue='AI Model', palette="Set2", showfliers=False, ax=ax)
+
+    # ddding title and labels
+    ax.set_title(f'{source_name}', fontsize=16)
+    ax.set_xlabel('Polarity', fontsize=12)
+    ax.set_ylabel('Score', fontsize=12)
+
+    ax.grid(False)
+
+    ax.get_legend().remove()
+    if ax == axes[0]:
+        ax.set_xlabel('')
+
+# load the subtitle and screenplay data
+subtitles_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_subtitles.csv')
+screenplays_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_screenplays.csv')
+
+# display subplot
+fig, axes = plt.subplots(2, 1, figsize=(16, 8))
+
+# subplot 1
+generate_polarity_box_plots(subtitles_df, source_name='Subtitle', ax=axes[0])
+
+# subplot
+generate_polarity_box_plots(screenplays_df, source_name='Screenplay', ax=axes[1])
+
+# add shared legend
+handles, labels = axes[1].get_legend_handles_labels()
+fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.13, 1.05), ncol=1)
+
+plt.savefig('polarity_scores(subtitles + screenplays).png',dpi=300, bbox_inches="tight")
+plt.tight_layout()
+plt.show()
 
