@@ -49,77 +49,72 @@ plt.axis('equal')
 # plt.savefig('emotion_scores_imdb.png',dpi=300, bbox_inches="tight")
 # plt.show()
 
-def generate_emotion_pie_charts(ai_df, source_name='ai'):
+
+# emotion scores by ai_models (x-axis represents 7 emotions, legend represents ai models)
+def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
     ai_df = ai_df.copy()
     ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
-    # mapping
-    if source_name == 'subtitle':
+
+    # change column names
+    if source_name == 'Subtitle':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt.csv": "ChatGPT",
             "aireviews_deepseek.csv": "DeepSeek",
             "aireviews_gemini.csv": "Gemini",
-            "aireviews_gemini_context_variation.csv": "Gemini (Context)"
+            "aireviews_gemini_context_variation.csv": "Gemini_Context"
         })
-    elif source_name == 'screenplay':
+    elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT",
             "aireviews_deepseek_screenplays.csv": "DeepSeek",
             "aireviews_gemini_screenplays.csv": "Gemini",
-            "aireviews_gemini_screenplays_context_variation.csv": "Gemini (Context)"
+            "aireviews_gemini_screenplays_context_variation.csv": "Gemini_Context"
         })
-
-    # some emotions are not detected, replace NA with 0
+    # replace NA with 0
     ai_df = ai_df.fillna(0)
-    # Loop over questions
-    for question_label in ['question1', 'question2', 'question3']:
-        # Filter for this question
-        ai_subset = ai_df[ai_df['Question'] == question_label]
 
-        # Melt the emotion columns
-        ai_sub_melted = ai_subset.melt(
-            id_vars=['AI Model', 'Movie'],
-            value_vars=['fear', 'joy', 'sadness', 'anger', 'disgust', 'neutral', 'surprise'],
-            var_name='Emotion',
-            value_name='Score'
-        )
-        # Calculate average score
-        avg_emotions_df = ai_sub_melted.groupby(['AI Model', 'Emotion'])['Score'].mean().reset_index()
-        avg_emotions_df.columns = ['AI Model', 'Emotion', 'Average Score']
-        models = avg_emotions_df['AI Model'].unique()
-        # Set up subplots (one per model)
-        fig, axes = plt.subplots(1, len(models), figsize=(6 * len(models), 6))
-        colors = sns.color_palette("Set2", n_colors=7)
-        legend_labels = None
-        for ax, model in zip(axes, models):
-            model_data = avg_emotions_df[avg_emotions_df['AI Model'] == model].set_index('Emotion')
-            ax.pie(model_data['Average Score'],
-                   # labels=model_data.index,
-                   labels = None,
-                   autopct='%1.1f%%',
-                   startangle=140,
-                   colors = colors,
-                   pctdistance=1.1,
-                   textprops={'fontsize': 8})
+    # change wide-format to long-format
+    ai_sub_melted = ai_df.melt(
+        id_vars=['AI Model', 'Movie'],
+        value_vars=['fear', 'joy', 'sadness', 'anger', 'disgust', 'neutral', 'surprise'],
+        var_name='Emotion',
+        value_name='Score'
+    )
 
-            ax.set_title(f"{model}")
-            if legend_labels is None:
-                legend_labels = model_data.index
+    # display boxplot
+    sns.boxplot(data=ai_sub_melted, x='Emotion', y='Score', hue='AI Model', palette="Set2", showfliers=False, ax=ax)
 
-        fig.legend(legend_labels, loc='upper left', title='Emotion')
+    # ddding title and labels
+    ax.set_title(f'{source_name}', fontsize=16)
+    ax.set_xlabel('Emotion', fontsize=12)
+    ax.set_ylabel('Score', fontsize=12)
 
-        # Add a main title
-        fig.suptitle(f"Emotion Distribution by AI Model ({question_label.capitalize()})", fontsize=16, y=0.95)
+    # ax.tick_params(axis='x', rotation=45)
+    ax.get_legend().remove()
+    if ax == axes[0]:
+        ax.set_xlabel('')
 
-        # add source at the bottom (reivews generated based on subtitles or screenplays)
-        fig.text(0.5, 0.01,
-                 f"Emotion analysis based on AI reviews generated from {source_name}",
-                 fontsize=10, ha='center')
+# load the subtitle and screenplay data
+subtitles_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
+screenplays_df = pd.read_csv('../emotions_output/average_emotion_scores_screenplays.csv')
 
-        plt.tight_layout()
-        question_short = f"q{question_label[-1]}"
-        # save fig
-        plt.savefig(f"emotion_scores_{source_name}_{question_short}.png", dpi=300, bbox_inches="tight")
-        # plt.show()
+# display subplot
+fig, axes = plt.subplots(2, 1, figsize=(16, 8))
+
+# subplot 1
+generate_emotion_box_plots(subtitles_df, source_name='Subtitle', ax=axes[0])
+
+# subplot
+generate_emotion_box_plots(screenplays_df, source_name='Screenplay', ax=axes[1])
+
+# add shared legend
+handles, labels = axes[1].get_legend_handles_labels()
+fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.13, 0.88), ncol=1)
+
+plt.savefig('emotion_scores(subtitles + screenplays).png',dpi=300, bbox_inches="tight")
+plt.tight_layout()
+plt.show()
+
 
 # bar plot by question
 def plot_emotion_by_question_subplots(ai_df):
@@ -235,7 +230,7 @@ axes[1].legend().set_visible(False)
 # display shared legend
 handles, labels = axes[1].get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper left',
-           bbox_to_anchor=(0.08, 0.95),
+           bbox_to_anchor=(0.12, 0.88),
            ncol=1)
 
 # show the plot
@@ -283,6 +278,8 @@ plt.tight_layout()
 fig.legend(legend_labels, loc='center', ncol=7, bbox_to_anchor=(0.5, 0.05))
 plt.savefig('emotion_scores_ai_models.png',dpi=300, bbox_inches="tight")
 plt.show()
+
+
 
 # table for average emotion scores (AI models and IMDb)
 model_avg_emotions = {}
