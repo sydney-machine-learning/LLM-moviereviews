@@ -116,14 +116,20 @@ plt.tight_layout()
 plt.show()
 
 
-# bar plot by question
 def plot_emotion_by_question_subplots(ai_df):
     question_labels = ['question1', 'question2', 'question3']
 
-    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+    # Create subplots with appropriate size
+    fig, axes = plt.subplots(3, 1, figsize=(18, 12))
 
     for idx, question_label in enumerate(question_labels):
+        # Filter the dataframe for the specific question
         question_df = ai_df[ai_df['Question'] == question_label]
+
+
+        print(f"Data for {question_label}:")
+        print(question_df.head())  # Ensure that there are valid rows for each question
+
         # melt emotion columns
         melted = question_df.melt(
             id_vars=['AI Model'],
@@ -132,23 +138,31 @@ def plot_emotion_by_question_subplots(ai_df):
             value_name='Score'
         )
 
-        # calculate average emotion score per model
+        melted['Score'] = pd.to_numeric(melted['Score'], errors='coerce')
+
+        # Calculate average emotion score per model
         avg_scores = melted.groupby(['AI Model', 'Emotion'])['Score'].mean().reset_index()
 
-        # plot the barplot for each question in its respective subplot
-        sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2",ax=axes[idx])
-        # delete subplot legend
+        print(f"Avg scores for {question_label}:")
+
+        # Plot the barplot
+        sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2", ax=axes[idx])
+
         axes[idx].set_title(f'{question_label.capitalize()}')
-        # axes[idx].set_title(f'Emotion Scores for {question_label.capitalize()} by AI Model')
+
+        # adjust plot aesthetics
         axes[idx].tick_params(axis='x')
         axes[idx].legend().set_visible(False)
         axes[idx].set_xlabel('')
 
-    plt.tight_layout()
+
     # add shared legend
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc='center', ncol=4, bbox_to_anchor=(0.5, 0.01))
+    fig.legend(handles, labels, loc='upper left', ncol=1, bbox_to_anchor=(0.13, 0.88))
+
     plt.savefig('emotion_scores_by_questions.png',dpi=300, bbox_inches="tight")
+    plt.tight_layout()
+    # Show the plot
     plt.show()
 
 plot_emotion_by_question_subplots(ai_df)
