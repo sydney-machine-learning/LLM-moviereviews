@@ -244,7 +244,7 @@ axes[1].legend().set_visible(False)
 # display shared legend
 handles, labels = axes[1].get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper left',
-           bbox_to_anchor=(0.12, 0.88),
+           bbox_to_anchor=(0.15, 0.88),
            ncol=1)
 
 # show the plot
