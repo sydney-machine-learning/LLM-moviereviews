@@ -2,174 +2,109 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Load the data
-ai_models = pd.read_csv('../polarity_scores_output/average_polarity_scores_subtitles.csv')
+
+# load the data
+subtitles_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_subtitles.csv')
+screenplays_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_screenplays.csv')
 imdb_above7 = pd.read_csv('../average_polarity_scores_imdb_above_7.csv')
 imdb_below6 = pd.read_csv('../average_polarity_scores_imdb_below_6.csv')
 imdb_6_and_7 = pd.read_csv('../average_polarity_scores_imdb_between_6_and_7.csv')
 
-ai_models['File'] = ai_models['File'].replace({
-    'aireviews_chatgpt.csv': 'chatgpt',
-    'aireviews_deepseek.csv': 'deepseek',
-    'aireviews_gemini.csv': 'gemini',
-    'aireviews_gemini_context_variation.csv' : 'gemini (detailed context)'
-})
+# replace file name with AI model name
+def replace_model_name(file_name):
+    # Check for 'gemini' with context variation first
+    if 'gemini_screenplays_context_variation' in file_name.lower() or 'gemini_context_variation' in file_name.lower():
+        return 'gemini (detailed context)'
+    elif 'gemini_screenplays' in file_name.lower():
+        return 'gemini'
+    elif 'chatgpt' in file_name.lower():
+        return 'chatgpt'
+    elif 'deepseek' in file_name.lower():
+        return 'deepseek'
+    elif 'gemini' in file_name.lower():
+        return 'gemini'
+    else:
+        return 'unknown'
 
-# Rename the 'File' column to 'Source'
-ai_models = ai_models.rename(columns={'File': 'Model'})
+def prepare_data(df,question=None):
+    # replace file name with AI model name
+    df['Source'] = df['File'].apply(replace_model_name)
+    print(df['Source'])
 
-# Filter out AI models for Question 2 (good reviews)
-ai_good_reviews = ai_models[ai_models['Question'] == 'question2'].copy()
-ai_good_reviews['Source'] = ai_good_reviews['Model']  # Label the AI source as per the model
+    # split to good, bad, neutral review based on question column
+    if question:
+        df = df[df['Question'] == question]
+    return df[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
 
-ai_bad_reviews = ai_models[ai_models['Question'] == 'question1'].copy()
-ai_neutral_reviews = ai_models[ai_models['Question'] == 'question3'].copy()
-
-ai_bad_reviews['Source'] = ai_bad_reviews['Model']  # Label the AI source for Q1 (bad reviews)
-ai_neutral_reviews['Source'] = ai_neutral_reviews['Model']  # Label the AI source for Q3 (neutral reviews)
-
-# Add the IMDb data to the plot with the 'Source' as 'IMDb'
+# label the IMDb data with rating
 imdb_above7['Source'] = 'IMDb'
 imdb_below6['Source'] = 'IMDb Below 6'
 imdb_6_and_7['Source'] = 'IMDb 6 and 7'
 
-# Select the relevant columns for polarity scores
-ai_good_reviews = ai_good_reviews[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
-imdb_above7 = imdb_above7[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
-ai_bad_reviews = ai_bad_reviews[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
-ai_neutral_reviews = ai_neutral_reviews[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
-imdb_below6 = imdb_below6[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
-imdb_6_and_7 = imdb_6_and_7[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
+# change wide-format to long format
+def melt_data(df):
+    return pd.melt(df, id_vars = ['Movie', 'Source'],
+                   value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
+                   var_name='Polarity Type', value_name='Polarity Score')
 
 
-# Combine IMDb and AI data into one dataset
-combined_data = pd.concat([ai_good_reviews, imdb_above7], ignore_index=True)
-combined_bad_reviews = pd.concat([ai_bad_reviews, imdb_below6], ignore_index=True)
-combined_neutral_reviews = pd.concat([ai_neutral_reviews, imdb_6_and_7], ignore_index=True)
+def generate_polarity_barplot(source_name):
+    if source_name == 'Subtitle':
+        df = subtitles_df
+    else:
+        df = screenplays_df
+
+    ai_good_reviews = prepare_data(df, 'question2')
+    ai_bad_reviews = prepare_data(df, 'question1')
+    ai_neutral_reviews = prepare_data(df, 'question3')
+
+    # conmine IMDb reviews and correspoding AI reviews
+    combined_data = pd.concat([ai_good_reviews, imdb_above7], ignore_index=True)
+    combined_bad_reviews = pd.concat([ai_bad_reviews, imdb_below6], ignore_index=True)
+    combined_neutral_reviews = pd.concat([ai_neutral_reviews, imdb_6_and_7], ignore_index=True)
+
+    melted_good_reviews = melt_data(combined_data)
+    melted_bad_reviews = melt_data(combined_bad_reviews)
+    melted_neutral_reviews = melt_data(combined_neutral_reviews)
 
 
-# Melt the data for good reviews
-melted_data = pd.melt(combined_data, id_vars=['Movie', 'Source'],
-                      value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
-                      var_name='Polarity Type', value_name='Polarity Score')
+    # plot
+    fig, axes = plt.subplots(3, 1, figsize=(12,9.5), sharey=True)
+    sns.set(style="whitegrid")
+    palette = sns.color_palette("Set2", 3)
 
-# Melt the data for bad reviews (Q1 vs IMDb Below 6)
-melted_bad_reviews = pd.melt(combined_bad_reviews, id_vars=['Movie', 'Source'],
-                             value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
-                             var_name='Polarity Type', value_name='Polarity Score')
+    plot_data = [
+        ('IMDb < 6 vs AI (Q1 - Bad Reviews)', melted_bad_reviews, axes[0]),
+        ('IMDb > 7 vs AI (Q2 - Good Reviews)', melted_good_reviews, axes[1]),
+        ('IMDb 6–7 vs AI (Q3 - Neutral Reviews)', melted_neutral_reviews, axes[2])
+    ]
 
-# Melt the data for neutral reviews (Q3 vs IMDb Between 6 and 7)
-melted_neutral_reviews = pd.melt(combined_neutral_reviews, id_vars=['Movie', 'Source'],
-                                 value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
-                                 var_name='Polarity Type', value_name='Polarity Score')
+    for title, df, ax in plot_data:
+        sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type',
+                    data=df, ax=ax, palette=palette,
+                    errorbar=None)
 
-# Melt the data for neutral reviews (Q3 vs IMDb Between 6 and 7)
-melted_good_reviews = pd.melt(combined_data, id_vars=['Movie', 'Source'],
-                                 value_vars=['Average Negative', 'Average Neutral', 'Average Positive'],
-                                 var_name='Polarity Type', value_name='Polarity Score')
+        ax.set_title(title)
+        ax.set_xlabel('')
+        ax.set_ylabel('Polarity Score')
+        ax.tick_params(axis='x')
+        ax.get_legend().remove()
+        ax.grid(False)
 
-### Bar Plot
-# Create a bar plot for the melted data (Good Reviews)
-# plt.figure(figsize=(12, 6))
-# sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
-#
-# # Add titles and labels
-# plt.title("Comparison of Polarity Scores for IMDb vs AI (Good Reviews)", fontsize=14)
-# plt.xlabel("Source (IMDb vs AI)", fontsize=12)
-# plt.ylabel("Polarity Score", fontsize=12)
-# plt.xticks(rotation=45)
-#
-# # Display the plot
-# plt.tight_layout()
-# # save fig
-# plt.savefig("polarity_score_comparison(good).png", dpi=300, bbox_inches="tight")
-# plt.show()
-#
-# # Create a bar plot for the melted data (Bad Reviews)
-# plt.figure(figsize=(12, 6))
-# sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
-#
-# # Add titles and labels
-# # Comparison of Polarity Scores for AI (Question 1) vs IMDb (Rating < 6)
-# plt.title("Comparison of Polarity Scores for AI vs IMDb (Bad Reviews)", fontsize=14)
-# plt.xlabel("Source (IMDb Below 6 vs AI - Q1)", fontsize=12)
-# plt.ylabel("Polarity Score", fontsize=12)
-# plt.xticks(rotation=45)
-#
-# # Display the plot
-# plt.tight_layout()
-# # save fig
-# plt.savefig("polarity_score_comparison(bad).png", dpi=300, bbox_inches="tight")
-# plt.show()
-#
-# # Create a bar plot for the melted data (Neutral Reviews)
-# plt.figure(figsize=(12, 6))
-# sns.barplot(x='Source', y='Polarity Score', hue='Polarity Type', data=melted_data, palette='Set2')
-#
-# # Add titles and labels
-# # Comparison of Polarity Scores for AI (Question 3) vs IMDb (Rating 6-7)
-# plt.title("Comparison of Polarity Scores for AI vs IMDb (Neutral Reviews)", fontsize=14)
-# plt.xlabel("Source (IMDb 6-7 vs AI - Q3)", fontsize=12)
-# plt.ylabel("Polarity Score", fontsize=12)
-# plt.xticks(rotation=45)
-#
-# # Display the plot
-# plt.tight_layout()
-# # save fig
-# plt.savefig("polarity_score_comparison(neutral).png", dpi=300, bbox_inches="tight")
-# plt.show()
+    # shared legend
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc='upper left', ncol=1,
+               fontsize=10, title_fontsize=11)
 
-fig, axes = plt.subplots(3, 1, figsize=(12,9.5), sharey=True)
-sns.set(style="whitegrid")
-palette = sns.color_palette("Set2", 3)
+    # layout adjustment
+    fig.subplots_adjust(hspace=1)
+    plt.tight_layout(rect=(0, 0, 1, 0.96))
+    plt.grid(False)
+    plt.savefig(f"combined_polarity_score_comparison_{source_name}", dpi=300, bbox_inches="tight")
+    plt.show()
 
-# Plot bad reviews
-sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type',
-            data=melted_bad_reviews, ax=axes[0], palette=palette,
-            showfliers=False) # no outliers
-axes[0].set_title("IMDb < 6 vs AI (Q1 - Bad Reviews)")
-# axes[0].set_xlabel("Source")
-axes[0].set_xlabel("")
-axes[0].set_ylabel("Polarity Score")
-axes[0].tick_params(axis='x')
-axes[0].get_legend().remove()
-
-# Plot good reviews
-sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type',
-            data=melted_good_reviews, ax=axes[1], palette=palette,
-            showfliers=False)
-axes[1].set_title("IMDb > 7 vs AI (Q2 - Good Reviews)")
-# axes[1].set_xlabel("Source")
-axes[1].set_xlabel("")
-axes[1].tick_params(axis='x')
-axes[1].get_legend().remove()
-
-# Plot neutral reviews
-sns.boxplot(x='Source', y='Polarity Score', hue='Polarity Type',
-            data=melted_neutral_reviews, ax=axes[2], palette=palette,
-            showfliers=False)
-axes[2].set_title("IMDb 6–7 vs AI (Q3 - Neutral Reviews)")
-# axes[2].set_xlabel("Source")
-axes[2].set_xlabel("")
-axes[2].tick_params(axis='x')
-axes[2].get_legend().remove()
-
-# Shared legend
-handles, labels = axes[0].get_legend_handles_labels()
-fig.legend(handles, labels, loc='upper left', ncol=1,
-           fontsize=10, title_fontsize=11)
-
-# Add bottom label for the whole figure
-# fig.text(0.5, 0.04, 'Source', ha='center', fontsize=12)
-
-# layout adjustment
-fig.subplots_adjust(hspace=1)
-plt.tight_layout(rect=(0, 0, 1, 0.96))
-
-# plt.savefig("combined_polarity_score_comparison.png", dpi=300, bbox_inches="tight")
-plt.show()
-
-# neglect Box Plot for now
+generate_polarity_barplot("Subtitle")
+generate_polarity_barplot("Screenplays")
 
 
 # Obeservation of Bar Plot
@@ -252,8 +187,6 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
         ax.set_xlabel('')
 
 # load the subtitle and screenplay data
-subtitles_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_subtitles.csv')
-screenplays_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_screenplays.csv')
 
 # display subplot
 fig, axes = plt.subplots(2, 1, figsize=(16, 8))
