@@ -5,6 +5,7 @@ from scipy.stats import f_oneway
 
 # Load AI data
 ai_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
+ai_df.columns = ai_df.columns.str.capitalize()
 ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
 
 ai_df["AI Model"] = ai_df["AI Model"].replace({
@@ -18,6 +19,7 @@ ai_df = ai_df.fillna(0)
 
 # Load IMDb average emotion scores
 imdb_df = pd.read_csv('../emotions_output/average_emotion_scores_imdb.csv')
+imdb_df.columns = imdb_df.columns.str.capitalize()
 # Melt for visualization
 imdb_melted = imdb_df.melt(id_vars='Movie', var_name='Emotion', value_name='Score')
 imdb_melted = imdb_melted.fillna(0)
@@ -53,6 +55,7 @@ plt.axis('equal')
 # emotion scores by ai_models (x-axis represents 7 emotions, legend represents ai models)
 def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
     ai_df = ai_df.copy()
+    ai_df.columns = ai_df.columns.str.capitalize()
     ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
 
     # change column names
@@ -76,7 +79,7 @@ def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
     # change wide-format to long-format
     ai_sub_melted = ai_df.melt(
         id_vars=['AI Model', 'Movie'],
-        value_vars=['fear', 'joy', 'sadness', 'anger', 'disgust', 'neutral', 'surprise'],
+        value_vars=['Fear', 'Joy', 'Sadness', 'Anger', 'Disgust', 'Neutral', 'Surprise'],
         var_name='Emotion',
         value_name='Score'
     )
@@ -133,7 +136,7 @@ def plot_emotion_by_question_subplots(ai_df):
         # melt emotion columns
         melted = question_df.melt(
             id_vars=['AI Model'],
-            value_vars=['surprise', 'anger', 'neutral', 'disgust', 'sadness', 'fear', 'joy'],
+            value_vars=['Surprise', 'Anger', 'Neutral', 'Disgust', 'Sadness', 'Fear', 'Joy'],
             var_name='Emotion',
             value_name='Score'
         )
