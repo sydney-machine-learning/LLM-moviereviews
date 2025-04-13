@@ -14,15 +14,15 @@ imdb_6_and_7 = pd.read_csv('../average_polarity_scores_imdb_between_6_and_7.csv'
 def replace_model_name(file_name):
     # Check for 'gemini' with context variation first
     if 'gemini_screenplays_context_variation' in file_name.lower() or 'gemini_context_variation' in file_name.lower():
-        return 'gemini (detailed context)'
+        return 'Gemini (detailed context)'
     elif 'gemini_screenplays' in file_name.lower():
-        return 'gemini'
+        return 'Gemini'
     elif 'chatgpt' in file_name.lower():
-        return 'chatgpt'
+        return 'Chatgpt'
     elif 'deepseek' in file_name.lower():
-        return 'deepseek'
+        return 'Deepseek'
     elif 'gemini' in file_name.lower():
-        return 'gemini'
+        return 'Gemini'
     else:
         return 'unknown'
 
@@ -74,8 +74,8 @@ def generate_polarity_barplot(source_name):
     palette = sns.color_palette("Set2", 3)
 
     plot_data = [
-        ('IMDb < 6 vs AI (Q1 - Bad Reviews)', melted_bad_reviews, axes[0]),
-        ('IMDb > 7 vs AI (Q2 - Good Reviews)', melted_good_reviews, axes[1]),
+        ('IMDb < 6 vs AI (Q1 - Negative Reviews)', melted_bad_reviews, axes[0]),
+        ('IMDb > 7 vs AI (Q2 - Positve Reviews)', melted_good_reviews, axes[1]),
         ('IMDb 6–7 vs AI (Q3 - Neutral Reviews)', melted_neutral_reviews, axes[2])
     ]
 
