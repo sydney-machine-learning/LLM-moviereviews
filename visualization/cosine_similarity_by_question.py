@@ -118,7 +118,9 @@ def plot_similarity_heatmap(df_result, title, filename):
     # Pivot for heatmap
     heatmap_df = df_result.pivot(index="sentiment", columns="source_question", values="mean_cosine_similarity")
     # Reorder the index (rows)
+    # heatmap_df.index = heatmap_df.index.str.capitalize()
     heatmap_df = heatmap_df.reindex(["negative", "positive", "neutral"])
+    heatmap_df.index = heatmap_df.index.str.capitalize()
 
     # Plot heatmap
     # Corrected version using set_xticklabels for the secondary axis
@@ -126,7 +128,7 @@ def plot_similarity_heatmap(df_result, title, filename):
     sns.heatmap(heatmap_df, annot=True, cmap="YlGnBu", fmt=".3f", linewidths=0.5)
 
     # primary x-axis: question labels
-    question_labels = ["question1", "question2", "question3"] * 4
+    question_labels = ['Q1', 'Q2', 'Q3'] * 4
     plt.xticks(ticks=[i + 0.5 for i in range(len(question_labels))], labels=question_labels, rotation=0)
 
     # Add a secondary x-axis below for model labels
