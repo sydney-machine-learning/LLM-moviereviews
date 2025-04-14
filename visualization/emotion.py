@@ -146,17 +146,21 @@ def plot_emotion_by_question_subplots(ai_df):
         # Calculate average emotion score per model
         avg_scores = melted.groupby(['AI Model', 'Emotion'])['Score'].mean().reset_index()
 
-        print(f"Avg scores for {question_label}:")
+        # print(f"Avg scores for {question_label}:")
 
         # Plot the barplot
         sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2", ax=axes[idx])
 
-        axes[idx].set_title(f'{question_label.capitalize()}')
+        axes[idx].set_title(f'{question_label.capitalize()}',
+                            fontweight='bold')
 
         # adjust plot aesthetics
-        axes[idx].tick_params(axis='x')
+        axes[idx].tick_params(axis='x', labelsize=16)
+        # for label in axes[idx].get_xticklabels():
+        #     label.set_fontweight('bold')
         axes[idx].legend().set_visible(False)
         axes[idx].set_xlabel('')
+        axes[idx].set_ylabel('Score', fontsize=14)
 
 
     # add shared legend
@@ -164,7 +168,7 @@ def plot_emotion_by_question_subplots(ai_df):
     fig.legend(handles, labels, loc='upper left', ncol=1, bbox_to_anchor=(0.13, 0.88))
 
     plt.savefig('emotion_scores_by_questions.png',dpi=300, bbox_inches="tight")
-    plt.tight_layout()
+    plt.tight_layout(pad = 3.0)
     # Show the plot
     plt.show()
 
