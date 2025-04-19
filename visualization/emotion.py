@@ -89,8 +89,8 @@ def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
 
     # ddding title and labels
     ax.set_title(f'{source_name}', fontsize=16)
-    ax.set_xlabel('Emotion', fontsize=12)
-    ax.set_ylabel('Score', fontsize=12)
+    ax.set_xlabel('Emotion', fontsize=15)
+    ax.set_ylabel('Score', fontsize=15)
 
     # ax.tick_params(axis='x', rotation=45)
     ax.get_legend().remove()
@@ -130,8 +130,8 @@ def plot_emotion_by_question_subplots(ai_df):
         question_df = ai_df[ai_df['Question'] == question_label]
 
 
-        print(f"Data for {question_label}:")
-        print(question_df.head())  # Ensure that there are valid rows for each question
+        # print(f"Data for {question_label}:")
+        # print(question_df.head())  # Ensure that there are valid rows for each question
 
         # melt emotion columns
         melted = question_df.melt(
@@ -152,7 +152,7 @@ def plot_emotion_by_question_subplots(ai_df):
         sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2", ax=axes[idx])
 
         axes[idx].set_title(f'{question_label.capitalize()}',
-                            fontweight='bold')
+                            fontweight='bold', fontsize = 16)
 
         # adjust plot aesthetics
         axes[idx].tick_params(axis='x', labelsize=16)
@@ -160,7 +160,7 @@ def plot_emotion_by_question_subplots(ai_df):
         #     label.set_fontweight('bold')
         axes[idx].legend().set_visible(False)
         axes[idx].set_xlabel('')
-        axes[idx].set_ylabel('Score', fontsize=14)
+        axes[idx].set_ylabel('Score', fontsize=16)
 
 
     # add shared legend
