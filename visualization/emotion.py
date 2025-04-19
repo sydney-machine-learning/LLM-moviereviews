@@ -152,7 +152,8 @@ def plot_emotion_by_question_subplots(ai_df):
         sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2", ax=axes[idx])
 
         axes[idx].set_title(f'{question_label.capitalize()}',
-                            fontweight='bold', fontsize = 16)
+
+                            fontsize = 16)
 
         # adjust plot aesthetics
         axes[idx].tick_params(axis='x', labelsize=16)
