@@ -224,7 +224,7 @@ sns.barplot(data=melted_df, x='Emotion', y='Score', hue='Movie',
 # plt.title('Average Emotion Scores by Movie', fontsize=16)
 axes[0].set_xlabel('')
 axes[0].set_ylabel('Average Score', fontsize=12)
-axes[0].set_title('AI Models', fontsize=12.5)
+axes[0].set_title('LLM', fontsize=12.5)
 axes[0].legend().set_visible(False)
 
 # show the plot
@@ -251,7 +251,7 @@ axes[1].legend().set_visible(False)
 # display shared legend
 handles, labels = axes[1].get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper left',
-           bbox_to_anchor=(0.15, 0.88),
+           bbox_to_anchor=(0.125, 0.88),
            ncol=1)
 
 # show the plot
