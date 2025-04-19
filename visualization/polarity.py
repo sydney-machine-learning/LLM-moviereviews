@@ -74,9 +74,9 @@ def generate_polarity_barplot(source_name):
     palette = sns.color_palette("Set2", 3)
 
     plot_data = [
-        ('IMDb < 6 vs AI (Q1 - Negative Reviews)', melted_bad_reviews, axes[0]),
-        ('IMDb > 7 vs AI (Q2 - Positve Reviews)', melted_good_reviews, axes[1]),
-        ('IMDb 6–7 vs AI (Q3 - Neutral Reviews)', melted_neutral_reviews, axes[2])
+        ('IMDb < 6 vs LLM (Q1 - Negative Reviews)', melted_bad_reviews, axes[0]),
+        ('IMDb > 7 vs LLM (Q2 - Positve Reviews)', melted_good_reviews, axes[1]),
+        ('IMDb 6–7 vs LLM (Q3 - Neutral Reviews)', melted_neutral_reviews, axes[2])
     ]
 
     for title, df, ax in plot_data:
