@@ -177,8 +177,8 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
 
     # ddding title and labels
     ax.set_title(f'{source_name}', fontsize=16)
-    ax.set_xlabel('Polarity', fontsize=12)
-    ax.set_ylabel('Score', fontsize=12)
+    ax.set_xlabel('Polarity', fontsize=15)
+    ax.set_ylabel('Score', fontsize=15)
 
     ax.grid(False)
 
