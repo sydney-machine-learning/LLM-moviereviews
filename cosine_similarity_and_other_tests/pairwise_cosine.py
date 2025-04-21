@@ -1,3 +1,31 @@
+"""
+Pairwise Cosine Similarity Analysis for Movie Reviews
+
+This script analyzes the semantic similarity between different types of movie-related text using 
+cosine similarity. It processes:
+1. IMDb user reviews
+2. AI-generated reviews from different models
+
+
+The analysis follows these steps:
+1. Reads review data from IMDb and AI-generated sources
+2. Calculates pairwise cosine similarity between different text sources
+3. Aggregates similarity metrics (mean, median, max) for each movie
+4. Performs targeted comparisons based on:
+   - Positive IMDb reviews (rating > 7) vs specific AI responses
+   - Negative IMDb reviews (rating < 7) vs specific AI responses
+5. Saves the results to CSV files for further analysis
+
+Output files are organized by:
+- Movie-level comparisons (cosine_similarity_results_*_by_movie.csv)
+- Question-specific comparisons (cosine_similarity_results_*_by_question.csv)
+
+Dependencies: pandas, scikit-learn, numpy, os
+"""
+
+
+
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -6,10 +34,10 @@ import os
 
 def read_reviews(imdb_path, ai_path):
     print(imdb_path, ai_path)
-    imdb_reviews_df = pd.read_csv(imdb_path, header=None, names=['MovieID', 'Rating', 'Review'])
+    imdb_reviews_df = pd.read_csv(imdb_path)
     ai_reviews_df = pd.read_csv(ai_path)
-    #print(imdb_reviews_df.head())
-    #print(ai_reviews_df.head())
+    print(imdb_reviews_df.head())
+    print(ai_reviews_df.head())
     return imdb_reviews_df, ai_reviews_df
 
 def compute_pairwise_cosine_similarity(imdb_reviews, ai_reviews):
@@ -38,61 +66,14 @@ def aggregate_similarities(similarities):
     return mean_similarity, median_similarity, max_similarity
 
 def main():
-    
-    imdb_path = '../download/all_imdb_reviews.csv'
-    ''' 
-    ai_path = 'reviews_ai/aireviews_gemini_more_detailed_context.csv'
-    
-    imdb_reviews_df, ai_reviews_df = read_reviews(imdb_path, ai_path)
-    
-    results = []
-    within_imdb_results = []
-    
-    for movie_id in imdb_reviews_df['MovieID'].unique():
-        print(f"Processing MovieID: {movie_id}")
-        
-        imdb_reviews = imdb_reviews_df[imdb_reviews_df['MovieID'] == movie_id]['Review'].tolist()
-        ai_reviews = ai_reviews_df[ai_reviews_df['imdb_id'] == movie_id].filter(like='context').values.flatten().tolist()
-        
-        if not imdb_reviews or not ai_reviews:
-            print("No reviews found for this MovieID.")
-            continue
-        
-        similarities = 1 #compute_pairwise_cosine_similarity(imdb_reviews, ai_reviews)
-        
-        mean_similarity, median_similarity, max_similarity = aggregate_similarities(similarities)
-        print(f"Mean Similarity: {mean_similarity}, Median Similarity: {median_similarity}, Max Similarity: {max_similarity}")
-        results.append({
-            'MovieID': movie_id,
-            'MeanSimilarity': mean_similarity,
-            'MedianSimilarity': median_similarity,
-            'MaxSimilarity': max_similarity
-        })
-        
-        # Compute within IMDb similarity
-        within_imdb_similarities = 1 #compute_within_imdb_similarity(imdb_reviews)
-        mean_within_similarity, median_within_similarity, max_within_similarity = aggregate_similarities(within_imdb_similarities)
-        print(f"Within IMDb - Mean Similarity: {mean_within_similarity}, Median Similarity: {median_within_similarity}, Max Similarity: {max_within_similarity}")
-        within_imdb_results.append({
-            'MovieID': movie_id,
-            'MeanWithinSimilarity': mean_within_similarity,
-            'MedianWithinSimilarity': median_within_similarity,
-            'MaxWithinSimilarity': max_within_similarity
-        })
-
-    # Save results to CSV
-    #results_df = pd.DataFrame(results)
-    #results_df.to_csv('cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv', index=False)
-    #print(results_df)
-    
-    #within_imdb_results_df = pd.DataFrame(within_imdb_results)
-    #within_imdb_results_df.to_csv('cosine_similarity_and_other_tests/within_imdb_similarity_results.csv', index=False)
-    #print(within_imdb_results_df)
-    '''
+    # Get the base directory path
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    imdb_path = os.path.join(base_dir, 'download', 'all_imdb_reviews.csv')
+       
     # Process reviews in screenplays and subtitles folders separately
     folders = [
-        ('../reviews_ai/screenplays', 'cosine_similarity_and_other_tests/cosine_similarity_results_screenplays'),
-        ('../reviews_ai/subtitles', 'cosine_similarity_and_other_tests/cosine_similarity_results_subtitles')
+        (os.path.join(base_dir, 'reviews_ai', 'screenplays'), os.path.join(base_dir, 'cosine_similarity_and_other_tests', 'cosine_similarity_results_screenplays')),
+        (os.path.join(base_dir, 'reviews_ai', 'subtitles'), os.path.join(base_dir, 'cosine_similarity_and_other_tests', 'cosine_similarity_results_subtitles'))
     ]
 
     for folder_path, output_file_prefix in folders:
@@ -107,14 +88,14 @@ def main():
                 
                 imdb_reviews_df, ai_reviews_df = read_reviews(imdb_path, ai_file_path)
 
-                for movie_id in imdb_reviews_df['MovieID'].unique():
-                    # print(f"Processing MovieID: {movie_id}")
+                for movie_id in imdb_reviews_df['imdb_id'].unique():
+                    print(f"Processing imdb_id: {movie_id}")  # Updated to uncomment the print statement
 
-                    imdb_reviews = imdb_reviews_df[imdb_reviews_df['MovieID'] == movie_id]['Review'].tolist()
+                    imdb_reviews = imdb_reviews_df[imdb_reviews_df['imdb_id'] == movie_id]['Review'].tolist()
                     ai_reviews = ai_reviews_df[ai_reviews_df['imdb_id'] == movie_id].filter(like='context').values.flatten().tolist()
 
                     if not imdb_reviews or not ai_reviews:
-                        print(f"No reviews found for MovieID: {movie_id}")
+                        print(f"No reviews found for imdb_id: {movie_id}")
                         continue
 
                     # Compute pairwise cosine similarity
@@ -124,7 +105,7 @@ def main():
                     # Append results by movie
                     results_by_movie.append({
                         'File': file_name,
-                        'MovieID': movie_id,
+                        'imdb_id': movie_id,
                         'MeanSimilarity': mean_similarity,
                         'MedianSimilarity': median_similarity,
                         'MaxSimilarity': max_similarity
@@ -140,19 +121,19 @@ def main():
                                     ai_question_reviews.append(ai_reviews_df[ai_reviews_df['imdb_id'] == movie_id][col].values[0])
                         
                         if not ai_question_reviews:
-                            print(f"No AI reviews found for MovieID: {movie_id}, Question: {question_index}")
+                            print(f"No AI reviews found for imdb_id: {movie_id}, Question: {question_index}")
                             continue
                         
                         # Filter IMDb reviews by rating
                         if question_index == 1:
-                            filtered_imdb_reviews = imdb_reviews_df[(imdb_reviews_df['MovieID'] == movie_id) & (imdb_reviews_df['Rating'] < 7)]['Review'].tolist()
+                            filtered_imdb_reviews = imdb_reviews_df[(imdb_reviews_df['imdb_id'] == movie_id) & (imdb_reviews_df['Rating'] < 7)]['Review'].tolist()
                             compare_type = "negative IMDb reviews (rating < 7)"
                         elif question_index == 2:
-                            filtered_imdb_reviews = imdb_reviews_df[(imdb_reviews_df['MovieID'] == movie_id) & (imdb_reviews_df['Rating'] > 7)]['Review'].tolist()
+                            filtered_imdb_reviews = imdb_reviews_df[(imdb_reviews_df['imdb_id'] == movie_id) & (imdb_reviews_df['Rating'] > 7)]['Review'].tolist()
                             compare_type = "positive IMDb reviews (rating > 7)"
 
                         if not filtered_imdb_reviews:
-                            print(f"No {compare_type} found for MovieID: {movie_id}")
+                            print(f"No {compare_type} found for imdb_id: {movie_id}")
                             continue
 
                         question_similarities = compute_pairwise_cosine_similarity(filtered_imdb_reviews, ai_question_reviews)
@@ -160,7 +141,7 @@ def main():
 
                         results_by_question.append({
                             'File': file_name,
-                            'MovieID': movie_id,
+                            'imdb_id': movie_id,
                             'Question': f'Question{question_index}',
                             'ComparedWith': compare_type,
                             'MeanSimilarity': mean_q_similarity,
