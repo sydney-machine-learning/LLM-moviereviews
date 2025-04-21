@@ -1,6 +1,24 @@
-# This script downloads subtitles from Kaggle, processes them to exclude common words,
-# and saves the cleaned subtitles along with movie information to 2 CSV files.
+"""
+Subtitle Processing Pipeline for Oscar-nominated Films
 
+This script performs the following operations:
+1. Downloads subtitle files (.srt) for selected Oscar-nominated films from Kaggle
+2. Retrieves IMDb IDs for each movie using the OMDb API
+3. Processes each subtitle file by:
+   - Extracting timing information
+   - Calculating movie duration in minutes
+   - Removing timestamps, numbers, and formatting tags
+   - Filtering out common words (like 'the', 'a', 'and', etc.)
+   - Identifying the top 10 most frequent words in each subtitle
+4. Creates a DataFrame with movie information and cleaned subtitle text
+5. Saves two CSV files:
+   - cleaned_subtitles.csv: Contains all data including the full cleaned subtitle text
+   - selected_movie_info.csv: Contains only the movie metadata without subtitle content
+     (This file is used by other scripts in the project to identify relevant movies)
+
+Dependencies: pandas, kagglehub, requests, python-dotenv
+Environment variables: OMDB_API_KEY (for retrieving IMDb IDs)
+"""
 
 import pandas as pd
 import kagglehub
@@ -102,7 +120,7 @@ for index, row in Movies_df.iterrows():
 df = pd.DataFrame(data)
 
 # Save the DataFrame to a CSV file
-df.to_csv('download/cleaned_subtitles_1.csv', index=False)
+df.to_csv('download/cleaned_subtitles.csv', index=False)
 df_without_subtitles = df.drop(columns=['cleaned_subtitle_text'])
 df_without_subtitles.to_csv('selected_movie_info.csv', index=False)
 
