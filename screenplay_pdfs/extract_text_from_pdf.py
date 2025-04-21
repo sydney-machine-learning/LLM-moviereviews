@@ -1,3 +1,25 @@
+"""
+PDF Screenplay Text Extraction Utility
+
+This script extracts text content from movie screenplay PDFs and converts it to CSV format.
+It performs the following operations:
+1. Scans the 'screenplay_pdfs' folder for PDF files
+2. Extracts all text content from each PDF using PyMuPDF (fitz)
+3. Processes the extracted text by:
+   - Converting multi-line content to single-line format
+   - Removing unnecessary formatting
+4. Saves each screenplay's text as a separate CSV file with the same base filename
+   (e.g., "the-shawshank-redemption-1994.pdf" → "The Shawshank Redemption.csv")
+
+
+The extracted text is used later in the project for:
+- Sentiment and emotion analysis
+- Comparison with reviews and subtitles
+- AI-based analysis of screenplay content
+
+Dependencies: PyMuPDF (fitz), os, csv
+"""
+
 import fitz  # PyMuPDF
 import os
 import csv
