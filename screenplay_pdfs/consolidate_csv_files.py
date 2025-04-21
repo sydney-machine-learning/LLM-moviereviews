@@ -1,3 +1,24 @@
+"""
+Screenplay Consolidation and Cleaning Utility
+
+This script processes individual screenplay CSV files and combines them into a single consolidated dataset.
+It performs the following operations:
+1. Reads individual screenplay CSV files from the 'screenplay_pdfs' folder
+2. Correlates each screenplay with movie metadata from 'selected_movie_info.csv'
+3. Cleans the screenplay text by:
+   - Removing timestamps and formatting characters
+   - Filtering out common words (articles, pronouns, etc.)
+   - Removing non-ASCII characters and normalizing whitespace
+   - Applying the same cleaning process used for subtitles for consistency
+4. Consolidates all screenplay data into a single DataFrame with movie metadata
+5. Saves the consolidated data to 'screenplay_pdfs/cleaned_screenplays.csv'
+
+
+Dependencies: pandas, re, os, collections (Counter)
+Input: Individual screenplay CSV files, selected_movie_info.csv
+Output: cleaned_screenplays.csv
+"""
+
 import pandas as pd
 import re
 import os
@@ -20,7 +41,7 @@ def parse_srt_excluding_common(content):
     if timestamps:
         last_timestamp = timestamps[-1]
         hours, minutes, seconds_milliseconds = last_timestamp.split(':')
-        seconds, milliseconds = seconds_milliseconds.split(',')
+        seconds, milliseconds = seconds_milliseconds.split(',')        
         total_minutes = int(hours) * 60 + int(minutes) + int(seconds) / 60 + int(milliseconds) / (60 * 1000)
     else:
         total_minutes = 0
