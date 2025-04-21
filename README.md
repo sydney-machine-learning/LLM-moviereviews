@@ -16,7 +16,7 @@ This research evaluates how well different LLMs can generate movie reviews by co
 ```
 LLM-moviereviews/
 ├── cosine_similarity_and_other_tests/  # Cosine similarity analysis between reviews
-├── download/                           # Scripts for downloading IMDb data
+├── download/                           # Scripts for downloading IMDb data and subtitles
 ├── emotions_output/                    # Emotion analysis results
 ├── polarity_scores_output/             # Sentiment polarity results
 ├── reviews_ai/                         # AI-generated review scripts and data
