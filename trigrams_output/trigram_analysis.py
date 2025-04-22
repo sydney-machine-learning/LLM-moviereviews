@@ -1,6 +1,26 @@
-# This script will perform several sentiment analysis tests on movie reviews output from various AI APIs versus human-generated reviews
-# from IMDb. The goal is to determine the accuracy of the AI-generated reviews and compare
-# them to human-generated reviews. The script will output the results of the sentiment analysis.
+"""
+Trigram Analysis
+
+This script performs trigram analysis on movie reviews from multiple sources:
+1. AI-generated reviews (from different AI models like ChatGPT, Deepseek, Gemini)
+2. IMDb user reviews
+
+
+The script processes data through the following workflow:
+1. Preprocessing text by tokenizing and removing stopwords/punctuation
+2. Generating trigrams  from the processed text
+3. Calculating frequency counts for trigrams in each source
+4. Saving the results as CSV files
+5. Optionally performing analyses for:
+   - The Shawshank Redemption movie reviews with rating 10
+   - All movies in the dataset
+
+
+Output files are stored in the trigrams_output directory with naming conventions 
+that indicate the source and context of the trigram analysis.
+
+Dependencies: pandas, nltk, collections (Counter), os
+"""
 
 import pandas as pd
 import nltk
@@ -37,8 +57,7 @@ def trigram_analysis(reviews):
     return trigram_counts.most_common(3)
 
 def process_reviews(df, ai_client):
-    # print("Processing reviews for AI client:", ai_client)
-    # print("DataFrame head:", df.head())
+    
     results = {}
     for _, row in df.iterrows():
         movie = row['movie']
@@ -60,8 +79,9 @@ def results_to_dataframe(results):
 
 def generate_trigrams_for_all_movies(df, movie_info_df):
     results = {}
-    for movie_id in df['MdovieID'].unique():
-        movie_reviews = df[df['MovieID'] == movie_id]['Review'].tolist()
+    
+    for movie_id in df['imdb_id'].unique():
+        movie_reviews = df[df['imdb_id'] == movie_id]['Review'].tolist()
         trigrams = trigram_analysis(movie_reviews)
         movie_title = movie_info_df[movie_info_df['imdb_id'] == movie_id]['movie'].values[0]
         results[movie_id] = {'title': movie_title, 'trigrams': trigrams}
@@ -78,18 +98,45 @@ def trigrams_to_dataframe(results):
     return pd.DataFrame(data, columns=['MovieID', 'Title', 'Trigram', 'Count'])
 
 
-# Code to generate trigrams for "The Shawshank Redemption" from IMDb reviews with a 10 rating
+def generate_shawshank_trigrams(selected_movie_info_df, output_file='trigrams_output/shawshank_imdb_10_trigrams.csv'):
+    """
+    Generate trigrams specifically for "The Shawshank Redemption" from IMDb reviews with a rating of 10.
+    
+    Args:
+        selected_movie_info_df (DataFrame): DataFrame containing movie information
+        output_file (str): Path to save the output CSV file
+    """
+    try:
+        # Get the IMDb ID for The Shawshank Redemption
+        shawshank_imdb_id = selected_movie_info_df[selected_movie_info_df['movie'] == 'The Shawshank Redemption']['imdb_id'].values[0]
+        print(f"Shawshank IMDb ID: {shawshank_imdb_id}")
+        # Load all IMDb reviews
+        all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
 
-  
-#shawshank_imdb_id = selected_movie_info_df[selected_movie_info_df['movie'] == 'The Shawshank Redemption']['imdb_id'].values[0]
-#all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
-#shawshank_reviews = all_imdb_reviews_df[(all_imdb_reviews_df['MovieID'] == shawshank_imdb_id) & (all_imdb_reviews_df['ReviewNumber'] == 10)]['Review'].tolist()
-#combined_reviews = ' '.join(shawshank_reviews)
-# Generate trigrams from the combined reviews
-##shawshank_trigrams = trigram_analysis([combined_reviews])
-##shawshank_trigrams_df = pd.DataFrame(shawshank_trigrams, columns=['Trigram', 'Count'])
-##shawshank_trigrams_df['Trigram'] = shawshank_trigrams_df['Trigram'].apply(lambda x: ' '.join(x))
-##shawshank_trigrams_df.to_csv('shawshank_imdb_10_trigrams.csv', index=False)
+        
+        # Filter reviews for Shawshank Redemption with rating 10
+        shawshank_reviews = all_imdb_reviews_df[(all_imdb_reviews_df['imdb_id'] == shawshank_imdb_id) & 
+                                               (all_imdb_reviews_df['Rating'] == 10)]['Review'].tolist()
+        
+        if not shawshank_reviews:
+            print("No reviews found for The Shawshank Redemption with rating 10")
+            return
+            
+        # Combine all reviews into a single text
+        combined_reviews = ' '.join(shawshank_reviews)
+        
+        # Generate trigrams from the combined reviews
+        shawshank_trigrams = trigram_analysis([combined_reviews])
+        
+        # Convert to DataFrame
+        shawshank_trigrams_df = pd.DataFrame(shawshank_trigrams, columns=['Trigram', 'Count'])
+        shawshank_trigrams_df['Trigram'] = shawshank_trigrams_df['Trigram'].apply(lambda x: ' '.join(x))
+        
+        # Save to CSV
+        shawshank_trigrams_df.to_csv(output_file, index=False)
+        print(f"Shawshank Redemption trigrams saved to {output_file}")
+    except Exception as e:
+        print(f"Error generating Shawshank trigrams: {e}")
 
 # Function to process and generate trigrams for a given DataFrame and AI client
 
@@ -102,10 +149,19 @@ def process_and_save_trigrams(df, ai_client, output_filename):
 
 # Main function to loop through files and generate trigrams
 
-def main():
-    screenplay_folder = '../reviews_ai/screenplays'
-    subtitles_folder = '../reviews_ai/subtitles'
-    output_folder = 'trigrams_output'
+def main(run_shawshank_analysis=False, run_all_movies_analysis=False):
+    """
+    Main function to process files and generate trigrams.
+    
+    Args:
+        run_shawshank_analysis (bool): Whether to run trigram analysis for The Shawshank Redemption
+        run_all_movies_analysis (bool): Whether to run trigram analysis for all movies
+    """
+    # Get the base directory path
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    screenplay_folder = os.path.join(base_dir, 'reviews_ai', 'screenplays')
+    subtitles_folder = os.path.join(base_dir, 'reviews_ai', 'subtitles')
+    output_folder = os.path.join(base_dir, 'trigrams_output')
 
     # Process screenplay files
     for filename in os.listdir(screenplay_folder):
@@ -124,13 +180,28 @@ def main():
             output_filename = os.path.join(output_folder, filename.replace('.csv', '_trigrams.csv'))
             ai_client = filename.split('_')[1].replace('.csv', '')  # Extract AI client from filename without .csv
             process_and_save_trigrams(df, ai_client, output_filename)
+    
+    # Load movie info dataframe for potential use in the optional analyses
     selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
     
-    #all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
-    #all_movies_trigrams = generate_trigrams_for_all_movies(all_imdb_reviews_df, selected_movie_info_df)
-    #all_movies_trigrams_df = trigrams_to_dataframe(all_movies_trigrams)
-    #all_movies_trigrams_df.to_csv('trigrams_output/all_imdb_review_trigrams.csv', index=False)
+    # Optionally run The Shawshank Redemption analysis
+    if run_shawshank_analysis:
+        print("Running trigram analysis for The Shawshank Redemption...")
+        generate_shawshank_trigrams(selected_movie_info_df)
+    
+    # Optionally run analysis for all movies
+    if run_all_movies_analysis:
+        print("Running trigram analysis for all movies...")
+        all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
+        all_movies_trigrams = generate_trigrams_for_all_movies(all_imdb_reviews_df, selected_movie_info_df)
+        all_movies_trigrams_df = trigrams_to_dataframe(all_movies_trigrams)
+        all_movies_trigrams_df.to_csv('trigrams_output/all_imdb_review_trigrams.csv', index=False)
 
 if __name__ == "__main__":
-    main()
+    # Set these flags to True to run the respective analyses
+    RUN_SHAWSHANK_ANALYSIS = True  # Change to True to run Shawshank Redemption analysis
+    RUN_ALL_MOVIES_ANALYSIS = True  # Change to True to run all movies analysis
+    
+    main(run_shawshank_analysis=RUN_SHAWSHANK_ANALYSIS, 
+         run_all_movies_analysis=RUN_ALL_MOVIES_ANALYSIS)
 
