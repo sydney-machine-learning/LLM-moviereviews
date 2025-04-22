@@ -16,13 +16,13 @@ def replace_model_name(file_name):
     if 'gemini_screenplays_context_variation' in file_name.lower() or 'gemini_context_variation' in file_name.lower():
         return 'Gemini (detailed context)'
     elif 'gemini_screenplays' in file_name.lower():
-        return 'Gemini'
+        return 'Gemini 2.0'
     elif 'chatgpt' in file_name.lower():
-        return 'Chatgpt'
+        return 'Chatgpt-4o'
     elif 'deepseek' in file_name.lower():
-        return 'Deepseek'
+        return 'DeepSeek'
     elif 'gemini' in file_name.lower():
-        return 'Gemini'
+        return 'Gemini 2.0'
     else:
         return 'unknown'
 
@@ -37,7 +37,7 @@ def prepare_data(df,question=None):
     return df[['Movie', 'Source', 'Average Negative', 'Average Neutral', 'Average Positive']]
 
 # label the IMDb data with rating
-imdb_above7['Source'] = 'IMDb'
+imdb_above7['Source'] = 'IMDb Above 7'
 imdb_below6['Source'] = 'IMDb Below 6'
 imdb_6_and_7['Source'] = 'IMDb 6 and 7'
 
@@ -87,18 +87,20 @@ def generate_polarity_barplot(source_name):
         ax.set_title(title)
         ax.set_xlabel('')
         ax.set_ylabel('Polarity Score')
-        ax.tick_params(axis='x')
+        ax.tick_params(axis='x', labelsize=11)
         ax.get_legend().remove()
         ax.grid(False)
 
     # shared legend
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper left', ncol=1,
+               bbox_to_anchor=(0.1, 1.0),
                fontsize=10, title_fontsize=11)
 
+
     # layout adjustment
-    fig.subplots_adjust(hspace=1)
-    plt.tight_layout(rect=(0, 0, 1, 0.96))
+    # plt.tight_layout(rect=(0, 0, 1, 0.94))
+    fig.subplots_adjust(hspace=0.6, top=0.92)
     plt.grid(False)
     plt.savefig(f"combined_polarity_score_comparison_{source_name}", dpi=300, bbox_inches="tight")
     plt.show()
@@ -149,18 +151,20 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
     # change column names
     if source_name == 'Subtitle':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
-            "aireviews_chatgpt.csv": "ChatGPT",
+            "aireviews_chatgpt.csv": "ChatGPT-4o",
             "aireviews_deepseek.csv": "DeepSeek",
-            "aireviews_gemini.csv": "Gemini",
+            "aireviews_gemini.csv": "Gemini 2.0",
             "aireviews_gemini_context_variation.csv": "Gemini_Context"
         })
+        plot_title = "(a) Plot for Subtitle"
     elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
-            "aireviews_chatgpt_screenplays.csv": "ChatGPT",
+            "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
             "aireviews_deepseek_screenplays.csv": "DeepSeek",
-            "aireviews_gemini_screenplays.csv": "Gemini",
+            "aireviews_gemini_screenplays.csv": "Gemini 2.0" ,
             "aireviews_gemini_screenplays_context_variation.csv": "Gemini_Context"
         })
+        plot_title = "(b) Plot for Sreenplay"
     # replace NA with 0
     ai_df = ai_df.fillna(0)
 
@@ -176,10 +180,14 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
     sns.boxplot(data=ai_melted, x='Polarity', y='Score', hue='AI Model', palette="Set2", showfliers=False, ax=ax)
 
     # ddding title and labels
-    ax.set_title(f'{source_name}', fontsize=16)
-    ax.set_xlabel('Polarity', fontsize=15)
+    # ax.set_title(f'{source_name}', fontsize=16)
+
+    ax.text(0.5, -0.25, plot_title, fontsize=16, ha='center', transform=ax.transAxes)
+
+    ax.set_xlabel('', fontsize=15)
     ax.set_ylabel('Score', fontsize=15)
 
+    ax.tick_params(axis='x', labelsize=15)
     ax.grid(False)
 
     ax.get_legend().remove()
@@ -189,7 +197,8 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
 # load the subtitle and screenplay data
 
 # display subplot
-fig, axes = plt.subplots(2, 1, figsize=(16, 8))
+fig, axes = plt.subplots(2, 1, figsize=(16, 12))
+
 
 # subplot 1
 generate_polarity_box_plots(subtitles_df, source_name='Subtitle', ax=axes[0])
@@ -199,9 +208,12 @@ generate_polarity_box_plots(screenplays_df, source_name='Screenplay', ax=axes[1]
 
 # add shared legend
 handles, labels = axes[1].get_legend_handles_labels()
-fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.13, 1.05), ncol=1)
+fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.08, 1.0), ncol=1)
+
+# fig.subplots_adjust(hspace=0.6, top=0.92)
+plt.tight_layout(pad=4.0, rect=(0, 0, 1, 0.96))
 
 plt.savefig('polarity_scores(subtitles + screenplays).png',dpi=300, bbox_inches="tight")
-plt.tight_layout()
+# plt.tight_layout()
 plt.show()
 
