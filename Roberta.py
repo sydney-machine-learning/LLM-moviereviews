@@ -1,3 +1,28 @@
+"""
+Movie Review Sentiment and Emotion Analysis
+
+This script conducts comprehensive sentiment and emotion analysis on movie reviews using transformer models:
+- Sentiment analysis: RoBERTa model (cardiffnlp/twitter-roberta-base-sentiment) for polarity scoring
+- Emotion analysis: DistilRoBERTa model (j-hartmann/emotion-english-distilroberta-base) for emotion detection
+
+Data sources processed:
+1. AI-generated reviews (from both screenplay and subtitles sources)
+2. IMDb user reviews (filtered by various rating thresholds)
+
+
+- Handles long text by chunking and averaging scores
+- Processes both positive and negative review sentiments
+- Identifies multiple emotions (anger, joy, sadness, fear, surprise, disgust, neutral)
+
+
+Output files:
+- Polarity scores: negative/neutral/positive sentiment distributions
+- Emotion scores: distribution of emotional content across reviews
+- Results saved to CSV files in polarity_scores_output/ and emotions_output/ directories
+"""
+
+
+
 import pandas as pd
 import torch
 from transformers import RobertaTokenizer, RobertaForSequenceClassification, pipeline
@@ -253,13 +278,13 @@ def emotions_ai_reviews():
 
 def get_average_polarity_scores_imdb():
     # Read the CSV files
-    imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv', header=None, names=['imdb_id', 'rating', 'review'])
+    imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
     selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
 
     # Filter reviews with a rating below 6
-    filtered_reviews_df = imdb_reviews_df[imdb_reviews_df['rating'] < 6]
+    filtered_reviews_df = imdb_reviews_df[imdb_reviews_df['Rating'] < 6]
 
-    print(filtered_reviews_df.head())
+    
 
     # Merge with selected_movie_info_df to get movie titles
     merged_df = pd.merge(filtered_reviews_df, selected_movie_info_df, on='imdb_id')
@@ -273,7 +298,7 @@ def get_average_polarity_scores_imdb():
         if movie not in results:
             results[movie] = []
 
-        review = row['review']
+        review = row['Review']
         polarity_scores = get_polarity_scores_for_long_text(review)
         print(polarity_scores, movie)
         results[movie].append(polarity_scores)
@@ -295,11 +320,13 @@ def get_average_polarity_scores_imdb():
     df = pd.DataFrame(average_results)
 
     # Save the DataFrame to a CSV file
-    df.to_csv('average_polarity_scores_imdb.csv', index=False)
+    output_path = 'polarity_scores_output/average_polarity_scores_imdb.csv'
+    df.to_csv(output_path, index=False)
+
 
 def get_average_emotion_scores_imdb():
     # Read the IMDb reviews and movie information
-    imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv', header=None, names=['imdb_id', 'rating', 'review'])
+    imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
     selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
 
     # Merge IMDb reviews with movie information to get movie titles
@@ -312,7 +339,7 @@ def get_average_emotion_scores_imdb():
         if movie not in results:
             results[movie] = []
 
-        review = row['review']
+        review = row['Review']
         emotion_scores = get_emotion_scores(review)
         results[movie].append(emotion_scores)
 
@@ -334,8 +361,8 @@ def get_average_emotion_scores_imdb():
     #print(f"Average emotion scores per movie saved to {output_path}")
 
 if __name__ == "__main__":
-    #ai_average_polarity_scores = get_average_polarity_scores()
+    get_average_polarity_scores()
     #save_results_to_csv(ai_average_polarity_scores, 'average_polarity_scores_ai.csv')
-    #get_average_polarity_scores_imdb()    
-    #emotions_ai_reviews()
-    get_average_emotion_scores_imdb()
+    get_average_polarity_scores_imdb()    
+    emotions_ai_reviews()
+    get_average_emotion_scores_imdb()   # working
