@@ -156,7 +156,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
             "aireviews_gemini.csv": "Gemini 2",
             "aireviews_gemini_context_variation.csv": "Gemini(detailed)"
         })
-        plot_title = "(a) Sentiment Polarity Distributioin by Subtitles"
+        # plot_title = "(a) Sentiment Polarity Distributioin by Subtitles"
     elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
@@ -164,7 +164,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
             "aireviews_gemini_screenplays.csv": "Gemini 2" ,
             "aireviews_gemini_screenplays_context_variation.csv": "Gemini(detailed)"
         })
-        plot_title = "(b) Sentiment Polarity Distributioin by Screenplays"
+        # plot_title = "(b) Sentiment Polarity Distributioin by Screenplays"
     # replace NA with 0
     ai_df = ai_df.fillna(0)
 
@@ -182,12 +182,18 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
     # ddding title and labels
     # ax.set_title(f'{source_name}', fontsize=16)
 
-    ax.text(0.5, -0.2, plot_title, fontsize=16, ha='center', transform=ax.transAxes)
+    # adjust subplot title location
+    # ax.text(0.5, -0.2, plot_title, fontsize=18, ha='center', transform=ax.transAxes)
+    if ax == axes[0]:
+        ax.text(0.5, -0.2, "(a) Sentiment Polarity Distributioin by Subtitles", fontsize=16, ha='center', transform=ax.transAxes)
+    else:
+        ax.text(0.5, -0.2, "(b) Sentiment Polarity Distributioin by Screenplays", fontsize=16, ha='center', transform=ax.transAxes)
 
-    ax.set_xlabel('', fontsize=15)
-    ax.set_ylabel('Score', fontsize=15)
+    ax.set_xlabel('', fontsize=18)
+    ax.set_ylabel('Score', fontsize=18)
 
-    ax.tick_params(axis='x', labelsize=15)
+    ax.tick_params(axis='x', labelsize=18)
+    ax.tick_params(axis='y', labelsize=14)
     ax.grid(False)
 
     ax.get_legend().remove()
@@ -208,7 +214,7 @@ generate_polarity_box_plots(screenplays_df, source_name='Screenplay', ax=axes[1]
 
 # add shared legend
 handles, labels = axes[1].get_legend_handles_labels()
-fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.08, 1.0), ncol=1)
+fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.08, 1.02), ncol=1,fontsize=14)
 
 # fig.subplots_adjust(hspace=0.6, top=0.92)
 plt.tight_layout(pad=4.0, rect=(0, 0, 1, 0.96))
