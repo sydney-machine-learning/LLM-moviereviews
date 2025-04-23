@@ -185,9 +185,9 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
     # adjust subplot title location
     # ax.text(0.5, -0.2, plot_title, fontsize=18, ha='center', transform=ax.transAxes)
     if ax == axes[0]:
-        ax.text(0.5, -0.2, "(a) Sentiment Polarity Distributioin by Subtitles", fontsize=16, ha='center', transform=ax.transAxes)
+        ax.text(0.5, -0.2, "(a) Sentiment Polarity Distributioin by Subtitles", fontsize=18, ha='center', transform=ax.transAxes)
     else:
-        ax.text(0.5, -0.2, "(b) Sentiment Polarity Distributioin by Screenplays", fontsize=16, ha='center', transform=ax.transAxes)
+        ax.text(0.5, -0.2, "(b) Sentiment Polarity Distributioin by Screenplays", fontsize=18, ha='center', transform=ax.transAxes)
 
     ax.set_xlabel('', fontsize=18)
     ax.set_ylabel('Score', fontsize=18)
