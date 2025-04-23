@@ -135,7 +135,7 @@ def plot_emotion_by_question_subplots(ai_df):
     question_labels = ['question1', 'question2', 'question3']
 
     # Create subplots with appropriate size
-    fig, axes = plt.subplots(3, 1, figsize=(18, 12))
+    fig, axes = plt.subplots(3, 1, figsize=(16, 12))
 
     for idx, question_label in enumerate(question_labels):
         # Filter the dataframe for the specific question
@@ -164,11 +164,10 @@ def plot_emotion_by_question_subplots(ai_df):
         sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2", ax=axes[idx])
 
         axes[idx].set_title(f'{question_label.capitalize()}',
-
                             fontsize = 16)
 
         # adjust plot aesthetics
-        axes[idx].tick_params(axis='x', labelsize=16)
+        axes[idx].tick_params(axis='x', labelsize=18)
         # for label in axes[idx].get_xticklabels():
         #     label.set_fontweight('bold')
         axes[idx].legend().set_visible(False)
