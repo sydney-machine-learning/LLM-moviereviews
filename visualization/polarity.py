@@ -14,7 +14,7 @@ imdb_6_and_7 = pd.read_csv('../average_polarity_scores_imdb_between_6_and_7.csv'
 def replace_model_name(file_name):
     # Check for 'gemini' with context variation first
     if 'gemini_screenplays_context_variation' in file_name.lower() or 'gemini_context_variation' in file_name.lower():
-        return 'Gemini (detailed context)'
+        return 'Gemini (detailed)'
     elif 'gemini_screenplays' in file_name.lower():
         return 'Gemini 2'
     elif 'chatgpt' in file_name.lower():
@@ -69,14 +69,14 @@ def generate_polarity_barplot(source_name):
 
 
     # plot
-    fig, axes = plt.subplots(3, 1, figsize=(12,9.5), sharey=True)
+    fig, axes = plt.subplots(3, 1, figsize=(12,10), sharey=True)
     sns.set(style="whitegrid")
     palette = sns.color_palette("Set2", 3)
 
     plot_data = [
-        ('IMDb < 6 vs LLM (Q1 - Negative Reviews)', melted_bad_reviews, axes[0]),
-        ('IMDb > 7 vs LLM (Q2 - Positve Reviews)', melted_good_reviews, axes[1]),
-        ('IMDb 6–7 vs LLM (Q3 - Neutral Reviews)', melted_neutral_reviews, axes[2])
+        ('(a) IMDb < 6 vs LLM (Q1 - Negative Reviews)', melted_bad_reviews, axes[0]),
+        ('(b) IMDb > 7 vs LLM (Q2 - Positve Reviews)', melted_good_reviews, axes[1]),
+        ('(c) IMDb 6–7 vs LLM (Q3 - Neutral Reviews)', melted_neutral_reviews, axes[2])
     ]
 
     for title, df, ax in plot_data:
@@ -84,18 +84,21 @@ def generate_polarity_barplot(source_name):
                     data=df, ax=ax, palette=palette,
                     errorbar=None)
 
-        ax.set_title(title)
+        # ax.set_title(title, fontsize=18)
+        ax.text(0.5, -0.3, title, fontsize=16, ha='center', transform=ax.transAxes)
         ax.set_xlabel('')
-        ax.set_ylabel('Polarity Score')
-        ax.tick_params(axis='x', labelsize=11)
+        ax.set_ylabel('Polarity Score', fontsize=16)
+        ax.tick_params(axis='x', labelsize=14)
+        ax.tick_params(axis='y', labelsize=16)
         ax.get_legend().remove()
         ax.grid(False)
+
 
     # shared legend
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper left', ncol=1,
-               bbox_to_anchor=(0.1, 1.0),
-               fontsize=10, title_fontsize=11)
+               bbox_to_anchor=(0.12, 1.03),
+               fontsize=14)
 
 
     # layout adjustment
