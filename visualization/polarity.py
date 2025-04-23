@@ -154,17 +154,17 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
             "aireviews_chatgpt.csv": "ChatGPT-4o",
             "aireviews_deepseek.csv": "DeepSeek",
             "aireviews_gemini.csv": "Gemini 2",
-            "aireviews_gemini_context_variation.csv": "Gemini_Context"
+            "aireviews_gemini_context_variation.csv": "Gemini(detailed)"
         })
-        plot_title = "(a) Plot for Subtitle"
+        plot_title = "(a) Plot for Subtitles"
     elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
             "aireviews_deepseek_screenplays.csv": "DeepSeek",
             "aireviews_gemini_screenplays.csv": "Gemini 2" ,
-            "aireviews_gemini_screenplays_context_variation.csv": "Gemini_Context"
+            "aireviews_gemini_screenplays_context_variation.csv": "Gemini(detailed)"
         })
-        plot_title = "(b) Plot for Sreenplay"
+        plot_title = "(b) Plot for Screenplays"
     # replace NA with 0
     ai_df = ai_df.fillna(0)
 
@@ -182,7 +182,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
     # ddding title and labels
     # ax.set_title(f'{source_name}', fontsize=16)
 
-    ax.text(0.5, -0.25, plot_title, fontsize=16, ha='center', transform=ax.transAxes)
+    ax.text(0.5, -0.2, plot_title, fontsize=16, ha='center', transform=ax.transAxes)
 
     ax.set_xlabel('', fontsize=15)
     ax.set_ylabel('Score', fontsize=15)
