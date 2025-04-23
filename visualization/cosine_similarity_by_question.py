@@ -126,15 +126,15 @@ def plot_similarity_heatmap(df_result, title, filename):
     # Corrected version using set_xticklabels for the secondary axis
     plt.figure(figsize=(14, 6))
     sns.heatmap(heatmap_df, annot=True, cmap="YlGnBu", fmt=".3f", linewidths=0.5,
-                annot_kws={"size": 16},
+                annot_kws={"size": 18},
                 cbar = False)
 
     # primary x-axis: question labels
     question_labels = ['Q1', 'Q2', 'Q3'] * 4
     plt.xticks(ticks=[i + 0.5 for i in range(len(question_labels))], labels=question_labels, rotation=0,
-               fontsize = 14)
+               fontsize = 16)
 
-    plt.yticks(fontsize = 14)
+    plt.yticks(fontsize = 18)
 
     # Add a secondary x-axis below for model labels
     ax = plt.gca()
@@ -142,10 +142,10 @@ def plot_similarity_heatmap(df_result, title, filename):
     ax2 = ax.secondary_xaxis('bottom')
     ax2.set_ticks([1.5, 4.5, 7.5, 10.5])
     ax2.set_xticklabels(["ChatGPT-4o", "DeepSeek", "Gemini(detailed)", "Gemini 2"])
-    ax2.tick_params(axis='x', labelsize=14, pad=25)
+    ax2.tick_params(axis='x', labelsize=18, pad=25)
 
     # plt.title("Cosine Similarity Heatmap: IMDb Sentiment vs AI Model by Questions")
-    plt.ylabel("IMDb Sentiment", fontsize = 16, labelpad=15)
+    plt.ylabel("IMDb Sentiment", fontsize = 18, labelpad=15)
     plt.xlabel("")
     plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches="tight")
