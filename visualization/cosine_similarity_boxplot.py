@@ -54,23 +54,35 @@ palette = sns.color_palette("Set2")
 
 # Subplot 1: Overall summary (static cosine similarity comparison)
 sns.boxplot(data=summary_df, x="Source", y="MeanSimilarity", ax=axes[0], hue="Source", palette=palette_dict, legend=False)
-axes[0].set_title("Cosine Similarity Distribution by Subtitles")
-axes[0].set_ylabel("Mean Cosine Similarity")
+# axes[0].set_title("Cosine Similarity Distribution by Subtitles")
+axes[0].set_ylabel("Mean Cosine Similarity", fontsize = 16)
 axes[0].set_xlabel("")
 
 # Subplot 2: Movie-level similarity (screenplays)
 sns.boxplot(data=screenplay_df, x="Source", y="MeanSimilarity", ax=axes[1], hue="Source", palette=palette_dict, legend=False)
-axes[1].set_title("Cosine Similarity Distribution by Screenplays")
-axes[1].set_ylabel("Mean Cosine Similarity")
-axes[1].set_xlabel("Model / IMDb")
+# axes[1].set_title("Cosine Similarity Distribution by Screenplays")
+axes[1].set_ylabel("Mean Cosine Similarity", fontsize = 16)
+axes[1].set_xlabel("")
 
+# adjust subplot title location
+axes[0].text(0.5, -0.05, "(a) Cosine Similarity Distribution by Subtitles",
+             fontsize=16, ha='center', va='top', transform=axes[0].transAxes)
+
+axes[1].text(0.5, -0.1, "(b) Cosine Similarity Distribution by Screenplays",
+             fontsize=16, ha='center', va='top', transform=axes[1].transAxes)
+
+# increase tick labels font size
+for ax in axes:
+    ax.tick_params(axis='both', labelsize=13)  # increase both x and y ticks
 
 # Shared legend
 handles = [mpatches.Patch(color=palette_dict[source], label=source) for source in sources]
-fig.legend(handles=handles, title="Source", loc='upper center', bbox_to_anchor=(0.5, 0.975), ncol=5,
-           title_fontsize=11, fontsize=10)
+fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.52, 0.92), ncol=5,
+           title_fontsize=16, fontsize=16)
 
 # Layout
-plt.tight_layout()
+# plt.tight_layout()
+# adjust distance between subplots
+plt.tight_layout(pad=4.0, rect=(0, 0, 1, 0.92))
 plt.savefig("combined_cosine_similarity_boxplots.png", dpi=300, bbox_inches="tight")
 plt.show()
