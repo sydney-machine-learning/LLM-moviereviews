@@ -156,7 +156,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
             "aireviews_gemini.csv": "Gemini 2",
             "aireviews_gemini_context_variation.csv": "Gemini(detailed)"
         })
-        plot_title = "(a) Plot for Subtitles"
+        plot_title = "(a) Sentiment Polarity Distributioin by Subtitles"
     elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
@@ -164,7 +164,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
             "aireviews_gemini_screenplays.csv": "Gemini 2" ,
             "aireviews_gemini_screenplays_context_variation.csv": "Gemini(detailed)"
         })
-        plot_title = "(b) Plot for Screenplays"
+        plot_title = "(b) Sentiment Polarity Distributioin by Screenplays"
     # replace NA with 0
     ai_df = ai_df.fillna(0)
 
