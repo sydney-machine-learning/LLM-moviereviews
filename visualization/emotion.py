@@ -64,14 +64,14 @@ def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
             "aireviews_chatgpt.csv": "ChatGPT-4o",
             "aireviews_deepseek.csv": "DeepSeek",
             "aireviews_gemini.csv": "Gemini 2.0",
-            "aireviews_gemini_context_variation.csv": "Gemini_Context"
+            "aireviews_gemini_context_variation.csv": "Gemini(detailed)"
         })
     elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
             "aireviews_deepseek_screenplays.csv": "DeepSeek",
             "aireviews_gemini_screenplays.csv": "Gemini 2.0",
-            "aireviews_gemini_screenplays_context_variation.csv": "Gemini_Context"
+            "aireviews_gemini_screenplays_context_variation.csv": "Gemini(detailed)"
         })
     # replace NA with 0
     ai_df = ai_df.fillna(0)
@@ -88,22 +88,31 @@ def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
     sns.boxplot(data=ai_sub_melted, x='Emotion', y='Score', hue='AI Model', palette="Set2", showfliers=False, ax=ax)
 
     # ddding title and labels
-    ax.set_title(f'{source_name}', fontsize=16)
-    ax.set_xlabel('', fontsize=15)
-    ax.tick_params(axis='x', labelsize=13)
-    ax.set_ylabel('Score', fontsize=15)
+    # ax.set_title(f'{source_name}', fontsize=16)
+    ax.set_xlabel('', fontsize=16)
+    ax.tick_params(axis='x', labelsize=16)
+    ax.set_ylabel('Score', fontsize=16)
+    ax.tick_params(axis='y', labelsize=14)
 
     # ax.tick_params(axis='x', rotation=45)
     ax.get_legend().remove()
+
+    # remove subplot[0] x-axis label
     if ax == axes[0]:
         ax.set_xlabel('')
+
+    # adjust subplots title location
+    if ax == axes[0]:
+        ax.text(0.5, -0.2, "(a) Emotion Distribution by Subtitles", fontsize=16, ha='center', transform=ax.transAxes)
+    else:
+        ax.text(0.5, -0.2, "(b) Emotion Distribution by Screenplays", fontsize=16, ha='center', transform=ax.transAxes)
 
 # load the subtitle and screenplay data
 subtitles_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
 screenplays_df = pd.read_csv('../emotions_output/average_emotion_scores_screenplays.csv')
 
 # display subplot
-fig, axes = plt.subplots(2, 1, figsize=(16, 8))
+fig, axes = plt.subplots(2, 1, figsize=(16, 12))
 
 # subplot 1
 generate_emotion_box_plots(subtitles_df, source_name='Subtitle', ax=axes[0])
@@ -115,7 +124,7 @@ generate_emotion_box_plots(screenplays_df, source_name='Screenplay', ax=axes[1])
 handles, labels = axes[1].get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.13, 0.92), ncol=1)
 
-fig.subplots_adjust(hspace=0.6, top=0.92)
+fig.subplots_adjust(hspace=0.4, top=0.92)
 
 plt.savefig('emotion_scores(subtitles + screenplays).png',dpi=300, bbox_inches="tight")
 plt.tight_layout()
