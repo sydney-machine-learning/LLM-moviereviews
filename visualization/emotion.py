@@ -227,7 +227,7 @@ melted_df = average_emotions_df.melt(id_vars=['AI Model', 'Movie'],
                        value_name='Score')
 
 # figure for subplot (2 rows, 1 column)
-fig, axes = plt.subplots(2, 1, figsize=(12, 12))
+fig, axes = plt.subplots(2, 1, figsize=(16, 12))
 
 # subplot 1
 
@@ -238,9 +238,13 @@ sns.barplot(data=melted_df, x='Emotion', y='Score', hue='Movie',
 # title and labels
 # plt.title('Average Emotion Scores by Movie', fontsize=16)
 axes[0].set_xlabel('')
-axes[0].set_ylabel('Average Score', fontsize=12)
-axes[0].set_title('LLM', fontsize=12.5)
+axes[0].set_ylabel('Average Score', fontsize=16)
+axes[0].tick_params(axis='x', labelsize=14)
+axes[0].tick_params(axis='y', labelsize=14)
+axes[0].set_title('LLM', fontsize=16)
 axes[0].legend().set_visible(False)
+
+
 
 # show the plot
 # plt.savefig('emotion_scores_by_moive.png',dpi=300, bbox_inches="tight")
@@ -258,9 +262,11 @@ sns.barplot(data=imdb_melted, x='Emotion', y='Score', hue='Movie',
 
 # title and labels
 # plt.title('Average Emotion Scores by Movie', fontsize=16)
-axes[1].set_xlabel('Emotion', fontsize=12)
-axes[1].set_ylabel('Average Score', fontsize=12)
-axes[1].set_title('IMDb', fontsize=12.5)
+axes[1].set_xlabel('', fontsize=16)
+axes[1].set_ylabel('Average Score', fontsize=16)
+axes[1].tick_params(axis='x', labelsize=14)
+axes[1].tick_params(axis='y', labelsize=14)
+axes[1].set_title('IMDb', fontsize=16)
 axes[1].legend().set_visible(False)
 
 # display shared legend
