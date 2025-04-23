@@ -16,13 +16,13 @@ def replace_model_name(file_name):
     if 'gemini_screenplays_context_variation' in file_name.lower() or 'gemini_context_variation' in file_name.lower():
         return 'Gemini (detailed context)'
     elif 'gemini_screenplays' in file_name.lower():
-        return 'Gemini 2.0'
+        return 'Gemini 2'
     elif 'chatgpt' in file_name.lower():
-        return 'Chatgpt-4o'
+        return 'ChatGPT-4o'
     elif 'deepseek' in file_name.lower():
         return 'DeepSeek'
     elif 'gemini' in file_name.lower():
-        return 'Gemini 2.0'
+        return 'Gemini 2'
     else:
         return 'unknown'
 
@@ -153,7 +153,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt.csv": "ChatGPT-4o",
             "aireviews_deepseek.csv": "DeepSeek",
-            "aireviews_gemini.csv": "Gemini 2.0",
+            "aireviews_gemini.csv": "Gemini 2",
             "aireviews_gemini_context_variation.csv": "Gemini_Context"
         })
         plot_title = "(a) Plot for Subtitle"
@@ -161,7 +161,7 @@ def generate_polarity_box_plots(ai_df, source_name='ai', ax=None):
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
             "aireviews_deepseek_screenplays.csv": "DeepSeek",
-            "aireviews_gemini_screenplays.csv": "Gemini 2.0" ,
+            "aireviews_gemini_screenplays.csv": "Gemini 2" ,
             "aireviews_gemini_screenplays_context_variation.csv": "Gemini_Context"
         })
         plot_title = "(b) Plot for Sreenplay"
