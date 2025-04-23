@@ -5,9 +5,9 @@ import matplotlib.patches as mpatches
 
 # --- Load similarity summary data ---
 files = {
-    "ChatGPT": "../cosine_similarity_and_other_tests/cosine_similarity_results_chatgpt.csv",
+    "ChatGPT-4o": "../cosine_similarity_and_other_tests/cosine_similarity_results_chatgpt.csv",
     "DeepSeek": "../cosine_similarity_and_other_tests/cosine_similarity_results_deepseek.csv",
-    "Gemini": "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini.csv",
+    "Gemini 2": "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini.csv",
     "Gemini (detailed)" : "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv",
     "IMDb": "../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv"
 }
@@ -29,9 +29,9 @@ ai_df = pd.read_csv("../cosine_similarity_and_other_tests/cosine_similarity_resu
 imdb_df = pd.read_csv("../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv")
 
 ai_df["File"] = ai_df["File"].replace({
-    "aireviews_chatgpt_screenplays.csv": "ChatGPT",
+    "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
     "aireviews_deepseek_screenplays.csv": "DeepSeek",
-    "aireviews_gemini_screenplays.csv": "Gemini",
+    "aireviews_gemini_screenplays.csv": "Gemini 2",
     "aireviews_gemini_screenplays_context_variation.csv": "Gemini (detailed)"
 })
 ai_df.rename(columns={"File": "Source"}, inplace=True)
@@ -45,7 +45,7 @@ screenplay_df = pd.concat([
 ], ignore_index=True)
 
 # --- Create combined boxplots ---
-sources = ["ChatGPT", "DeepSeek", "Gemini", "Gemini (detailed)", "IMDb"]
+sources = ["ChatGPT-4o", "DeepSeek", "Gemini 2", "Gemini (detailed)", "IMDb"]
 colors = sns.color_palette("Set2", n_colors=len(sources))
 palette_dict = dict(zip(sources, colors))
 
@@ -73,12 +73,14 @@ axes[1].text(0.5, -0.1, "(b) Cosine Similarity Distribution by Screenplays",
 
 # increase tick labels font size
 for ax in axes:
-    ax.tick_params(axis='both', labelsize=13)  # increase both x and y ticks
+    ax.tick_params(axis='both', labelsize=14)  # increase both x and y ticks
 
 # Shared legend
 handles = [mpatches.Patch(color=palette_dict[source], label=source) for source in sources]
 fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.52, 0.92), ncol=5,
-           title_fontsize=16, fontsize=16)
+           columnspacing=1,
+           handletextpad=0.7,
+           title_fontsize=14, fontsize=15)
 
 # Layout
 # plt.tight_layout()
