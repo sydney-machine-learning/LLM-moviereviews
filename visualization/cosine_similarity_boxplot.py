@@ -25,8 +25,8 @@ for name, df in dfs.items():
 summary_df = pd.concat([df[["MeanSimilarity", "Source"]] for df in dfs.values()], ignore_index=True)
 
 # --- Load per-movie screenplay similarity data ---
-ai_df = pd.read_csv("../cosine_similarity_and_other_tests/cosine_similarity_results_screenplays_by_movie.csv")
-imdb_df = pd.read_csv("../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv")
+ai_df = pd.read_csv("../Cosine Similarity/cosine_similarity_results_screenplays_by_movie.csv")
+imdb_df = pd.read_csv("../Cosine Similarity/within_imdb_similarity_results.csv")
 
 ai_df["File"] = ai_df["File"].replace({
     "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
