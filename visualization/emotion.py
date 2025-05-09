@@ -10,7 +10,7 @@ ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
 
 ai_df["AI Model"] = ai_df["AI Model"].replace({
     "aireviews_chatgpt.csv": "ChatGPT-4o",
-    "aireviews_deepseek.csv": "DeepSeek",
+    "aireviews_deepseek.csv": "DeepSeek-",
     "aireviews_gemini.csv": "Gemini 2.0",
     "aireviews_gemini_context_variation.csv": "Gemini (detailed)"
 })

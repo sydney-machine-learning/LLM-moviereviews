@@ -6,7 +6,7 @@ import seaborn as sns
 # AI Model Performance for Individual Movies
 # Grouped Bar Chart
 
-merged_df = pd.read_csv('../cosine_similarity_and_other_tests/cosine_similarity_results_screenplays_by_movie.csv')
+merged_df = pd.read_csv('../Cosine Similarity/cosine_similarity_results_screenplays_by_movie.csv')
 
 merged_df["File"] = merged_df["File"].replace({
     "aireviews_chatgpt_screenplays.csv": "ChatGPT",

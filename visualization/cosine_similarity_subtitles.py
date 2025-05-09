@@ -54,8 +54,8 @@ plt.savefig("mean_similarity_comparison.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # Load the cosine similarity by screnplays data
-ai_df = pd.read_csv("../cosine_similarity_and_other_tests/cosine_similarity_results_screenplays_by_movie.csv")
-imdb_df = pd.read_csv("../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv")
+ai_df = pd.read_csv("../Cosine Similarity/cosine_similarity_results_screenplays_by_movie.csv")
+imdb_df = pd.read_csv("../Cosine Similarity/within_imdb_similarity_results.csv")
 
 ai_df["File"] = ai_df["File"].replace({
     "aireviews_chatgpt_screenplays.csv": "ChatGPT",

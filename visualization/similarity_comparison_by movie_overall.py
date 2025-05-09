@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load subtitle-based results
-subs_df = pd.read_csv('../cosine_similarity_and_other_tests/cosine_similarity_results_subtitles_by_movie.csv')
+subs_df = pd.read_csv('../Cosine Similarity/cosine_similarity_results_subtitles_by_movie.csv')
 subs_df["File"] = subs_df["File"].replace({
     "aireviews_chatgpt.csv": "ChatGPT",
     "aireviews_deepseek.csv": "DeepSeek",
@@ -16,7 +16,7 @@ subs_df = subs_df.merge(movie_info_df[['imdb_id', 'movie']], left_on='MovieID', 
 subs_df.drop(columns=['imdb_id', 'MovieID'], inplace=True)
 
 # Load screenplay-based results
-script_df = pd.read_csv('../cosine_similarity_and_other_tests/cosine_similarity_results_screenplays_by_movie.csv')
+script_df = pd.read_csv('../Cosine Similarity/cosine_similarity_results_screenplays_by_movie.csv')
 script_df["File"] = script_df["File"].replace({
     "aireviews_chatgpt_screenplays.csv": "ChatGPT",
     "aireviews_deepseek_screenplays.csv": "DeepSeek",
