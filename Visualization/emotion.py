@@ -10,8 +10,8 @@ ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
 
 ai_df["AI Model"] = ai_df["AI Model"].replace({
     "aireviews_chatgpt.csv": "ChatGPT-4o",
-    "aireviews_deepseek.csv": "DeepSeek-",
-    "aireviews_gemini.csv": "Gemini 2.0",
+    "aireviews_deepseek.csv": "DeepSeek-V3",
+    "aireviews_gemini.csv": "Gemini-2",
     "aireviews_gemini_context_variation.csv": "Gemini (detailed)"
 })
 ai_df = ai_df.fillna(0)
@@ -62,15 +62,15 @@ def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
     if source_name == 'Subtitle':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt.csv": "ChatGPT-4o",
-            "aireviews_deepseek.csv": "DeepSeek",
-            "aireviews_gemini.csv": "Gemini 2.0",
+            "aireviews_deepseek.csv": "DeepSeek-V3",
+            "aireviews_gemini.csv": "Gemini-2",
             "aireviews_gemini_context_variation.csv": "Gemini(detailed)"
         })
     elif source_name == 'Screenplay':
         ai_df["AI Model"] = ai_df["AI Model"].replace({
             "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
-            "aireviews_deepseek_screenplays.csv": "DeepSeek",
-            "aireviews_gemini_screenplays.csv": "Gemini 2.0",
+            "aireviews_deepseek_screenplays.csv": "DeepSeek-V3",
+            "aireviews_gemini_screenplays.csv": "Gemini-2",
             "aireviews_gemini_screenplays_context_variation.csv": "Gemini(detailed)"
         })
     # replace NA with 0
@@ -122,7 +122,7 @@ generate_emotion_box_plots(screenplays_df, source_name='Screenplay', ax=axes[1])
 
 # add shared legend
 handles, labels = axes[1].get_legend_handles_labels()
-fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.13, 0.92), ncol=1)
+fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.125, 0.92), ncol=1,fontsize=12)
 
 fig.subplots_adjust(hspace=0.4, top=0.92)
 
@@ -178,7 +178,7 @@ def plot_emotion_by_question_subplots(ai_df):
 
     # add shared legend
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc='upper left', ncol=1, bbox_to_anchor=(0.13, 0.92))
+    fig.legend(handles, labels, loc='upper left', ncol=1, bbox_to_anchor=(0.11, 0.94), fontsize=12)
 
     fig.subplots_adjust(hspace=0.6, top=0.92)
 
@@ -272,8 +272,9 @@ axes[1].legend().set_visible(False)
 # display shared legend
 handles, labels = axes[1].get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper left',
-           bbox_to_anchor=(0.125, 0.88),
-           ncol=1)
+           bbox_to_anchor=(0.12, 0.89),
+           ncol=1,
+           fontsize=13.5)
 
 # show the plot
 # plt.savefig('emotion_scores_by_moive.png',dpi=300, bbox_inches="tight")
