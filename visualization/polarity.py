@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 
 # load the data
-subtitles_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_subtitles.csv')
-screenplays_df = pd.read_csv('../polarity_scores_output/average_polarity_scores_screenplays.csv')
+subtitles_df = pd.read_csv('../Polarity Analysis/average_polarity_scores_subtitles.csv')
+screenplays_df = pd.read_csv('../Polarity Analysis/average_polarity_scores_screenplays.csv')
 imdb_above7 = pd.read_csv('../average_polarity_scores_imdb_above_7.csv')
 imdb_below6 = pd.read_csv('../average_polarity_scores_imdb_below_6.csv')
 imdb_6_and_7 = pd.read_csv('../average_polarity_scores_imdb_between_6_and_7.csv')

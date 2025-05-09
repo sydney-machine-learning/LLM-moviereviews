@@ -4,7 +4,7 @@ import seaborn as sns
 from scipy.stats import f_oneway
 
 # Load AI data
-ai_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
+ai_df = pd.read_csv('../Emotion Analysis/average_emotion_scores_subtitles.csv')
 ai_df.columns = ai_df.columns.str.capitalize()
 ai_df.rename(columns={'File': 'AI Model'}, inplace=True)
 
@@ -18,7 +18,7 @@ ai_df = ai_df.fillna(0)
 
 
 # Load IMDb average emotion scores
-imdb_df = pd.read_csv('../emotions_output/average_emotion_scores_imdb.csv')
+imdb_df = pd.read_csv('../Emotion Analysis/average_emotion_scores_imdb.csv')
 imdb_df.columns = imdb_df.columns.str.capitalize()
 # Melt for visualization
 imdb_melted = imdb_df.melt(id_vars='Movie', var_name='Emotion', value_name='Score')
@@ -108,8 +108,8 @@ def generate_emotion_box_plots(ai_df, source_name='ai', ax=None):
         ax.text(0.5, -0.2, "(b) Emotion Distribution by Screenplays", fontsize=16, ha='center', transform=ax.transAxes)
 
 # load the subtitle and screenplay data
-subtitles_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
-screenplays_df = pd.read_csv('../emotions_output/average_emotion_scores_screenplays.csv')
+subtitles_df = pd.read_csv('../Emotion Analysis/average_emotion_scores_subtitles.csv')
+screenplays_df = pd.read_csv('../Emotion Analysis/average_emotion_scores_screenplays.csv')
 
 # display subplot
 fig, axes = plt.subplots(2, 1, figsize=(16, 12))
@@ -292,7 +292,7 @@ plt.show()
 
 # pie chart for AI models average emotion scores
 
-ai_df = pd.read_csv('../emotions_output/average_emotion_scores_subtitles.csv')
+ai_df = pd.read_csv('../Emotion Analysis/average_emotion_scores_subtitles.csv')
 colors = sns.color_palette("Set2", n_colors=7)
 models = ['chatgpt', 'deepseek', 'gemini', 'gemini_context']
 numeric_columns = ai_df.select_dtypes(include=['float64', 'int64']).columns
