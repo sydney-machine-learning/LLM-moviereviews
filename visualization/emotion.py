@@ -164,15 +164,16 @@ def plot_emotion_by_question_subplots(ai_df):
         sns.barplot(data=avg_scores, x='Emotion', y='Score', hue='AI Model', palette="Set2", ax=axes[idx])
 
         axes[idx].set_title(f'{question_label.capitalize()}',
-                            fontsize = 16)
+                            fontsize = 18)
 
         # adjust plot aesthetics
         axes[idx].tick_params(axis='x', labelsize=18)
+        axes[idx].tick_params(axis='y', labelsize=14)
         # for label in axes[idx].get_xticklabels():
         #     label.set_fontweight('bold')
         axes[idx].legend().set_visible(False)
         axes[idx].set_xlabel('')
-        axes[idx].set_ylabel('Score', fontsize=16)
+        axes[idx].set_ylabel('Score', fontsize=18)
 
 
     # add shared legend
@@ -237,10 +238,10 @@ sns.barplot(data=melted_df, x='Emotion', y='Score', hue='Movie',
 # title and labels
 # plt.title('Average Emotion Scores by Movie', fontsize=16)
 axes[0].set_xlabel('')
-axes[0].set_ylabel('Average Score', fontsize=16)
-axes[0].tick_params(axis='x', labelsize=14)
-axes[0].tick_params(axis='y', labelsize=14)
-axes[0].set_title('LLM', fontsize=16)
+axes[0].set_ylabel('Average Score', fontsize=18)
+axes[0].tick_params(axis='x', labelsize=16)
+axes[0].tick_params(axis='y', labelsize=16)
+axes[0].set_title('LLM', fontsize=18)
 axes[0].legend().set_visible(False)
 
 
@@ -261,11 +262,11 @@ sns.barplot(data=imdb_melted, x='Emotion', y='Score', hue='Movie',
 
 # title and labels
 # plt.title('Average Emotion Scores by Movie', fontsize=16)
-axes[1].set_xlabel('', fontsize=16)
-axes[1].set_ylabel('Average Score', fontsize=16)
-axes[1].tick_params(axis='x', labelsize=14)
-axes[1].tick_params(axis='y', labelsize=14)
-axes[1].set_title('IMDb', fontsize=16)
+axes[1].set_xlabel('', fontsize=18)
+axes[1].set_ylabel('Average Score', fontsize=18)
+axes[1].tick_params(axis='x', labelsize=16)
+axes[1].tick_params(axis='y', labelsize=16)
+axes[1].set_title('IMDb', fontsize=18)
 axes[1].legend().set_visible(False)
 
 # display shared legend

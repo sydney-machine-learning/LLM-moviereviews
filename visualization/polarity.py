@@ -85,11 +85,11 @@ def generate_polarity_barplot(source_name):
                     errorbar=None)
 
         # ax.set_title(title, fontsize=18)
-        ax.text(0.5, -0.3, title, fontsize=16, ha='center', transform=ax.transAxes)
+        ax.text(0.5, -0.3, title, fontsize=18, ha='center', transform=ax.transAxes)
         ax.set_xlabel('')
-        ax.set_ylabel('Polarity Score', fontsize=16)
-        ax.tick_params(axis='x', labelsize=14)
-        ax.tick_params(axis='y', labelsize=16)
+        ax.set_ylabel('Polarity Score', fontsize=18)
+        ax.tick_params(axis='x', labelsize=16)
+        ax.tick_params(axis='y', labelsize=18)
         ax.get_legend().remove()
         ax.grid(False)
 
@@ -100,9 +100,9 @@ def generate_polarity_barplot(source_name):
                bbox_to_anchor=(0.12, 1.03),
                fontsize=14)
 
-
     # layout adjustment
     # plt.tight_layout(rect=(0, 0, 1, 0.94))
+
     fig.subplots_adjust(hspace=0.6, top=0.92)
     plt.grid(False)
     plt.savefig(f"combined_polarity_score_comparison_{source_name}", dpi=300, bbox_inches="tight")
