@@ -67,16 +67,17 @@ def flatten_ai_reviews(filepath, ai_model_name):
     return df_long
 
 # subtitles
-df_chatgpt = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_chatgpt.csv', 'ChatGPT')
-df_deepseek = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_deepseek.csv', 'DeepSeek')
-df_gemini = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_gemini.csv', 'Gemini')
-df_gemini_ctx = flatten_ai_reviews('../reviews_ai/subtitles/aireviews_gemini_context_variation.csv', 'Gemini(detailed)')
+df_chatgpt = flatten_ai_reviews('../AI Generated Reviews/subtitles/aireviews_chatgpt.csv', 'ChatGPT')
+df_deepseek = flatten_ai_reviews('../AI Generated Reviews/subtitles/aireviews_deepseek.csv', 'DeepSeek')
+df_gemini = flatten_ai_reviews('../AI Generated Reviews/subtitles/aireviews_gemini.csv', 'Gemini')
+df_gemini_ctx = flatten_ai_reviews('../AI Generated Reviews/subtitles/aireviews_gemini_context_variation.csv', 'Gemini(detailed)')
 
 # screenplays
-df_chatgpt_1 = flatten_ai_reviews('../reviews_ai/screenplays/aireviews_chatgpt_screenplays.csv', 'ChatGPT')
-df_deepseek_1 = flatten_ai_reviews('../reviews_ai/screenplays/aireviews_deepseek_screenplays.csv', 'DeepSeek')
-df_gemini_1 = flatten_ai_reviews('../reviews_ai/screenplays/aireviews_gemini_screenplays.csv', 'Gemini')
-df_gemini_ctx_1 = flatten_ai_reviews('../reviews_ai/screenplays/aireviews_gemini_screenplays_context_variation.csv', 'Gemini(detailed)')
+df_chatgpt_1 = flatten_ai_reviews('../AI Generated Reviews/screenplays/aireviews_chatgpt_screenplays.csv', 'ChatGPT')
+df_deepseek_1 = flatten_ai_reviews('../AI Generated Reviews/screenplays/aireviews_deepseek_screenplays.csv', 'DeepSeek')
+df_gemini_1 = flatten_ai_reviews('../AI Generated Reviews/screenplays/aireviews_gemini_screenplays.csv', 'Gemini')
+df_gemini_ctx_1 = flatten_ai_reviews(
+    '../AI Generated Reviews/screenplays/aireviews_gemini_screenplays_context_variation.csv', 'Gemini(detailed)')
 
 
 df_all = pd.concat([df_chatgpt, df_deepseek, df_gemini, df_gemini_ctx], ignore_index=True)
