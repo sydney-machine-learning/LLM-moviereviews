@@ -54,7 +54,9 @@ def trigram_analysis(reviews):
     for review in reviews:
         trigrams_list = generate_trigrams(review)
         trigram_counts.update(trigrams_list)
-    return trigram_counts.most_common(3)
+        # select top 3
+    # return trigram_counts.most_common(3)
+    return trigram_counts.most_common(4)
 
 def process_reviews(df, ai_client):
     
@@ -182,7 +184,7 @@ def main(run_shawshank_analysis=False, run_all_movies_analysis=False):
             process_and_save_trigrams(df, ai_client, output_filename)
     
     # Load movie info dataframe for potential use in the optional analyses
-    selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+    selected_movie_info_df = pd.read_csv('../selected_movie_info.csv')
     
     # Optionally run The Shawshank Redemption analysis
     if run_shawshank_analysis:
@@ -192,7 +194,7 @@ def main(run_shawshank_analysis=False, run_all_movies_analysis=False):
     # Optionally run analysis for all movies
     if run_all_movies_analysis:
         print("Running trigram analysis for all movies...")
-        all_imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
+        all_imdb_reviews_df = pd.read_csv('../download/all_imdb_reviews.csv')
         all_movies_trigrams = generate_trigrams_for_all_movies(all_imdb_reviews_df, selected_movie_info_df)
         all_movies_trigrams_df = trigrams_to_dataframe(all_movies_trigrams)
         all_movies_trigrams_df.to_csv('trigrams_output/all_imdb_review_trigrams.csv', index=False)
