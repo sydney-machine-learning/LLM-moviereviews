@@ -5,11 +5,11 @@ import matplotlib.patches as mpatches
 
 # --- Load similarity summary data ---
 files = {
-    "ChatGPT-4o": "../cosine_similarity_and_other_tests/cosine_similarity_results_chatgpt.csv",
-    "DeepSeek": "../cosine_similarity_and_other_tests/cosine_similarity_results_deepseek.csv",
-    "Gemini 2": "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini.csv",
-    "Gemini (detailed)" : "../cosine_similarity_and_other_tests/cosine_similarity_results_gemini_detailed_context.csv",
-    "IMDb": "../cosine_similarity_and_other_tests/within_imdb_similarity_results.csv"
+    "ChatGPT-4o": "../Cosine Similarity/cosine_similarity_results_chatgpt.csv",
+    "DeepSeek-V3": "../Cosine Similarity/cosine_similarity_results_deepseek.csv",
+    "Gemini-2": "../Cosine Similarity/cosine_similarity_results_gemini.csv",
+    "Gemini (detailed)" : "../Cosine Similarity/cosine_similarity_results_gemini_detailed_context.csv",
+    "IMDb": "../Cosine Similarity/within_imdb_similarity_results.csv"
 }
 
 dfs = {name: pd.read_csv(path) for name, path in files.items()}
@@ -30,8 +30,8 @@ imdb_df = pd.read_csv("../Cosine Similarity/within_imdb_similarity_results.csv")
 
 ai_df["File"] = ai_df["File"].replace({
     "aireviews_chatgpt_screenplays.csv": "ChatGPT-4o",
-    "aireviews_deepseek_screenplays.csv": "DeepSeek",
-    "aireviews_gemini_screenplays.csv": "Gemini 2",
+    "aireviews_deepseek_screenplays.csv": "DeepSeek-V3",
+    "aireviews_gemini_screenplays.csv": "Gemini-2",
     "aireviews_gemini_screenplays_context_variation.csv": "Gemini (detailed)"
 })
 ai_df.rename(columns={"File": "Source"}, inplace=True)
@@ -45,7 +45,7 @@ screenplay_df = pd.concat([
 ], ignore_index=True)
 
 # --- Create combined boxplots ---
-sources = ["ChatGPT-4o", "DeepSeek", "Gemini 2", "Gemini (detailed)", "IMDb"]
+sources = ["ChatGPT-4o", "DeepSeek-V3", "Gemini-2", "Gemini (detailed)", "IMDb"]
 colors = sns.color_palette("Set2", n_colors=len(sources))
 palette_dict = dict(zip(sources, colors))
 
