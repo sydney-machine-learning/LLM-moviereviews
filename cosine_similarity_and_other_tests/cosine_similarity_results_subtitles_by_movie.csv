@@ -1,4 +1,4 @@
-File,MovieID,MeanSimilarity,MedianSimilarity,MaxSimilarity
+File,imdb_id,MeanSimilarity,MedianSimilarity,MaxSimilarity
 aireviews_chatgpt.csv,tt0388795,0.2749586019721794,0.2809224590864716,0.5246825864794399
 aireviews_chatgpt.csv,tt0190332,0.3108102219445749,0.3058340271830271,0.535616392867755
 aireviews_chatgpt.csv,tt0111161,0.3510473201812086,0.3617600092097695,0.6382002896068489

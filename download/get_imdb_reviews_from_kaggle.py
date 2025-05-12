@@ -12,16 +12,22 @@ This script performs the following operations:
    - Filters reviews based on relevant IMDb IDs when specified
 4. Organizes reviews in a dictionary (imdb_reviews_dict) grouped by rating (1-10)
 5. Tracks unique IMDb IDs throughout the processing
-6. Combines all reviews into a single DataFrame
-7. Saves the final results to 'download/all_imdb_reviews.csv'
+6. Combines all reviews into a DataFrame for processing
+7. Creates individual CSV files for each movie, saved in 'imdb-reviews/' folder
 
-Dependencies: pandas, kagglehub
+Dependencies: pandas, kagglehub, os
 Input files: selected_movie_info.csv (when filtering by specific movies)
-Output files: download/all_imdb_reviews.csv
+Output files: 
+  - imdb-reviews/[movie_title].csv (one file per movie)
 """
 
 import kagglehub
 import pandas as pd
+import os
+
+# Create imdb-reviews directory if it doesn't exist
+if not os.path.exists('imdb-reviews'):
+    os.makedirs('imdb-reviews')
 
 # Flag to determine whether to download all reviews or just the relevant ones
 download_all_reviews = False  # Set to True to download all reviews
@@ -43,8 +49,6 @@ if not download_all_reviews:
 else:
     relevant_imdb_codes = None
 print(f"Relevant IMDb codes: {relevant_imdb_codes}")
-
-
 
 path_imdb_reviews = kagglehub.dataset_download("mlopssss/imdb-movie-reviews-grouped-by-ratings")
 
@@ -75,6 +79,23 @@ for i in range(1, 11):
     Unique_IMDB_ids.update(df["imdb_id"].tolist())
     all_reviews.append(df)
 
-# Combine all reviews into a single DataFrame and save to csv
+# Combine all reviews into a DataFrame for processing
 all_reviews_df = pd.concat(all_reviews, ignore_index=True)
-all_reviews_df.to_csv('download/all_imdb_reviews.csv', index=False, header=True)
+
+# Save individual CSV files for each movie
+if not download_all_reviews:
+    # Create a mapping of IMDb IDs to movie titles
+    imdb_to_movie = dict(zip(selected_movie_info_df['imdb_id'], selected_movie_info_df['movie']))
+    
+    # Process each movie
+    for imdb_id, movie_title in imdb_to_movie.items():
+        # Filter reviews for this movie
+        movie_reviews = all_reviews_df[all_reviews_df['imdb_id'] == imdb_id]
+        
+        # Create sanitized filename
+        sanitized_title = movie_title.replace(' ', '_').replace(',', '_').replace('\'', '').replace('"', '').lower()
+        output_path = f'imdb-reviews/{sanitized_title}.csv'
+        
+        # Save to CSV
+        movie_reviews.to_csv(output_path, index=False)
+        print(f"Saved {len(movie_reviews)} reviews for '{movie_title}' to {output_path}")

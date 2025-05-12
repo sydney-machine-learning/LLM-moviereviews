@@ -1,4 +1,4 @@
-File,MovieID,MeanSimilarity,MedianSimilarity,MaxSimilarity
+File,imdb_id,MeanSimilarity,MedianSimilarity,MaxSimilarity
 aireviews_chatgpt_screenplays.csv,tt0388795,0.24163130433398664,0.23239943400068663,0.5115407614455073
 aireviews_chatgpt_screenplays.csv,tt0190332,0.3137324160439531,0.3174026786627803,0.5245029691283779
 aireviews_chatgpt_screenplays.csv,tt0111161,0.20175771141637752,0.19064664282457608,0.38729201910779326

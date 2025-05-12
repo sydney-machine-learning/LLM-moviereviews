@@ -1,4 +1,4 @@
-File,MovieID,Question,ComparedWith,MeanSimilarity,MedianSimilarity,MaxSimilarity
+File,imdb_id,Question,ComparedWith,MeanSimilarity,MedianSimilarity,MaxSimilarity
 aireviews_chatgpt_screenplays.csv,tt0388795,Question1,negative IMDb reviews (rating < 7),0.40010844959316216,0.3657205634755625,0.538377445825744
 aireviews_chatgpt_screenplays.csv,tt0388795,Question2,positive IMDb reviews (rating > 7),0.2714065305621486,0.27101869670447526,0.501928949543326
 aireviews_chatgpt_screenplays.csv,tt0190332,Question1,negative IMDb reviews (rating < 7),0.4122421923618324,0.4412772629555292,0.521388603630881
