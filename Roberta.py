@@ -320,7 +320,7 @@ def get_average_polarity_scores_imdb():
     df = pd.DataFrame(average_results)
 
     # Save the DataFrame to a CSV file
-    output_path = 'polarity_scores_output/average_polarity_scores_imdb.csv'
+    output_path = 'Polarity Analysis/average_polarity_scores_imdb.csv'
     df.to_csv(output_path, index=False)
 
 
@@ -356,7 +356,7 @@ def get_average_emotion_scores_imdb():
     df = pd.DataFrame(average_results)
 
     # Save the DataFrame to a CSV file
-    output_path = 'emotions_output/average_emotion_scores_imdb.csv'
+    output_path = 'Emotion Analysis/average_emotion_scores_imdb.csv'
     df.to_csv(output_path, index=False)
     #print(f"Average emotion scores per movie saved to {output_path}")
 

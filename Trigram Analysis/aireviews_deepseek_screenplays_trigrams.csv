@@ -1,0 +1,73 @@
+Movie,Question,Trigram,Count
+Avatar,question1,jake sully sam,3
+Avatar,question1,sully sam worthington,3
+Avatar,question1,final verdict avatar,3
+Avatar,question1,bad review avatar,3
+Avatar,question2,james cameron avatar,4
+Avatar,question2,na vi culture,4
+Avatar,question2,jake sully sam,3
+Avatar,question2,sully sam worthington,3
+Avatar,question3,movie review avatar,4
+Avatar,question3,james cameron avatar,4
+Avatar,question3,cameron avatar visual,3
+Avatar,question3,na vi culture,3
+Brokeback Mountain,question1,review brokeback mountain,5
+Brokeback Mountain,question1,ennis del mar,4
+Brokeback Mountain,question1,groundbreaking love story,3
+Brokeback Mountain,question1,adapted annie proulx,3
+Brokeback Mountain,question2,ennis del mar,5
+Brokeback Mountain,question2,larry mcmurtry diana,4
+Brokeback Mountain,question2,mcmurtry diana ossana,4
+Brokeback Mountain,question2,adapted annie proulx,3
+Brokeback Mountain,question3,review brokeback mountain,5
+Brokeback Mountain,question3,average review brokeback,3
+Brokeback Mountain,question3,annie proulx short,3
+Brokeback Mountain,question3,proulx short story,3
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,13
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,13
+"Crouching Tiger, Hidden Dragon",question1,li mu bai,6
+"Crouching Tiger, Hidden Dragon",question1,review crouching tiger,4
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,12
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,12
+"Crouching Tiger, Hidden Dragon",question2,li mu bai,10
+"Crouching Tiger, Hidden Dragon",question2,mu bai chow,5
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,10
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,10
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,9
+"Crouching Tiger, Hidden Dragon",question3,review crouching tiger,5
+Nomadland,question1,final verdict nomadland,3
+Nomadland,question1,cinematography undeniably shots,2
+Nomadland,question1,nothing happens fern,2
+Nomadland,question1,watch frances mcdormand,2
+Nomadland,question2,long credits roll,3
+Nomadland,question2,directed chloé zhao,3
+Nomadland,question2,jessica bruder nonfiction,3
+Nomadland,question2,chloé zhao direction,3
+Nomadland,question3,final verdict nomadland,3
+Nomadland,question3,beauty american west,2
+Nomadland,question3,may test patience,2
+Nomadland,question3,lack traditional plot,2
+The Shawshank Redemption,question1,bad review shawshank,5
+The Shawshank Redemption,question1,review shawshank redemption,5
+The Shawshank Redemption,question1,final verdict shawshank,4
+The Shawshank Redemption,question1,might well twirl,3
+The Shawshank Redemption,question2,review shawshank redemption,5
+The Shawshank Redemption,question2,stephen king novella,5
+The Shawshank Redemption,question2,based stephen king,4
+The Shawshank Redemption,question2,andy dufresne tim,4
+The Shawshank Redemption,question3,review shawshank redemption,5
+The Shawshank Redemption,question3,shawshank redemption shawshank,4
+The Shawshank Redemption,question3,redemption shawshank redemption,4
+The Shawshank Redemption,question3,morgan freeman red,3
+Titanic,question1,james cameron titanic,4
+Titanic,question1,bad review titanic,3
+Titanic,question1,titanic sinking ship,3
+Titanic,question1,celine dion song,3
+Titanic,question2,james cameron titanic,4
+Titanic,question2,rose dewitt bukater,3
+Titanic,question2,dewitt bukater kate,3
+Titanic,question2,bukater kate winslet,3
+Titanic,question3,final verdict titanic,4
+Titanic,question3,movie review titanic,3
+Titanic,question3,leonardo dicaprio kate,3
+Titanic,question3,dicaprio kate winslet,3
