@@ -28,7 +28,7 @@ client_deepseek = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepsee
 # Read the CSV files
 #imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
 #cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles.csv')
-cleaned_subtitles_df = pd.read_csv('data/cleaned_subtitles.csv')
+cleaned_subtitles_df = pd.read_csv('data/cleaned_screenplays.csv')
 
 # Filter IMDb reviews to keep only the reviews for the movies in cleaned_subtitles_df
 movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
@@ -103,7 +103,7 @@ Prompts = ["Provide a bad review for this movie", "Provide a good review for thi
 def generate_review(movie_title, subtitle_text, context, question, ai_client):
     
     prompt = f"{context} {question}. Here is the text for {movie_title}: {subtitle_text}"
-    truncated_prompt = truncate_text(prompt, 95500)  # Truncate tokens if needed.
+    truncated_prompt = truncate_text(prompt, 84000)  # Truncate tokens if needed.
 
     print_token_count(truncated_prompt)
 
@@ -139,7 +139,7 @@ for index, row in cleaned_subtitles_df.iterrows():
 
     
     reviews = {}
-    for reviewer in ["chatgpt"]:
+    for reviewer in ["gemini"]:
         for context_index, context in enumerate(Context_a, start=1):
             for question_index, question in enumerate(Prompts, start=1):
                 print(movie_name, context_index, question_index, reviewer)
@@ -163,6 +163,6 @@ df = pd.DataFrame(data)
 print(df.head(1))
 
 # Save the DataFrame to a CSV file if needed
-df.to_csv('LLM Generated Reviews/subtitles/aireviews_chatgpt.csv', index=False)
+df.to_csv('LLM Generated Reviews/screenplays/aireviews_gemini_screenplays.csv', index=False)
 
 
