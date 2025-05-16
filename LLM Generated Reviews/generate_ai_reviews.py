@@ -28,10 +28,10 @@ client_deepseek = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepsee
 # Read the CSV files
 #imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
 #cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles.csv')
-cleaned_subtitles_df = pd.read_csv('data/cleaned_screenplays.csv')
+#cleaned_subtitles_df = pd.read_csv('data/cleaned_screenplays.csv')
 
 # Filter IMDb reviews to keep only the reviews for the movies in cleaned_subtitles_df
-movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
+# movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
 
 #imdb_reviews_df = imdb_reviews_df[imdb_reviews_df['MovieID'].isin(movies_of_interest)]
 
@@ -39,7 +39,7 @@ movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
 
 # System context for the AI models
 
-Context_a = ["""
+Context_detailed = ["""
 I have subtitle text from a movie. Please read the subtitles and generate
 a short movie review written in the voice of a young professional woman in
 her late 20s who loves going to the movies and has a sharp, thoughtful 
@@ -96,13 +96,15 @@ def truncate_text(text, max_tokens):
         return tokenizer.decode(tokens[:max_tokens])
     return text
 
-# User prompts for the AI models
-Prompts = ["Provide a bad review for this movie", "Provide a good review for this movie", "Provide an average review for this movie"]
+# Three user prompt components for full prompt
+Prompts = ["Provide a bad review for this movie", 
+           "Provide a good review for this movie", 
+           "Provide an average review for this movie"]
 
 
-def generate_review(movie_title, subtitle_text, context, question, ai_client):
+def generate_review(movie_title, movie_content, context, question, ai_client):
     
-    prompt = f"{context} {question}. Here is the text for {movie_title}: {subtitle_text}"
+    prompt = f"{context} {question}. Here is the text for {movie_title}: {movie_content}"
     truncated_prompt = truncate_text(prompt, 84000)  # Truncate tokens if needed.
 
     print_token_count(truncated_prompt)
@@ -127,42 +129,85 @@ def generate_review(movie_title, subtitle_text, context, question, ai_client):
         return response.choices[0].message.content
 
 
-# Create a DataFrame with the required information
-data = []
+# Process screenplay and subtitle files
+def process_movie_files(source_file, output_directory_base, content_field):
+    """
+    Process all movie CSV files in a directory, model by model.
+    For each model, it processes all movies, generates 15 reviews per movie,
+    and saves them to a movie-specific CSV in that model's output folder.
 
-for index, row in cleaned_subtitles_df.iterrows():
-    movie_name = row['movie']
-    year = row['year']
-    award = row['award']
-    content = row['cleaned_subtitle_text']
+    Args:
+        source_directory: Directory containing source movie CSV files (e.g., 'data/screenplays')
+        output_directory_base: Base directory to save review CSV files (e.g., 'LLM-reviews/screenplays')
+        content_field: Field name for the movie content (cleaned_screenplay_text or cleaned_subtitle_text)
+
+    Output CSV Format (per movie, per model):
+        - Columns: 'review_id', 'review_text'
+        - Each row is one of the 15 generated reviews.
+    """
+
+    all_model_configurations = ["gemini_detailed_context","chatgpt", "gemini", "deepseek"]
+    #all_model_configurations = ["chatgpt"]
+    # Check if source directory exists
     
+    #if not os.path.exists(source_directory):
+    #    print(f"Source directory {source_directory} not found. Skipping.")
+    #    return
+    movie_df = pd.read_csv(source_file)
 
-    
-    reviews = {}
-    for reviewer in ["gemini"]:
-        for context_index, context in enumerate(Context_a, start=1):
-            for question_index, question in enumerate(Prompts, start=1):
-                print(movie_name, context_index, question_index, reviewer)
-                review = generate_review(movie_name, content, context, question, reviewer)
-                reviews[f"{reviewer}_context{context_index}_question{question_index}"] = review
+    for model_config_name in all_model_configurations:
+        print(f"\\n=== Processing Model Configuration: {model_config_name} ===")
+        data = []
+        # Determine the actual AI client and contexts to use
+        current_ai_client = model_config_name
+        current_contexts_to_use = Contexts
+        
+        if model_config_name == "gemini_detailed_context":
+            current_ai_client = "gemini" # Use the gemini client
+            current_contexts_to_use = Context_detailed
+        
+        #model_specific_output_dir = os.path.join(output_directory_base)
+        model_specific_output_dir = output_directory_base
+        # Ensure the specific model's output directory exists (it should have been created at the start of the script)
+        
+        for index, row in movie_df.iterrows():                  # loop through movies
+            reviews = {}
+            # Extract movie information from the row
+            movie_name = row['movie']
+            year = row['year']
+            award = row['award']
+            movie_content = row[content_field]
+            #movie_row = movie_df.iloc[0]
+            imdb_id = row['imdb_id']
+                    
+            print(f"\\nProcessing movie: {movie_name} for model configuration: {model_config_name}")
 
-                
-    imdb_id = row['imdb_id']
+            for context_index, context in enumerate(current_contexts_to_use, start=1):      # loop through 5 contexts
+                for question_index, question in enumerate(Prompts, start=1):                    # loop though 3 questions
+                    print(movie_name, context_index, question_index, model_config_name)
+                    review = generate_review(movie_name, movie_content, context, question, current_ai_client)
+                    reviews[f"{current_ai_client}_context{context_index}_question{question_index}"] = review
 
-    data.append({
-        'movie': movie_name,
-        'imdb_id': imdb_id,
-        'year': year,
-        'award': award,
-        **reviews  # Unpack the reviews dictionary into the data dictionary
-    })
+            
 
-df = pd.DataFrame(data)
+            data.append({
+                        'movie': movie_name,
+                        'imdb_id': imdb_id,
+                        'year': year,
+                        'award': award,
+                        **reviews  # Unpack the reviews dictionary into the data dictionary
+                    })  
 
-# Print the DataFrame to verify the changes
-print(df.head(1))
+        df = pd.DataFrame(data)
+        df.to_csv(f"{output_directory_base}/aireviews_{model_config_name}.csv", index=False)
 
-# Save the DataFrame to a CSV file if needed
-df.to_csv('LLM Generated Reviews/screenplays/aireviews_gemini_screenplays.csv', index=False)
+
+# Process subtitle files
+print("\\n=== Processing Subtitle Files ===")
+process_movie_files('data/cleaned_subtitles.csv', 'LLM Generated Reviews/subtitles', 'cleaned_subtitle_text')
+
+# Process screenplay files
+print("\\n=== Processing Screenplay Files ===")
+process_movie_files('data/cleaned_screenplays.csv', 'LLM Generated Reviews/screenplays', 'cleaned_subtitle_text')
 
 
