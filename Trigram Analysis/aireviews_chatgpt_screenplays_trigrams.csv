@@ -1,73 +1,73 @@
 Movie,Question,Trigram,Count
-Avatar,question1,neytiri leads jake,3
-Avatar,question1,watching jake neytiri,2
-Avatar,question1,neytiri gestures jake,2
-Avatar,question1,gestures jake eat,2
-Avatar,question2,jake neytiri tsutey,3
-Avatar,question2,eytukan looks stern,2
-Avatar,question2,neytiri navi subtitled,2
-Avatar,question2,neytiri tsutey looks,2
-Avatar,question3,watching mix curiosity,2
-Avatar,question3,eat food neytiri,2
-Avatar,question3,neytiri begins speak,2
-Avatar,question3,jake follow leads,2
-Brokeback Mountain,question1,ck corral gate,1
-Brokeback Mountain,question1,corral gate smiles,1
-Brokeback Mountain,question1,gate smiles competitive,1
-Brokeback Mountain,question1,smiles competitive faintly,1
-Brokeback Mountain,question2,ack takes picture,1
-Brokeback Mountain,question2,takes picture given,1
-Brokeback Mountain,question2,picture given buckle,1
-Brokeback Mountain,question2,given buckle ack,1
-Brokeback Mountain,question3,ack taken boots,1
-Brokeback Mountain,question3,taken boots sore,1
-Brokeback Mountain,question3,boots sore feet,1
-Brokeback Mountain,question3,sore feet bucket,1
-"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,3
-"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,3
-"Crouching Tiger, Hidden Dragon",question1,poorly choreographed lack,2
-"Crouching Tiger, Hidden Dragon",question1,choreographed lack real,2
-"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,6
-"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,6
-"Crouching Tiger, Hidden Dragon",question2,weaves together themes,2
-"Crouching Tiger, Hidden Dragon",question2,li mu bai,2
-"Crouching Tiger, Hidden Dragon",question3,screenplays free movie,2
-"Crouching Tiger, Hidden Dragon",question3,free movie scripts,2
-"Crouching Tiger, Hidden Dragon",question3,movie scripts screenplays,2
-"Crouching Tiger, Hidden Dragon",question3,pacing bit slow,2
-Nomadland,question1,come fern steps,3
-Nomadland,question1,fern steps inside,3
-Nomadland,question1,yeah thought try,2
-Nomadland,question1,thought try something,2
-Nomadland,question2,twenty three hundred,2
-Nomadland,question2,fern talks time,2
-Nomadland,question2,dolly listens intently,2
-Nomadland,question2,ern yeah dolly,1
-Nomadland,question3,come fern steps,4
-Nomadland,question3,fern steps inside,3
-Nomadland,question3,steps inside house,3
-Nomadland,question3,dolly im good,2
-The Shawshank Redemption,question1,approaches warden norton,2
-The Shawshank Redemption,question1,warden norton office,2
-The Shawshank Redemption,question1,norton office knocks,2
-The Shawshank Redemption,question1,andy warden norton,2
-The Shawshank Redemption,question2,approaches warden norton,2
-The Shawshank Redemption,question2,warden norton office,2
-The Shawshank Redemption,question2,norton office norton,2
-The Shawshank Redemption,question2,discuss possibility expanding,2
-The Shawshank Redemption,question3,warden norton office,3
-The Shawshank Redemption,question3,andy approaches warden,2
-The Shawshank Redemption,question3,approaches warden norton,2
-The Shawshank Redemption,question3,andy yes sir,2
-Titanic,question1,time kind memory,1
-Titanic,question1,kind memory moment,1
-Titanic,question1,memory moment titanic,1
-Titanic,question1,moment titanic grand,1
-Titanic,question2,camera pulls back,2
-Titanic,question2,scene fades black,2
-Titanic,question2,complexities human relationships,2
-Titanic,question2,rose eyes filled,2
-Titanic,question3,still feel icy,1
-Titanic,question3,feel icy grip,1
-Titanic,question3,icy grip cal,1
-Titanic,question3,grip cal control,1
+Avatar,question1,stephen lang colonel,2
+Avatar,question1,lang colonel quaritch,2
+Avatar,question1,james cameron avatar,2
+Avatar,question1,sigourney weaver scientist,2
+Avatar,question2,jake sully played,4
+Avatar,question2,zoe saldana neytiri,4
+Avatar,question2,james cameron avatar,3
+Avatar,question2,avatar movie experience,2
+Avatar,question3,sam worthington jake,4
+Avatar,question3,worthington jake sully,2
+Avatar,question3,grace augustine stephen,2
+Avatar,question3,augustine stephen lang,2
+Brokeback Mountain,question1,ennis del mar,4
+Brokeback Mountain,question1,del mar jack,2
+Brokeback Mountain,question1,mar jack twist,2
+Brokeback Mountain,question1,actors heath ledger,2
+Brokeback Mountain,question2,ennis del mar,5
+Brokeback Mountain,question2,larry mcmurtry diana,4
+Brokeback Mountain,question2,mcmurtry diana ossana,4
+Brokeback Mountain,question2,title brokeback mountain,3
+Brokeback Mountain,question3,ennis del mar,5
+Brokeback Mountain,question3,brokeback mountain review,2
+Brokeback Mountain,question3,heath ledger jack,2
+Brokeback Mountain,question3,ledger jack twist,2
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,13
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,13
+"Crouching Tiger, Hidden Dragon",question1,li mu bai,5
+"Crouching Tiger, Hidden Dragon",question1,yu shu lien,5
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,11
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,11
+"Crouching Tiger, Hidden Dragon",question2,li mu bai,7
+"Crouching Tiger, Hidden Dragon",question2,yu shu lien,3
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,13
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,13
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,8
+"Crouching Tiger, Hidden Dragon",question3,yu shu lien,4
+Nomadland,question1,first let talk,2
+Nomadland,question1,chloé zhao direction,2
+Nomadland,question1,frances mcdormand fern,2
+Nomadland,question1,nomadland slow burn,1
+Nomadland,question2,frances mcdormand fern,2
+Nomadland,question2,much like life,2
+Nomadland,question2,like life road,2
+Nomadland,question2,rough around edges,2
+Nomadland,question3,yet deeply connected,2
+Nomadland,question3,frances mcdormand fern,2
+Nomadland,question3,alright friends emerged,1
+Nomadland,question3,friends emerged dreamy,1
+The Shawshank Redemption,question1,title shawshank redemption,3
+The Shawshank Redemption,question1,andy dufresne played,3
+The Shawshank Redemption,question1,ah shawshank redemption,2
+The Shawshank Redemption,question1,dufresne played tim,2
+The Shawshank Redemption,question2,andy dufresne played,3
+The Shawshank Redemption,question2,review shawshank redemption,2
+The Shawshank Redemption,question2,morgan freeman whose,2
+The Shawshank Redemption,question2,freeman whose narration,2
+The Shawshank Redemption,question3,get busy living,4
+The Shawshank Redemption,question3,portrayed tim robbins,2
+The Shawshank Redemption,question3,tim robbins andy,2
+The Shawshank Redemption,question3,morgan freeman red,2
+Titanic,question1,dicaprio jack dawson,3
+Titanic,question1,kate winslet leonardo,2
+Titanic,question1,winslet leonardo dicaprio,2
+Titanic,question1,unsinkable molly brown,2
+Titanic,question2,let get real,2
+Titanic,question2,kathy bates indomitable,2
+Titanic,question2,bates indomitable molly,2
+Titanic,question2,indomitable molly brown,2
+Titanic,question3,leonardo dicaprio jack,3
+Titanic,question3,dicaprio jack dawson,3
+Titanic,question3,chemistry jack rose,2
+Titanic,question3,kate winslet rose,2

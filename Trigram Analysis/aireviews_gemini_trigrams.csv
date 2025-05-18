@@ -1,73 +1,73 @@
 Movie,Question,Trigram,Count
-The Shawshank Redemption,question1,shawshank redemption like,4
-The Shawshank Redemption,question1,sentence worse life,2
-The Shawshank Redemption,question1,redemption like shawshank,2
-The Shawshank Redemption,question1,even get started,2
-The Shawshank Redemption,question2,banker wrongly convicted,3
-The Shawshank Redemption,question2,successful banker wrongly,2
-The Shawshank Redemption,question2,wrongly convicted murdering,2
-The Shawshank Redemption,question2,convicted murdering wife,2
-The Shawshank Redemption,question3,overall shawshank redemption,4
-The Shawshank Redemption,question3,morgan freeman red,3
-The Shawshank Redemption,question3,banker wrongly convicted,2
-The Shawshank Redemption,question3,let talk shawshank,2
-Brokeback Mountain,question1,brokeback mountain like,3
-Brokeback Mountain,question1,ultimately brokeback mountain,2
-Brokeback Mountain,question1,watching paint dry,2
-Brokeback Mountain,question1,brokeback mountain flick,2
-Brokeback Mountain,question2,long credits roll,4
+The Shawshank Redemption,question1,first let address,2
+The Shawshank Redemption,question1,save three hours,2
+The Shawshank Redemption,question1,chipping away wall,2
+The Shawshank Redemption,question1,hope good thing,2
+The Shawshank Redemption,question2,review shawshank redemption,2
+The Shawshank Redemption,question2,tim robbins plays,2
+The Shawshank Redemption,question2,robbins plays andy,2
+The Shawshank Redemption,question2,shawshank redemption prison,2
+The Shawshank Redemption,question3,overall shawshank redemption,2
+The Shawshank Redemption,question3,okay finally got,1
+The Shawshank Redemption,question3,finally got around,1
+The Shawshank Redemption,question3,got around seeing,1
+Brokeback Mountain,question1,brokeback mountain like,4
+Brokeback Mountain,question1,mountain like boredom,2
+Brokeback Mountain,question1,watching sheep graze,2
+Brokeback Mountain,question1,first let get,2
+Brokeback Mountain,question2,long credits roll,3
 Brokeback Mountain,question2,review brokeback mountain,2
-Brokeback Mountain,question2,gay cowboy movie,2
-Brokeback Mountain,question2,ennis del mar,2
-Brokeback Mountain,question3,ennis del mar,2
-Brokeback Mountain,question3,del mar jack,2
-Brokeback Mountain,question3,mar jack twist,2
-Brokeback Mountain,question3,jack twist two,2
-Avatar,question1,blue cat people,3
+Brokeback Mountain,question2,brokeback mountain raw,2
+Brokeback Mountain,question2,ennis jack find,2
+Brokeback Mountain,question3,two cowboys ennis,2
+Brokeback Mountain,question3,ai gon na,2
+Brokeback Mountain,question3,alright alright settle,2
+Brokeback Mountain,question3,okay finally saw,1
 Avatar,question1,even get started,3
-Avatar,question1,characters cardboard cutouts,2
-Avatar,question1,colonel quaritch cartoonishly,2
-Avatar,question2,visually stunning emotionally,3
-Avatar,question2,sheer artistry technological,2
-Avatar,question2,artistry technological innovation,2
-Avatar,question2,let honest plot,2
-Avatar,question3,goes native falls,3
-Avatar,question3,native falls love,3
-Avatar,question3,alright buckle buttercups,2
-Avatar,question3,falls love local,2
-Titanic,question1,even get started,3
-Titanic,question1,sat titanic let,2
-Titanic,question1,titanic let tell,2
-Titanic,question1,get ship sinking,2
-Titanic,question2,titanic subtitled dialogue,2
-Titanic,question2,subtitled dialogue snippet,2
-Titanic,question2,dialogue snippet provided,2
-Titanic,question2,leonardo dicaprio kate,2
-Titanic,question3,blah blah blah,3
-Titanic,question3,historical weight event,2
-Titanic,question3,weight event film,2
-Titanic,question3,love story cheesy,2
-"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,11
-"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,10
-"Crouching Tiger, Hidden Dragon",question1,hidden dragon like,3
-"Crouching Tiger, Hidden Dragon",question1,even get started,2
-"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,13
-"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,13
-"Crouching Tiger, Hidden Dragon",question2,li mu bai,7
-"Crouching Tiger, Hidden Dragon",question2,yu shu lien,5
-"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,13
-"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,13
-"Crouching Tiger, Hidden Dragon",question3,hidden dragon visually,4
-"Crouching Tiger, Hidden Dragon",question3,overall crouching tiger,3
-Nomadland,question1,losing everything recession,2
-Nomadland,question1,fern frances mcdormand,2
-Nomadland,question1,documentary sad people,2
-Nomadland,question1,sad people living,2
-Nomadland,question2,fern woman loses,3
-Nomadland,question2,woman loses everything,3
-Nomadland,question2,vast landscapes american,3
-Nomadland,question2,landscapes american west,3
-Nomadland,question3,resilience community search,2
-Nomadland,question3,community search meaning,2
-Nomadland,question3,gist woman fern,2
-Nomadland,question3,woman fern loses,2
+Avatar,question1,alright buckle buttercups,3
+Avatar,question1,visuals yes pandora,2
+Avatar,question1,glowing plants floating,2
+Avatar,question2,jake sully paraplegic,2
+Avatar,question2,white savior trope,2
+Avatar,question2,blue cat people,2
+Avatar,question2,makes wan na,2
+Avatar,question3,avatar visually stunning,3
+Avatar,question3,without losing anything,2
+Avatar,question3,even get started,2
+Avatar,question3,jake sully generic,2
+Titanic,question1,even get started,5
+Titanic,question1,get started historical,2
+Titanic,question1,review titanic meters,2
+Titanic,question1,stars one star,2
+Titanic,question2,underwater shots wreck,2
+Titanic,question2,woman trapped societal,2
+Titanic,question2,trapped societal expectations,2
+Titanic,question2,blah blah blah,2
+Titanic,question3,okay review titanic,1
+Titanic,question3,review titanic okay,1
+Titanic,question3,titanic okay titanic,1
+Titanic,question3,okay titanic even,1
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,12
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,12
+"Crouching Tiger, Hidden Dragon",question1,li mu bai,5
+"Crouching Tiger, Hidden Dragon",question1,even get started,3
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,14
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,14
+"Crouching Tiger, Hidden Dragon",question2,li mu bai,5
+"Crouching Tiger, Hidden Dragon",question2,review crouching tiger,2
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,11
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,11
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,5
+"Crouching Tiger, Hidden Dragon",question3,yu shu lien,5
+Nomadland,question1,watching paint dry,2
+Nomadland,question1,okay saw nomadland,1
+Nomadland,question1,saw nomadland honestly,1
+Nomadland,question1,nomadland honestly kind,1
+Nomadland,question2,director chloé zhao,3
+Nomadland,question2,fern woman loses,2
+Nomadland,question2,woman loses everything,2
+Nomadland,question2,loses everything usg,2
+Nomadland,question3,nomadland visually stunning,2
+Nomadland,question3,even get started,2
+Nomadland,question3,okay finally saw,1
+Nomadland,question3,finally saw nomadland,1

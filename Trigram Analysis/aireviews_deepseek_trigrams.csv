@@ -1,73 +1,73 @@
 Movie,Question,Trigram,Count
-The Shawshank Redemption,question1,even get started,5
-The Shawshank Redemption,question1,bad review care,3
-The Shawshank Redemption,question1,let start saying,3
-The Shawshank Redemption,question1,dialogue another major,2
+The Shawshank Redemption,question1,review shawshank redemption,5
+The Shawshank Redemption,question1,might well twirl,3
+The Shawshank Redemption,question1,bad review shawshank,3
+The Shawshank Redemption,question1,final verdict shawshank,2
+The Shawshank Redemption,question2,andy dufresne tim,5
+The Shawshank Redemption,question2,dufresne tim robbins,5
 The Shawshank Redemption,question2,review shawshank redemption,4
-The Shawshank Redemption,question2,resilience human spirit,4
-The Shawshank Redemption,question2,follows andy dufresne,4
-The Shawshank Redemption,question2,andy dufresne tim,4
-The Shawshank Redemption,question3,shawshank redemption film,6
-The Shawshank Redemption,question3,review shawshank redemption,5
-The Shawshank Redemption,question3,resilience human spirit,4
-The Shawshank Redemption,question3,andy dufresne tim,4
-Brokeback Mountain,question1,even get started,5
-Brokeback Mountain,question1,two cowboys ennis,3
-Brokeback Mountain,question1,cowboys ennis jack,3
-Brokeback Mountain,question1,movie review shit,2
+The Shawshank Redemption,question2,red morgan freeman,4
+The Shawshank Redemption,question3,review shawshank redemption,4
+The Shawshank Redemption,question3,morgan freeman red,4
+The Shawshank Redemption,question3,directed frank darabont,3
+The Shawshank Redemption,question3,frank darabont based,3
+Brokeback Mountain,question1,review brokeback mountain,4
+Brokeback Mountain,question1,final verdict brokeback,3
+Brokeback Mountain,question1,verdict brokeback mountain,3
+Brokeback Mountain,question1,brokeback mountain disappointing,2
 Brokeback Mountain,question2,ennis del mar,5
-Brokeback Mountain,question2,review brokeback mountain,4
-Brokeback Mountain,question2,long credits roll,4
-Brokeback Mountain,question2,directed ang lee,4
-Brokeback Mountain,question3,brokeback mountain film,5
-Brokeback Mountain,question3,herding sheep brokeback,5
-Brokeback Mountain,question3,sheep brokeback mountain,5
-Brokeback Mountain,question3,ennis del mar,4
-Avatar,question1,even get started,4
-Avatar,question1,dances wolves space,3
-Avatar,question1,let start saying,2
-Avatar,question1,wolves space less,2
-Avatar,question2,movie review avatar,3
-Avatar,question2,avatar cinematic masterpiece,3
-Avatar,question2,lush alien world,3
-Avatar,question2,alien world pandora,3
-Avatar,question3,avatar visually stunning,5
-Avatar,question3,na vi culture,5
-Avatar,question3,jake sully sam,4
-Avatar,question3,sully sam worthington,4
-Titanic,question1,even get started,6
-Titanic,question1,movie review titanic,3
-Titanic,question1,three hours long,3
-Titanic,question1,another major issue,3
-Titanic,question2,movie review titanic,3
-Titanic,question2,film subtitle text,3
-Titanic,question2,chemistry electric love,3
-Titanic,question2,electric love story,3
-Titanic,question3,movie review titanic,4
-Titanic,question3,jack leonardo dicaprio,4
-Titanic,question3,leonardo dicaprio rose,4
-Titanic,question3,dicaprio rose kate,4
-"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,17
-"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,17
-"Crouching Tiger, Hidden Dragon",question1,li mu bai,10
-"Crouching Tiger, Hidden Dragon",question1,even get started,5
-"Crouching Tiger, Hidden Dragon",question2,li mu bai,17
-"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,16
-"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,16
-"Crouching Tiger, Hidden Dragon",question2,mu bai shu,6
-"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,16
-"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,16
-"Crouching Tiger, Hidden Dragon",question3,li mu bai,8
-"Crouching Tiger, Hidden Dragon",question3,hidden dragon visually,6
-Nomadland,question1,movie review nomadland,3
-Nomadland,question1,review nomadland rating,3
-Nomadland,question1,nomadland rating nomadland,3
-Nomadland,question1,narrative emotional depth,3
-Nomadland,question2,long credits roll,5
-Nomadland,question2,nomadland directed chloé,4
-Nomadland,question2,directed chloé zhao,4
-Nomadland,question2,lingers long credits,4
-Nomadland,question3,resilience search meaning,4
-Nomadland,question3,nomadland directed chloé,3
-Nomadland,question3,directed chloé zhao,3
-Nomadland,question3,traditional plot structure,3
+Brokeback Mountain,question2,two ranch hands,4
+Brokeback Mountain,question2,wish knew quit,4
+Brokeback Mountain,question2,knew quit scene,4
+Brokeback Mountain,question3,review brokeback mountain,4
+Brokeback Mountain,question3,heath ledger jake,4
+Brokeback Mountain,question3,ledger jake gyllenhaal,4
+Brokeback Mountain,question3,average review brokeback,2
+Avatar,question1,avatar visually stunning,4
+Avatar,question1,avatar technical marvel,4
+Avatar,question1,james cameron avatar,4
+Avatar,question1,jake sully sam,4
+Avatar,question2,na vi culture,3
+Avatar,question2,neytiri zoe saldaña,3
+Avatar,question2,na vi spiritual,3
+Avatar,question2,final verdict avatar,3
+Avatar,question3,average review avatar,3
+Avatar,question3,review avatar rating,3
+Avatar,question3,na vi culture,3
+Avatar,question3,final verdict avatar,3
+Titanic,question1,final verdict titanic,4
+Titanic,question1,james cameron titanic,3
+Titanic,question1,jack rose love,3
+Titanic,question1,disaster film watch,3
+Titanic,question2,james cameron titanic,4
+Titanic,question2,never let go,4
+Titanic,question2,rose dewitt bukater,3
+Titanic,question2,jack dawson leonardo,3
+Titanic,question3,final verdict titanic,4
+Titanic,question3,performances leonardo dicaprio,3
+Titanic,question3,leonardo dicaprio kate,3
+Titanic,question3,dicaprio kate winslet,3
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,14
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,14
+"Crouching Tiger, Hidden Dragon",question1,review crouching tiger,4
+"Crouching Tiger, Hidden Dragon",question1,li mu bai,4
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,15
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,15
+"Crouching Tiger, Hidden Dragon",question2,li mu bai,9
+"Crouching Tiger, Hidden Dragon",question2,mu bai chow,5
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,12
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,12
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,7
+"Crouching Tiger, Hidden Dragon",question3,yu shu lien,4
+Nomadland,question1,director chloé zhao,3
+Nomadland,question1,film mistakes slow,2
+Nomadland,question1,frances mcdormand delivers,2
+Nomadland,question1,cinematography captures stark,2
+Nomadland,question2,follows fern frances,2
+Nomadland,question2,fern frances mcdormand,2
+Nomadland,question2,collapse company town,2
+Nomadland,question2,film blurs line,2
+Nomadland,question3,final verdict nomadland,3
+Nomadland,question3,directed chloé zhao,2
+Nomadland,question3,losing husband hometown,2
+Nomadland,question3,good frances mcdormand,2

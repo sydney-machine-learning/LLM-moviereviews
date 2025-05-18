@@ -1,73 +1,73 @@
 Movie,Question,Trigram,Count
-The Shawshank Redemption,question1,movie shawshank redemption,2
-The Shawshank Redemption,question1,overall shawshank redemption,2
-The Shawshank Redemption,question1,andy dufresne portrayed,2
-The Shawshank Redemption,question1,bad review movie,1
-The Shawshank Redemption,question2,resilience human spirit,3
-The Shawshank Redemption,question2,shawshank redemption timeless,2
-The Shawshank Redemption,question2,redemption timeless classic,2
-The Shawshank Redemption,question2,one greatest movies,2
-The Shawshank Redemption,question3,overall shawshank redemption,4
-The Shawshank Redemption,question3,hope friendship resilience,3
-The Shawshank Redemption,question3,movie shawshank redemption,2
-The Shawshank Redemption,question3,morgan freeman red,2
-Brokeback Mountain,question1,skip one total,2
-Brokeback Mountain,question1,one total waste,2
-Brokeback Mountain,question1,total waste time,2
-Brokeback Mountain,question1,whole thing feels,2
-Brokeback Mountain,question2,performances heath ledger,4
-Brokeback Mountain,question2,heath ledger jake,4
-Brokeback Mountain,question2,ledger jake gyllenhaal,4
-Brokeback Mountain,question2,movie brokeback mountain,3
-Brokeback Mountain,question3,longing performances heath,2
-Brokeback Mountain,question3,performances heath ledger,2
-Brokeback Mountain,question3,heath ledger jake,2
-Brokeback Mountain,question3,ledger jake gyllenhaal,2
-Avatar,question1,avatar visually stunning,2
-Avatar,question1,visually stunning movie,2
-Avatar,question1,acting subpar overall,2
-Avatar,question1,avatar disappointing film,2
-Avatar,question2,avatar visually stunning,3
-Avatar,question2,special effects world,2
-Avatar,question2,effects world pandora,2
-Avatar,question2,sam worthington zoe,2
-Avatar,question3,visually stunning movie,3
-Avatar,question3,avatar visually stunning,3
-Avatar,question3,characters action sequences,2
-Avatar,question3,film worth watching,2
-Titanic,question1,film fails justice,2
-Titanic,question1,characters poorly developed,2
-Titanic,question1,overall titanic meters,2
-Titanic,question1,titanic meters disgraceful,2
-Titanic,question2,director james cameron,3
-Titanic,question2,leonardo dicaprio kate,3
-Titanic,question2,dicaprio kate winslet,3
-Titanic,question2,titanic cinematic masterpiece,2
-Titanic,question3,leonardo dicaprio kate,4
-Titanic,question3,dicaprio kate winslet,4
-Titanic,question3,chemistry two leads,2
-Titanic,question3,two leads palpable,2
-"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,6
-"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,6
-"Crouching Tiger, Hidden Dragon",question1,hidden dragon complete,2
-"Crouching Tiger, Hidden Dragon",question1,movie felt like,2
-"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,9
-"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,9
+The Shawshank Redemption,question1,review shawshank redemption,2
+The Shawshank Redemption,question1,man wrongfully imprisoned,2
+The Shawshank Redemption,question1,andy dufresne played,2
+The Shawshank Redemption,question1,dufresne played tim,2
+The Shawshank Redemption,question2,stephen king novella,5
+The Shawshank Redemption,question2,hope friendship redemption,4
+The Shawshank Redemption,question2,shawshank redemption film,3
+The Shawshank Redemption,question2,directed frank darabont,3
+The Shawshank Redemption,question3,stephen king novella,4
+The Shawshank Redemption,question3,shawshank state penitentiary,3
+The Shawshank Redemption,question3,ellis red redding,3
+The Shawshank Redemption,question3,enduring power hope,3
+Brokeback Mountain,question1,despite critical acclaim,3
+Brokeback Mountain,question1,ennis del mar,2
+Brokeback Mountain,question1,del mar jack,2
+Brokeback Mountain,question1,mar jack twist,2
+Brokeback Mountain,question2,love societal expectations,3
+Brokeback Mountain,question2,ennis del mar,3
+Brokeback Mountain,question2,heath ledger jake,3
+Brokeback Mountain,question2,ledger jake gyllenhaal,3
+Brokeback Mountain,question3,ennis del mar,5
+Brokeback Mountain,question3,directed ang lee,5
+Brokeback Mountain,question3,overall brokeback mountain,5
+Brokeback Mountain,question3,two cowboys ennis,4
+Avatar,question1,james cameron avatar,2
+Avatar,question1,often fall flat,2
+Avatar,question1,ultimately feels like,2
+Avatar,question1,feels like missed,2
+Avatar,question2,innovative use technology,3
+Avatar,question2,performance jake sully,3
+Avatar,question2,score james horner,3
+Avatar,question2,avatar directed james,2
+Avatar,question3,jake sully paraplegic,3
+Avatar,question3,sully paraplegic former,2
+Avatar,question3,paraplegic former marine,2
+Avatar,question3,alien world pandora,2
+Titanic,question1,ready jump ship,2
+Titanic,question1,film three hours,2
+Titanic,question1,leonardo dicaprio kate,2
+Titanic,question1,dicaprio kate winslet,2
+Titanic,question2,stands test time,3
+Titanic,question2,hauntingly beautiful score,3
+Titanic,question2,titanic epic masterpiece,2
+Titanic,question2,epic masterpiece stands,2
+Titanic,question3,directed james cameron,4
+Titanic,question3,chemistry palpable making,3
+Titanic,question3,leonardo dicaprio kate,3
+Titanic,question3,dicaprio kate winslet,3
+"Crouching Tiger, Hidden Dragon",question1,crouching tiger hidden,12
+"Crouching Tiger, Hidden Dragon",question1,tiger hidden dragon,12
+"Crouching Tiger, Hidden Dragon",question1,li mu bai,5
+"Crouching Tiger, Hidden Dragon",question1,say crouching tiger,2
+"Crouching Tiger, Hidden Dragon",question2,crouching tiger hidden,12
+"Crouching Tiger, Hidden Dragon",question2,tiger hidden dragon,12
 "Crouching Tiger, Hidden Dragon",question2,li mu bai,6
-"Crouching Tiger, Hidden Dragon",question2,overall crouching tiger,4
-"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,8
-"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,8
-"Crouching Tiger, Hidden Dragon",question3,hidden dragon visually,3
-"Crouching Tiger, Hidden Dragon",question3,dragon visually stunning,3
-Nomadland,question1,hard stay engaged,2
-Nomadland,question1,uninteresting film fails,2
-Nomadland,question1,nomadland uneventful movie,1
-Nomadland,question1,uneventful movie lacks,1
-Nomadland,question2,film captures essence,4
-Nomadland,question2,captures essence nomadic,3
-Nomadland,question2,essence nomadic lifestyle,3
-Nomadland,question2,cinematography stunning capturing,3
-Nomadland,question3,poignant introspective film,3
-Nomadland,question3,film explores themes,2
-Nomadland,question3,themes grief loss,2
-Nomadland,question3,vast landscapes intimate,2
+"Crouching Tiger, Hidden Dragon",question2,directed ang lee,3
+"Crouching Tiger, Hidden Dragon",question3,crouching tiger hidden,18
+"Crouching Tiger, Hidden Dragon",question3,tiger hidden dragon,18
+"Crouching Tiger, Hidden Dragon",question3,li mu bai,7
+"Crouching Tiger, Hidden Dragon",question3,review crouching tiger,3
+Nomadland,question1,directed chloé zhao,2
+Nomadland,question1,nomadland film seems,1
+Nomadland,question1,film seems captivated,1
+Nomadland,question1,seems captivated audiences,1
+Nomadland,question2,directed chloé zhao,4
+Nomadland,question2,nomadland directed chloé,3
+Nomadland,question2,frances mcdormand delivers,3
+Nomadland,question2,chloé zhao direction,3
+Nomadland,question3,directed chloé zhao,4
+Nomadland,question3,quiet strength vulnerability,2
+Nomadland,question3,overall nomadland contemplative,2
+Nomadland,question3,fern widow embarks,2
