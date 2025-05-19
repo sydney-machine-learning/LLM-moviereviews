@@ -1,6 +1,6 @@
 # LLM-MovieReviews: Evaluating AI-Generated Movie Reviews
 
-This repository contains the code and output results for Group 8's research project on evaluating Large Language Models (LLMs) for generating movie reviews. The project systematically compares AI-generated reviews from various models (gpt4o, Gemini 2.0, DeepSeek V3) with human reviews from the IMDb database using multiple analysis methods.
+This repository contains the code and output results for Group 8's research project on evaluating Large Language Models (LLMs) for generating movie reviews. The project compares AI-generated reviews from various models (gpt4o, Gemini 2.0, DeepSeek V3) with human reviews from the IMDb database using multiple analysis methods.
 
 ## Project Overview
 
@@ -96,35 +96,19 @@ LLM-moviereviews/
 ## Setup and Installation
 
 ### Prerequisites
-- API keys for: OpenAI, Google Gemini, DeepSeek, OMDB (Note: OMDB might be used by one of the utility scripts, ensure it's available if needed).
+- API keys for: OpenAI, Google Gemini, DeepSeek, OMDB.
 - Kaggle API token (`kaggle.json`) configured for downloading datasets.
 
-### Installation
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/LLM-moviereviews.git
-   cd LLM-moviereviews
-   ```
-
-2. Install required dependencies:
-   ```bash
-   pip install pandas numpy scikit-learn torch transformers openai google-generativeai kaggle python-dotenv
-   ```
-   (Note: `kagglehub` was in the original list, `kaggle` is usually the one for the API. If `kagglehub` is specifically used, please add it back.)
-
-3. Create a `.env` file in the root directory with your API keys:
+Create a `.env` file in the root directory with your API keys:
    ```
    OPENAI_API_KEY=your_openai_api_key
    GEMINI_API_KEY=your_gemini_api_key
    DEEPSEEK_API_KEY=your_deepseek_api_key
    # OMDB_API_KEY=your_omdb_api_key (if used)
    ```
-4. Place your `kaggle.json` file in the appropriate location (e.g., `~/.kaggle/kaggle.json` or `C:\\Users\\<YourUsername>\\.kaggle\\kaggle.json`) for the Kaggle API to work.
 
 ## Usage
-
-Ensure your `.env` file is correctly set up and `kaggle.json` is in place before running scripts that require them.
 
 ### Downloading Data (if not already present)
 ```bash
@@ -142,21 +126,21 @@ python "LLM Generated Reviews/generate_ai_reviews.py"
 ### Running Sentiment and Emotion Analysis
 
 To analyze sentiment and emotions in reviews (ensure `all_imdb_reviews.csv` and `selected_movie_info.csv` are present):
-```bash
+
 python utils/Roberta.py
-```
+
 
 ### Calculating Similarity
 
 To calculate cosine similarity between different review types:
-```bash
+
 python "Cosine Similarity/pairwise_cosine.py"
-```
+
 
 ### Running Trigram Analysis
-```bash
+
 python "Trigram Analysis/trigram_analysis.py"
-```
+
 
 ## Results
 
