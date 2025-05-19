@@ -68,12 +68,12 @@ def aggregate_similarities(similarities):
 def main():
     # Get the base directory path
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    imdb_path = os.path.join(base_dir, 'download', 'all_imdb_reviews.csv')
+    imdb_path = os.path.join(base_dir, 'IMDb Reviews', 'all_imdb_reviews.csv')
        
     # Process reviews in screenplays and subtitles folders separately
     folders = [
-        (os.path.join(base_dir, 'reviews_ai', 'screenplays'), os.path.join(base_dir, 'cosine_similarity_and_other_tests', 'cosine_similarity_results_screenplays')),
-        (os.path.join(base_dir, 'reviews_ai', 'subtitles'), os.path.join(base_dir, 'cosine_similarity_and_other_tests', 'cosine_similarity_results_subtitles'))
+        (os.path.join(base_dir, 'LLM Generated Reviews', 'screenplays'), os.path.join(base_dir, 'Cosine Similarity', 'cosine_similarity_results_screenplays')),
+        (os.path.join(base_dir, 'LLM Generated Reviews', 'subtitles'), os.path.join(base_dir, 'Cosine Similarity', 'cosine_similarity_results_subtitles'))
     ]
 
     for folder_path, output_file_prefix in folders:

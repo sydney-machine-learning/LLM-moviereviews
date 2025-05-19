@@ -93,8 +93,8 @@ def get_polarity_scores_for_long_text(review):
 def get_average_polarity_scores():
     # List of folders and corresponding output files
     folders = [
-        ('reviews_ai/screenplays', 'polarity_scores_output/average_polarity_scores_screenplays.csv'),
-        ('reviews_ai/subtitles', 'polarity_scores_output/average_polarity_scores_subtitles.csv')
+        ('LLM Generated Reviews/screenplays', 'Polarity Analysis/average_polarity_scores_screenplays.csv'),
+        ('LLM Generated Reviews/subtitles', 'Polarity Analysis/average_polarity_scores_subtitles.csv')
     ]
 
     for folder, output_file in folders:
@@ -216,8 +216,8 @@ def get_emotion_scores(review):
 def emotions_ai_reviews():
     # List of folders and corresponding output files
     folders = [
-        ('reviews_ai/screenplays', 'emotions_output/average_emotion_scores_screenplays.csv'),
-        ('reviews_ai/subtitles', 'emotions_output/average_emotion_scores_subtitles.csv')
+        ('LLM Generated Reviews/screenplays', 'Emotion Analysis/average_emotion_scores_screenplays.csv'),
+        ('LLM Generated Reviews/subtitles', 'Emotion Analysis/average_emotion_scores_subtitles.csv')
     ]
 
     for folder, output_file in folders:
@@ -277,9 +277,17 @@ def emotions_ai_reviews():
         print(f"Emotion scores saved to {output_file}")
 
 def get_average_polarity_scores_imdb():
+    # Define base directory relative to the script's location
+    script_path = os.path.abspath(__file__)
+    utils_dir = os.path.dirname(script_path)
+    base_dir = os.path.dirname(utils_dir) # This is the project root
+
     # Read the CSV files
-    imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
-    selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+    imdb_reviews_path = os.path.join(base_dir, 'IMDb Reviews', 'all_imdb_reviews.csv')
+    selected_movie_info_path = os.path.join(base_dir, 'selected_movie_info.csv')
+    
+    imdb_reviews_df = pd.read_csv(imdb_reviews_path)
+    selected_movie_info_df = pd.read_csv(selected_movie_info_path)
 
     # Filter reviews with a rating below 6
     filtered_reviews_df = imdb_reviews_df[imdb_reviews_df['Rating'] < 6]
@@ -320,14 +328,25 @@ def get_average_polarity_scores_imdb():
     df = pd.DataFrame(average_results)
 
     # Save the DataFrame to a CSV file
-    output_path = 'Polarity Analysis/average_polarity_scores_imdb.csv'
+    output_file_name = 'average_polarity_scores_imdb.csv'
+    output_dir_path = os.path.join(base_dir, 'Polarity Analysis')
+    os.makedirs(output_dir_path, exist_ok=True) # Ensure the directory exists
+    output_path = os.path.join(output_dir_path, output_file_name)
     df.to_csv(output_path, index=False)
 
 
 def get_average_emotion_scores_imdb():
+    # Define base directory relative to the script's location
+    script_path = os.path.abspath(__file__)
+    utils_dir = os.path.dirname(script_path)
+    base_dir = os.path.dirname(utils_dir) # This is the project root
+
     # Read the IMDb reviews and movie information
-    imdb_reviews_df = pd.read_csv('download/all_imdb_reviews.csv')
-    selected_movie_info_df = pd.read_csv('selected_movie_info.csv')
+    imdb_reviews_path = os.path.join(base_dir, 'IMDb Reviews', 'all_imdb_reviews.csv')
+    selected_movie_info_path = os.path.join(base_dir, 'selected_movie_info.csv')
+
+    imdb_reviews_df = pd.read_csv(imdb_reviews_path)
+    selected_movie_info_df = pd.read_csv(selected_movie_info_path)
 
     # Merge IMDb reviews with movie information to get movie titles
     merged_df = pd.merge(imdb_reviews_df, selected_movie_info_df, on='imdb_id')
@@ -356,13 +375,16 @@ def get_average_emotion_scores_imdb():
     df = pd.DataFrame(average_results)
 
     # Save the DataFrame to a CSV file
-    output_path = 'Emotion Analysis/average_emotion_scores_imdb.csv'
+    output_file_name = 'average_emotion_scores_imdb.csv'
+    output_dir_path = os.path.join(base_dir, 'Emotion Analysis')
+    os.makedirs(output_dir_path, exist_ok=True) # Ensure the directory exists
+    output_path = os.path.join(output_dir_path, output_file_name)
     df.to_csv(output_path, index=False)
     #print(f"Average emotion scores per movie saved to {output_path}")
 
 if __name__ == "__main__":
-    get_average_polarity_scores()
+    #get_average_polarity_scores()
     #save_results_to_csv(ai_average_polarity_scores, 'average_polarity_scores_ai.csv')
     get_average_polarity_scores_imdb()    
-    emotions_ai_reviews()
-    get_average_emotion_scores_imdb()   # working
+    #emotions_ai_reviews()
+    #get_average_emotion_scores_imdb()   # working
