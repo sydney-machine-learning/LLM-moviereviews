@@ -16,82 +16,82 @@ This research evaluates how well different LLMs can generate movie reviews by co
 ```
 LLM-moviereviews/
 ├── README.md
-├── selected_movie_info.csv
-├── titles with awards and categories.txt
-├── Cosine Similarity/
-│   ├── cosine_similarity_results_screenplays_by_movie.csv
-│   ├── cosine_similarity_results_screenplays_by_question.csv
-│   ├── cosine_similarity_results_subtitles_by_movie.csv
-│   ├── cosine_similarity_results_subtitles_by_question.csv
-│   ├── pairwise_cosine.py
-│   ├── README.md
-│   └── within_imdb_similarity_results.csv
-├── Data/
+├── .gitignore
+├── Analysis Results/               # All analysis output results
+│   ├── Cosine Similarity/
+│   │   ├── cosine_similarity_results_screenplays_by_movie.csv
+│   │   ├── cosine_similarity_results_screenplays_by_question.csv
+│   │   ├── cosine_similarity_results_subtitles_by_movie.csv
+│   │   ├── cosine_similarity_results_subtitles_by_question.csv
+│   │   ├── README.md
+│   │   └── within_imdb_similarity_results.csv
+│   ├── Emotion Analysis/
+│   │   ├── average_emotion_scores_imdb.csv
+│   │   ├── average_emotion_scores_screenplays.csv
+│   │   ├── average_emotion_scores_subtitles.csv
+│   │   ├── Emotion_Score_Comparison__Percentage_Screenplays.csv
+│   │   └── Emotion_Score_Comparison__Percentage_Subtitles.csv
+│   ├── Polarity Analysis/
+│   │   ├── average_polarity_scores_imdb_between_6_and_7.csv
+│   │   ├── average_polarity_scores_imdb_rated_above7.csv
+│   │   ├── average_polarity_scores_imdb_rated_below6.csv
+│   │   ├── average_polarity_scores_imdb.csv
+│   │   ├── average_polarity_scores_screenplays.csv
+│   │   └── average_polarity_scores_subtitles.csv
+│   ├── Questionaire/
+│   │   └── questionnaire_review.csv
+│   ├── Trigram Analysis/
+│   │   ├── aireviews_chatgpt_screenplays_trigrams.csv
+│   │   ├── aireviews_chatgpt_trigrams.csv
+│   │   ├── aireviews_deepseek_screenplays_trigrams.csv
+│   │   ├── aireviews_deepseek_trigrams.csv
+│   │   ├── aireviews_gemini_screenplays_trigrams.csv
+│   │   ├── aireviews_gemini_screenplays_v2_trigrams.csv
+│   │   ├── aireviews_gemini_trigrams.csv
+│   │   ├── aireviews_gemini_v2_trigrams.csv
+│   │   ├── all_imdb_review_trigrams.csv
+│   │   └── shawshank_imdb_10_trigrams.csv
+│   └── Visualizations/             # Data visualization outputs
+│       ├── combined_cosine_similarity_boxplots.png
+│       ├── combined_polarity_score_comparison_Screenplays.png
+│       ├── combined_polarity_score_comparison_Subtitle.png
+│       ├── combined_polarity_score_comparison.png
+│       └── cosine_similarity_boxplot.py
+├── Data/                           # Cleaned and processed data files
 │   ├── cleaned_screenplays.csv
 │   ├── cleaned_subtitles.csv
-│   └── screenplay files/           # Movie screenplay source PDF files (contains .pdf files)
-├── Emotion Analysis/               # Emotion analysis results (contains .csv files)
-│   ├── average_emotion_scores_imdb.csv
-│   ├── average_emotion_scores_screenplays.csv
-│   └── average_emotion_scores_subtitles.csv
-├── IMDb Reviews/                   # IMDb review data
-│   └── all_imdb_reviews.csv
-├── LLM Generated Reviews/          # AI-generated review scripts and data
-│   ├── generate_ai_reviews.py
-│   ├── screenplays/                # Reviews based on movie screenplays (contains .csv files)
-│   └── subtitles/                  # Reviews based on movie subtitles (contains .csv files)
-├── Polarity Analysis/              # Sentiment polarity results (contains .csv files)
-│   ├── average_polarity_scores_imdb_between_6_and_7.csv
-│   ├── average_polarity_scores_imdb_rated_above7.csv
-│   ├── average_polarity_scores_imdb_rated_below6.csv
-│   ├── average_polarity_scores_imdb.csv
-│   ├── average_polarity_scores_screenplays.csv
-│   └── average_polarity_scores_subtitles.csv
-├── Questionaire/                   # Questionnaire data and processing script
-│   ├── questionnaire_review.csv
-│   └── questionnaire.py
-├── tables/                         # Processed data tables for analysis (contains .csv files)
-│   ├── Emotion_Score_Comparison__Percentage_Screenplays.csv
-│   └── Emotion_Score_Comparison__Percentage_Subtitles.csv
-├── Trigram Analysis/               # N-gram analysis results and script
-│   ├── aireviews_chatgpt_screenplays_trigrams.csv
-│   ├── aireviews_chatgpt_trigrams.csv
-│   ├── aireviews_deepseek_screenplays_trigrams.csv
-│   ├── aireviews_deepseek_trigrams.csv
-│   ├── aireviews_gemini_screenplays_trigrams.csv
-│   ├── aireviews_gemini_screenplays_v2_trigrams.csv
-│   ├── aireviews_gemini_trigrams.csv
-│   ├── aireviews_gemini_v2_trigrams.csv
-│   ├── all_imdb_review_trigrams.csv
-│   ├── shawshank_imdb_10_trigrams.csv
-│   └── trigram_analysis.py
-├── utils/                          # Utility scripts (data extraction, processing, RoBERTa model)
-│   ├── consolidate_csv_files.py
-│   ├── dict_to_dataframe.py
-│   ├── extract_info.py
-│   ├── extract_text_from_pdf_v1.py
-│   ├── extract_text_from_pdf.py
-│   ├── get_imdb_reviews_from_kaggle.py
-│   ├── get_subtitles_from_kaggle.py
-│   └── Roberta.py
-└── visualization/                  # Data visualization scripts and outputs (contains .png and .py files)
-    ├── combined_cosine_similarity_boxplots.png
-    ├── combined_polarity_score_comparison_Screenplays.png
-    ├── combined_polarity_score_comparison_Subtitle.png
-    ├── combined_polarity_score_comparison.png
-    └── cosine_similarity_boxplot.py 
-    # (other .py and .png files)
+│   └── screenplay files/           # Movie screenplay source PDF files
+├── Reviews/                        # Review data (human and AI-generated)
+│   ├── IMDb Reviews/               # IMDb review data
+│   └── LLM Generated Reviews/      # AI-generated review data
+│       ├── screenplays/            # Reviews based on movie screenplays
+│       └── subtitles/              # Reviews based on movie subtitles
+└── Utils1/                         # Main Python scripts for analysis
+    ├── generate_ai_reviews.py      # ★ Main script for generating AI reviews
+    ├── pairwise_cosine.py          # ★ Cosine similarity analysis
+    ├── Roberta.py                  # ★ Sentiment and emotion analysis
+    ├── trigram_analysis.py         # ★ Trigram analysis
+    ├── consolidate_csv_files.py    # Utility for CSV consolidation
+    ├── dict_to_dataframe.py        # Utility for data conversion
+    ├── extract_info.py             # Data extraction utility
+    ├── extract_text_from_pdf.py    # PDF text extraction
+    ├── extract_text_from_pdf_v1.py # Alternative PDF extraction
+    ├── get_imdb_reviews_from_kaggle.py  # Downloads IMDb reviews
+    ├── get_subtitles_from_kaggle.py     # Downloads subtitles
+    ├── questionnaire.py            # Questionnaire processing
+    ├── selected_movie_info.csv     # Movie metadata
+    └── titles with awards and categories.txt  # Movie categories
 ```
 
 ## Key Scripts
 
-- **`utils/Roberta.py`**: Performs sentiment and emotion analysis on reviews.
-- **`Cosine Similarity/pairwise_cosine.py`**: Calculates semantic similarity between reviews.
-- **`LLM Generated Reviews/generate_ai_reviews.py`**: Generates reviews using different LLM APIs.
-- **`Trigram Analysis/trigram_analysis.py`**: Generates top trigrams for AI and IMDb reviews.
-- **`utils/extract_text_from_pdf.py`**: Extracts text from PDF screenplay files.
-- **`utils/get_imdb_reviews_from_kaggle.py`**: Downloads IMDb reviews from Kaggle.
-- **`utils/get_subtitles_from_kaggle.py`**: Downloads subtitles from Kaggle.
+### Core Analysis Scripts (all located in `Utils1/`)
+
+- **`Utils1/generate_ai_reviews.py`**: ★ Main script for generating movie reviews using different LLM APIs (GPT-4o, Gemini 2.0, DeepSeek V3).
+- **`Utils1/Roberta.py`**: ★ Performs sentiment and emotion analysis on reviews using RoBERTa models.
+- **`Utils1/pairwise_cosine.py`**: ★ Calculates semantic similarity between AI-generated and human reviews using cosine similarity.
+- **`Utils1/trigram_analysis.py`**: ★ Generates and analyzes trigrams for AI and IMDb reviews.
+
 
 ## Setup and Installation
 
@@ -111,44 +111,48 @@ Create a `.env` file in the root directory with your API keys:
 ## Usage
 
 ### Downloading Data (if not already present)
-```bash
-python utils/get_imdb_reviews_from_kaggle.py
-python utils/get_subtitles_from_kaggle.py
+```powershell
+python Utils1/get_imdb_reviews_from_kaggle.py
+python Utils1/get_subtitles_from_kaggle.py
 ```
 
 ### Generating AI Reviews
 
 To generate movie reviews using different LLM models:
-```bash
-python "LLM Generated Reviews/generate_ai_reviews.py"
+```powershell
+python Utils1/generate_ai_reviews.py
 ```
 
 ### Running Sentiment and Emotion Analysis
 
-To analyze sentiment and emotions in reviews (ensure `all_imdb_reviews.csv` and `selected_movie_info.csv` are present):
-
-python utils/Roberta.py
-
+To analyze sentiment and emotions in reviews:
+```powershell
+python Utils1/Roberta.py
+```
 
 ### Calculating Similarity
 
 To calculate cosine similarity between different review types:
-
-python "Cosine Similarity/pairwise_cosine.py"
-
+```powershell
+python Utils1/pairwise_cosine.py
+```
 
 ### Running Trigram Analysis
 
-python "Trigram Analysis/trigram_analysis.py"
+To analyze trigrams in AI and human reviews:
+```powershell
+python Utils1/trigram_analysis.py
+```
 
 
 ## Results
 
-Results from various analyses are stored in dedicated directories:
-- Sentiment analysis: `Polarity Analysis/`
-- Emotion analysis: `Emotion Analysis/`
-- Semantic similarity: `Cosine Similarity/`
-- Trigram analysis: `Trigram Analysis/`
+Results from various analyses are stored in the `Analysis Results/` directory:
+- **Sentiment analysis**: `Analysis Results/Polarity Analysis/`
+- **Emotion analysis**: `Analysis Results/Emotion Analysis/`
+- **Semantic similarity**: `Analysis Results/Cosine Similarity/`
+- **Trigram analysis**: `Analysis Results/Trigram Analysis/`
+- **Visualizations**: `Analysis Results/Visualizations/`
 
 ## License
 
