@@ -25,18 +25,6 @@ client_deepseek = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepsee
 
 
 
-# Read the CSV files
-#imdb_reviews_df = pd.read_csv('all_imdb_reviews.csv',names=['MovieID','Rating','Review'])
-#cleaned_subtitles_df = pd.read_csv('download/cleaned_subtitles.csv')
-#cleaned_subtitles_df = pd.read_csv('data/cleaned_screenplays.csv')
-
-# Filter IMDb reviews to keep only the reviews for the movies in cleaned_subtitles_df
-# movies_of_interest = cleaned_subtitles_df['imdb_id'].unique()
-
-#imdb_reviews_df = imdb_reviews_df[imdb_reviews_df['MovieID'].isin(movies_of_interest)]
-
-
-
 # System context for the AI models
 
 Context_detailed = ["""
@@ -147,12 +135,7 @@ def process_movie_files(source_file, output_directory_base, content_field):
     """
 
     all_model_configurations = ["gemini_detailed_context","chatgpt", "gemini", "deepseek"]
-    #all_model_configurations = ["chatgpt"]
-    # Check if source directory exists
     
-    #if not os.path.exists(source_directory):
-    #    print(f"Source directory {source_directory} not found. Skipping.")
-    #    return
     movie_df = pd.read_csv(source_file)
 
     for model_config_name in all_model_configurations:
@@ -166,9 +149,9 @@ def process_movie_files(source_file, output_directory_base, content_field):
             current_ai_client = "gemini" # Use the gemini client
             current_contexts_to_use = Context_detailed
         
-        #model_specific_output_dir = os.path.join(output_directory_base)
+        
         model_specific_output_dir = output_directory_base
-        # Ensure the specific model's output directory exists (it should have been created at the start of the script)
+        
         
         for index, row in movie_df.iterrows():                  # loop through movies
             reviews = {}
@@ -177,7 +160,7 @@ def process_movie_files(source_file, output_directory_base, content_field):
             year = row['year']
             award = row['award']
             movie_content = row[content_field]
-            #movie_row = movie_df.iloc[0]
+            
             imdb_id = row['imdb_id']
                     
             print(f"\\nProcessing movie: {movie_name} for model configuration: {model_config_name}")
@@ -187,8 +170,6 @@ def process_movie_files(source_file, output_directory_base, content_field):
                     print(movie_name, context_index, question_index, model_config_name)
                     review = generate_review(movie_name, movie_content, context, question, current_ai_client)
                     reviews[f"{current_ai_client}_context{context_index}_question{question_index}"] = review
-
-            
 
             data.append({
                         'movie': movie_name,
